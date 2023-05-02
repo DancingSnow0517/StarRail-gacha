@@ -8,6 +8,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.5.2
 
+      - name: Set up MinGW
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          platform: x64
+
       - name: Setup Python
         uses: actions/setup-python@v4.6.0
         with:
