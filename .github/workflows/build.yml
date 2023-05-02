@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v3.5.2
 
       - name: Install GCC
-        uses: egor-tensin/setup-gcc@v1
+        uses: egor-tensin/setup-mingw
 
       - name: Setup Python
         uses: actions/setup-python@v4.6.0
@@ -27,7 +27,7 @@ jobs:
 
       - name: Build
         run: |
-          build.bat
+          nuitka --mingw64 --enable-plugin=pyqt5 --standalone --windows-icon-from-ico=.\src\resources\star_rail.ico --output-dir=build --output-filename="StarRail Gacha Exporter" .\src\__main__.py
           xcopy .\src\resources\ .\build\__main__.dist\resources /y
 
       - name: Upload a Build Artifact
