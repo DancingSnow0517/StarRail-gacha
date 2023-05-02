@@ -8,8 +8,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.5.2
 
-      - name: Setup MSVC
-        uses: TheMrMilchmann/setup-msvc-dev@v2.0.0
+      - name: Install GCC
+        uses: egor-tensin/setup-gcc@v1
 
       - name: Setup Python
         uses: actions/setup-python@v4.6.0
