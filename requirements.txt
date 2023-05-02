@@ -1,3 +1,4 @@
 requests
 PyQt-Fluent-Widgets
 PyQt5
+PyQtChart

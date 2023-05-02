@@ -35,6 +35,7 @@ def main():
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
 
     app = QApplication(sys.argv)
+    app.font().families().append("Microsoft YaHei UI")
     main_app = MainWindow()
     main_app.show()
 

@@ -44,19 +44,20 @@ class MainWindow(FramelessWindow):
         self.navigationInterface.addItem(
             routeKey=self.home_interface.objectName(),
             icon=FluentIcon.HOME,
-            text="Home",
+            text="主页",
             onClick=lambda: self.switchTo(self.home_interface)
         )
 
         self.navigationInterface.addItem(
             routeKey=self.settings_interface.objectName(),
             icon=FluentIcon.SETTING,
-            text="Setting",
+            text="设置",
             onClick=lambda: self.switchTo(self.settings_interface),
             position=NavigationItemPosition.BOTTOM
         )
 
         self.navigationInterface.setDefaultRouteKey(self.home_interface.objectName())
+        self.navigationInterface.setCurrentItem(self.home_interface.objectName())
 
         self.stackWidget.currentChanged.connect(self.onCurrentInterfaceChanged)
         self.stackWidget.setCurrentIndex(0)
