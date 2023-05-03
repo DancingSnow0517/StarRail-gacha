@@ -8,10 +8,10 @@ class GachaType(Enum):
     CHARACTER 角色UP池
     LIGHT_CONE 光锥UP池
     """
-    STELLAR = 1
-    DEPARTURE = 2
-    CHARACTER = 11
-    LIGHT_CONE = 12
+    STELLAR = '1'
+    DEPARTURE = '2'
+    CHARACTER = '11'
+    LIGHT_CONE = '12'
 
 
 class ItemType(Enum):

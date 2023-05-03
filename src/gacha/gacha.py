@@ -38,3 +38,39 @@ class Gacha:
 
     def __gt__(self, other):
         return int(self.id) > int(other.id)
+
+    @property
+    def dict(self):
+        return {
+            'uid': self.uid,
+            'gacha_id': self.gacha_id,
+            'gacha_type': self.gacha_type.value,
+            'item_id': self.item_id,
+            'count': self.count,
+            'time': self.time,
+            'name': self.name,
+            'lang': self.lang,
+            'item_type': self.item_type.value,
+            'rank_type': self.rank_type,
+            'id': self.id
+        }
+
+    @property
+    def is_5star(self):
+        return self.rank_type == '5'
+
+    @property
+    def is_4star(self):
+        return self.rank_type == '4'
+
+    @property
+    def is_3star(self):
+        return self.rank_type == '3'
+
+    @property
+    def is_character(self):
+        return self.item_type == ItemType.CHARACTER
+
+    @property
+    def is_light_cone(self):
+        return self.item_type == ItemType.LIGHT_CONE

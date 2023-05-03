@@ -22,16 +22,17 @@ def get_game_path() -> Optional[str]:
     return None
 
 
-def get_local_api_url() -> Optional[str]:
+def get_local_api_url(game_path: Optional[str] = None) -> Optional[str]:
     if not os.path.exists("temp"):
         os.mkdir("temp")
-    log.info("尝试获取游戏目录")
-    game_path = get_game_path()
     if game_path is None:
-        log.error("未找到游戏目录")
-        return None
+        log.info("尝试获取游戏目录")
+        game_path = get_game_path()
+        if game_path is None:
+            log.error("未找到游戏目录")
+            return None
 
-    log.info("游戏目录获取成功")
+        log.info("游戏目录获取成功")
     log.info("尝试复制\"data_2\"到临时文件夹")
     p = subprocess.Popen(
         [
@@ -39,7 +40,7 @@ def get_local_api_url() -> Optional[str]:
             rf'"{game_path}StarRail_Data/webCaches/Cache/Cache_Data/data_2"',
             "-Destination", "temp"
         ], stdout=subprocess.PIPE)
-    p.wait(timeout=5)
+    p.wait()
 
     if os.path.exists('temp/data_2'):
         log.info('复制\"data_2\"成功')

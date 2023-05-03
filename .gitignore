@@ -2,3 +2,6 @@
 /venv/
 /.idea/
 /gallery/
+/src/temp/
+/src/userData/
+/src/config.json
