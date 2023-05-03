@@ -39,7 +39,7 @@ def get_local_api_url(game_path: Optional[str] = None) -> Optional[str]:
             "powershell", "Copy-Item",
             rf'"{game_path}StarRail_Data/webCaches/Cache/Cache_Data/data_2"',
             "-Destination", "temp"
-        ], stdout=subprocess.PIPE)
+        ], stdout=subprocess.PIPE, shell=True)
     p.wait()
 
     if os.path.exists('temp/data_2'):

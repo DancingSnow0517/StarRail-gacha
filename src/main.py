@@ -4,7 +4,7 @@ import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 
-from app.main_window import MainWindow
+from star_rail_gacha.app.main_window import MainWindow
 
 log = logging.getLogger(__name__)
 

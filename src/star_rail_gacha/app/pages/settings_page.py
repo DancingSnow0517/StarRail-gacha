@@ -3,8 +3,8 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy
 from qfluentwidgets import LineEdit, ToolButton, PushButton, HyperlinkButton, SwitchButton, FluentIcon, InfoBar
 
-from src.gacha.files import get_game_path
-from src.utils.config import config
+from ...gacha.files import get_game_path
+from src.star_rail_gacha.utils.config import config
 
 
 class SettingsPage(QFrame):
@@ -75,9 +75,18 @@ class SettingsPage(QFrame):
         self.aboutTextLabel.setFont(QFont("Microsoft YaHei", 12))
         self.vBoxLayout.addWidget(self.aboutTextLabel, 1, Qt.AlignTop)
 
+        self.linkLayout = QHBoxLayout()
         self.githubLink = HyperlinkButton("https://github.com/DancingSnow0517/StarRail-gacha", "项目地址")
         self.githubLink.setFont(QFont("Microsoft YaHei", 12))
-        self.vBoxLayout.addWidget(self.githubLink, 1, Qt.AlignTop | Qt.AlignLeft)
+        self.githubLink.setMaximumWidth(100)
+        self.issueLink = HyperlinkButton("https://github.com/DancingSnow0517/StarRail-gacha/issues", "问题反馈")
+        self.issueLink.setFont(QFont("Microsoft YaHei", 12))
+        self.issueLink.setMaximumWidth(100)
+        self.linkLayout.addWidget(self.githubLink, Qt.AlignLeft)
+        self.linkLayout.addWidget(self.issueLink, Qt.AlignRight)
+        self.linkLayout.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
+
+        self.vBoxLayout.addLayout(self.linkLayout)
 
         self.vBoxLayout.addItem(QSpacerItem(40, 30, QSizePolicy.Expanding, QSizePolicy.Minimum))
 
@@ -103,6 +112,7 @@ class SettingsPage(QFrame):
 
     def save_config(self):
         config.game_path = self.gamePathEdit.text()
+        print(self.getFullDataButton.isChecked())
         config.get_full_data = self.getFullDataButton.isChecked()
         config.save()
         InfoBar.success("", "配置文件保存成功！", parent=self, duration=2000)

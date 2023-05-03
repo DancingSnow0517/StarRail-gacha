@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget, QApplication, QVBoxLayout, QLabel
-from qfluentwidgets import setTheme, Theme, NavigationInterface, FluentIcon, NavigationItemPosition
+from qfluentwidgets import NavigationInterface, FluentIcon, NavigationItemPosition
 from qframelesswindow import FramelessWindow, StandardTitleBar, TitleBar
 
 from .pages.home_page import HomePage

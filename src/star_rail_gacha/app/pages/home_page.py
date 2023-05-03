@@ -61,19 +61,20 @@ class UpdateThread(QThread):
                 )
                 response, code = fetch(url)
                 if not self.parent().check_response(response, code):
-                    time.sleep(1)
+                    time.sleep(0.3)
                     break
                 gacha_list = [Gacha(**o) for o in response['data']['list']]
                 should_next, add_count = gm.add_records(gacha_list)
                 count += add_count
                 if not should_next:
-                    time.sleep(1)
+                    time.sleep(0.3)
                     break
                 end_id = gacha_list[-1].id
-                time.sleep(1)
+                time.sleep(0.3)
         gm.save_to_file()
         log.info("数据更新成功, 共更新了 %d 条数据", count)
         self.parent().statusLabel.setText(f"数据更新成功, 共更新了 {count} 条数据")
+        self.parent().update_button.setCheckable(True)
         self.parent().update_uid_box()
 
 
@@ -90,8 +91,6 @@ class HomePage(QFrame):
 
         self.uid_box = ComboBox(self)
         self.uid_box.setMinimumSize(QSize(140, 0))
-        self.update_uid_box()
-        self.uid_box.setCurrentIndex(0)
         self.uid_box.currentTextChanged.connect(self.update_chart)
 
         self.pool_box = ComboBox(self)
@@ -253,6 +252,8 @@ class HomePage(QFrame):
         # # leave some space for title bar
         self.vBoxLayout.setContentsMargins(0, 32, 0, 0)
 
+        self.update_uid_box()
+        self.uid_box.setCurrentIndex(0)
         self.update_chart()
 
     def check_response(self, payload, code):
@@ -277,8 +278,10 @@ class HomePage(QFrame):
         return True
 
     def update_data(self):
+        self.update_button.setCheckable(False)
         update_thread = UpdateThread(self)
         update_thread.start()
+
 
     def update_chart(self):
         reset_index()
@@ -354,12 +357,12 @@ class HomePage(QFrame):
         if not os.path.exists('userData'):
             os.mkdir('userData')
             return
+        self.uid_box.clear()
         for file in os.listdir('userData'):
             match = re.match(r'^gacha-list-(\d{9})\.json$', file)
             if match:
                 uid = match.group(1)
-                if uid not in self.uid_box.items:
-                    self.uid_box.addItem(uid)
+                self.uid_box.addItem(uid)
 
     @staticmethod
     def on_hovered(pieSlice: QPieSlice, state: bool):
