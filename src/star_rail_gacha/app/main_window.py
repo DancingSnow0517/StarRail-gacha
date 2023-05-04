@@ -4,9 +4,11 @@ from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget, QApplication, QVBoxLayo
 from qfluentwidgets import NavigationInterface, FluentIcon, NavigationItemPosition, setTheme, Theme, qconfig
 from qframelesswindow import FramelessWindow, StandardTitleBar, TitleBar
 
+from .pages.history_page import HistoryPage
 from .pages.home_page import HomePage
 from .pages.settings_page import SettingsPage
 from ..constant import VERSION
+from ..utils.config import config
 from ..utils.style_sheet import StyleSheet
 
 
@@ -30,9 +32,11 @@ class MainWindow(FramelessWindow):
 
         # create sub interface
         self.home_interface = HomePage(self)
+        self.history_interface = HistoryPage(self)
         self.settings_interface = SettingsPage(self)
 
         self.stackWidget.addWidget(self.home_interface)
+        self.stackWidget.addWidget(self.history_interface)
         self.stackWidget.addWidget(self.settings_interface)
 
         self.initLayout()
@@ -55,6 +59,13 @@ class MainWindow(FramelessWindow):
             icon=FluentIcon.HOME,
             text="主页",
             onClick=lambda: self.switchTo(self.home_interface)
+        )
+
+        self.navigationInterface.addItem(
+            routeKey=self.history_interface.objectName(),
+            icon=FluentIcon.HISTORY,
+            text="跃迁记录",
+            onClick=lambda: self.switchTo(self.history_interface)
         )
 
         self.navigationInterface.addItem(
@@ -82,7 +93,7 @@ class MainWindow(FramelessWindow):
         self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
 
         qconfig.themeChanged.connect(self.set_theme)
-        setTheme(Theme.DARK)
+        setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
 
     def switchTo(self, widget):
         self.stackWidget.setCurrentWidget(widget)

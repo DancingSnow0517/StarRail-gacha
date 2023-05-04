@@ -9,7 +9,7 @@ from PyQt5.QtCore import QSize, Qt, QThread
 from PyQt5.QtGui import QPainter, QColor, QFont, QPen, QPalette
 from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QSpacerItem, QSizePolicy, QLabel
 from qfluentwidgets import PushButton, FluentIcon, ComboBox, ToggleButton, MessageBox, InfoBar, InfoBarPosition, Theme, \
-    qconfig
+    qconfig, setTheme
 
 from ...gacha.files import get_local_api_url
 from ...gacha.gacha import Gacha

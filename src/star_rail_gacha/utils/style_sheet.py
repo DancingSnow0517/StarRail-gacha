@@ -9,6 +9,7 @@ class StyleSheet(Enum):
     MAIN_WINDOW = "main_window"
     HOME_PAGE = "home_page"
     SETTINGS_PAGE = "settings_page"
+    HISTORY_PAGE = "history_page"
 
     def path(self):
         if config.dark_mode:

@@ -85,7 +85,7 @@ class SettingsPage(QFrame):
         self.vBoxLayout.addLayout(self.darkModeLayout)
         self.vBoxLayout.addWidget(self.darkModeDescLabel)
 
-        self.vBoxLayout.addItem(QSpacerItem(40, 340, QSizePolicy.Expanding, QSizePolicy.Minimum))
+        self.vBoxLayout.addItem(QSpacerItem(40, 300, QSizePolicy.Expanding, QSizePolicy.Minimum))
 
         self.aboutLabel = QLabel("关于", self)
         self.aboutLabel.setFont(QFont("Microsoft YaHei", 24, QFont.Bold))
