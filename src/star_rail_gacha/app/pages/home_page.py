@@ -6,12 +6,12 @@ import time
 
 from PyQt5.QtChart import QPieSeries, QChart, QChartView, QPieSlice
 from PyQt5.QtCore import QSize, Qt, QThread
-from PyQt5.QtGui import QPainter, QColor, QFont, QPen, QPalette
-from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QSpacerItem, QSizePolicy, QLabel
+from PyQt5.QtGui import QPainter, QColor, QFont
+from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QSpacerItem, QSizePolicy, QLabel, QFileDialog
 from qfluentwidgets import PushButton, FluentIcon, ComboBox, ToggleButton, MessageBox, InfoBar, InfoBarPosition, Theme, \
-    qconfig, setTheme
+    qconfig
 
-from ...gacha.files import get_local_api_url
+from ...utils.files import get_local_api_url, get_doc_path
 from ...gacha.gacha import Gacha
 from ...gacha.gachaManager import GachaManager
 from ...gacha.http import fetch
@@ -354,8 +354,18 @@ class HomePage(QFrame):
             '5星平均出货次数为: ' + coloredText(f'{gm.get_5star_average(pool):.2f}', '#6FB172'))
 
     def export_data(self):
-        m = MessageBox("导出数据", "导出数据功能尚未实现", self.window())
-        m.exec()
+        file_path, file_type = QFileDialog.getSaveFileName(self.window(), "导出数据", get_doc_path(),
+                                                           "Excel Files (*.xlsx)")
+        if file_path == '' and file_type == '':
+            return
+        uid = self.uid_box.currentText()
+        if uid == '':
+            return
+        gm = GachaManager.load_from_uid(uid)
+        gm.save_to_excel(file_path)
+
+        m = MessageBox("抽卡数据导出", "导出成功", self.window())
+        m.exec_()
 
     def update_uid_box(self):
         if not os.path.exists('userData'):

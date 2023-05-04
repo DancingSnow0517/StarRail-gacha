@@ -1,3 +1,4 @@
+import ctypes.wintypes
 import logging
 import os
 import re
@@ -63,3 +64,9 @@ def get_local_api_url(game_path: Optional[str] = None) -> Optional[str]:
     else:
         log.error("未找到api地址！")
     return api_url
+
+
+def get_doc_path(path_id=5):
+    buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+    ctypes.windll.shell32.SHGetSpecialFolderPathW(None, buf, path_id, False)
+    return buf.value

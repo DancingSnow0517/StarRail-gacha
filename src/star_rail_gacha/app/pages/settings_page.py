@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout, QSpacerIte
 from qfluentwidgets import LineEdit, ToolButton, PushButton, HyperlinkButton, SwitchButton, FluentIcon, InfoBar, \
     qconfig, setTheme, Theme
 
-from ...gacha.files import get_game_path
+from ...utils.files import get_game_path
 from ...utils.config import config
 from ...utils.style_sheet import StyleSheet
 

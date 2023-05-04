@@ -4,11 +4,10 @@ import re
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QFrame, QVBoxLayout, QLabel, QHBoxLayout, QSpacerItem, QSizePolicy, QTableWidgetItem
-from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget, qconfig, setTheme, Theme
+from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget, qconfig
 
 from ...gacha.gachaManager import GachaManager
 from ...gacha.types import GachaType
-from ...utils.config import config
 from ...utils.style_sheet import StyleSheet
 
 
@@ -93,7 +92,7 @@ class HistoryPage(QFrame):
             self.tableFrame.table.setItem(i, 1, QTableWidgetItem(gacha.name))
             self.tableFrame.table.setItem(i, 2, QTableWidgetItem(gacha.item_type.value))
             self.tableFrame.table.setItem(i, 3, QTableWidgetItem(gacha.rank_type))
-            self.tableFrame.table.setItem(i, 4, QTableWidgetItem(str(i)))
+            self.tableFrame.table.setItem(i, 4, QTableWidgetItem(str(i+1)))
             self.tableFrame.table.setItem(i, 5, QTableWidgetItem(str(cost)))
             if gacha.is_5star:
                 cost = 0
