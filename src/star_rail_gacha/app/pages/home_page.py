@@ -354,7 +354,8 @@ class HomePage(QFrame):
             '5星平均出货次数为: ' + coloredText(f'{gm.get_5star_average(pool):.2f}', '#6FB172'))
 
     def export_data(self):
-        file_path, file_type = QFileDialog.getSaveFileName(self.window(), "导出数据", get_doc_path(),
+        file_path, file_type = QFileDialog.getSaveFileName(self.window(), "导出数据", get_doc_path() +
+                                                           f'\\sr-gacha-data-{time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())}',
                                                            "Excel File (*.xlsx);;JSON File (*.json)")
         if file_path == '' and file_type == '':
             return
