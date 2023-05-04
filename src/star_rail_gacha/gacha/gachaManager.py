@@ -19,10 +19,11 @@ class GachaManager:
     def get_gacha_list(self, gacha_type: GachaType) -> List[Gacha]:
         return self.records.get(gacha_type)
 
-    def save_to_file(self):
+    def save_to_file(self, path=None):
         if not os.path.exists('userData'):
             os.mkdir('userData')
-        with open(f'userData/gacha-list-{self.uid}.json', 'w', encoding='utf-8') as f:
+        path = f'userData/gacha-list-{self.uid}.json' if path is None else path
+        with open(path, 'w', encoding='utf-8') as f:
             json.dump(self.record_dict, f, indent=4, ensure_ascii=False)
 
     def load_from_file(self):

@@ -355,14 +355,21 @@ class HomePage(QFrame):
 
     def export_data(self):
         file_path, file_type = QFileDialog.getSaveFileName(self.window(), "导出数据", get_doc_path(),
-                                                           "Excel Files (*.xlsx)")
+                                                           "Excel File (*.xlsx);;JSON File (*.json)")
         if file_path == '' and file_type == '':
             return
         uid = self.uid_box.currentText()
         if uid == '':
             return
         gm = GachaManager.load_from_uid(uid)
-        gm.save_to_excel(file_path)
+        if file_type == 'Excel File (*.xlsx)':
+            gm.save_to_excel(file_path)
+        elif file_type == 'JSON File (*.json)':
+            gm.save_to_file(file_path)
+        else:
+            m = MessageBox("抽卡数据导出", "不支持的类型", self.window())
+            m.exec_()
+            return
 
         m = MessageBox("抽卡数据导出", "导出成功", self.window())
         m.exec_()
