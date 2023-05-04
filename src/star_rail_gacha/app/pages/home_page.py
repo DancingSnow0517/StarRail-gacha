@@ -328,13 +328,13 @@ class HomePage(QFrame):
             f"一共 {coloredText(gm.get_count(pool), '#00BFFF')} 抽 "
             f"已累计 {coloredText(gm.get_last_5star_count(pool), '#32CD32')} 未出5星")
         self.poolLabel5Star.setText(coloredText(f'5星: {gm.get_5star_count(pool)}'.ljust(10, '-') +
-                                                (f'{(gm.get_5star_count(pool) / gm.get_count(pool)):.2f}%'
+                                                (f'{(gm.get_5star_count(pool) / gm.get_count(pool) * 100):.2f}%'
                                                  if gm.get_5star_count(pool) != 0 else "0%"), '#DAA520'))
         self.poolLabel4Star.setText(coloredText(f'4星: {gm.get_4star_count(pool)}'.ljust(10, '-') +
-                                                (f'{(gm.get_4star_count(pool) / gm.get_count(pool)):.2f}%'
+                                                (f'{(gm.get_4star_count(pool) / gm.get_count(pool) * 100):.2f}%'
                                                  if gm.get_4star_count(pool) != 0 else "0%"), '#BA55D3'))
         self.poolLabel3Star.setText(coloredText(f'3星: {gm.get_3star_count(pool)}'.ljust(10, '-') +
-                                                (f'{(gm.get_3star_count(pool) / gm.get_count(pool)):.2f}%'
+                                                (f'{(gm.get_3star_count(pool) / gm.get_count(pool) * 100):.2f}%'
                                                  if gm.get_3star_count(pool) != 0 else "0%"), '#00BFFF'))
 
         history_text = '5星历史记录: '

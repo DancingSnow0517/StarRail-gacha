@@ -3,7 +3,8 @@ import re
 
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QFrame, QVBoxLayout, QLabel, QHBoxLayout, QSpacerItem, QSizePolicy, QTableWidgetItem
+from PyQt5.QtWidgets import QFrame, QVBoxLayout, QLabel, QHBoxLayout, QSpacerItem, QSizePolicy, QTableWidgetItem, \
+    QAbstractItemView
 from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget, qconfig
 
 from ...gacha.gachaManager import GachaManager
@@ -117,6 +118,7 @@ class TableFrame(QFrame):
         self.table.verticalHeader().hide()
         self.table.setColumnCount(6)
         self.table.setRowCount(0)
+        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
         self.table.setHorizontalHeaderLabels(['时间', '名称', '类别', '星级', '总跃迁次数', '保底内'])
 
