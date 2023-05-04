@@ -12,6 +12,7 @@ class GachaType(Enum):
     DEPARTURE = '2'
     CHARACTER = '11'
     LIGHT_CONE = '12'
+    ALL = '-1'
 
 
 class ItemType(Enum):

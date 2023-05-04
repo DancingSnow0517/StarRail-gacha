@@ -17,7 +17,11 @@ class GachaManager:
         self.records: Dict[GachaType, List[Gacha]] = {}
 
     def get_gacha_list(self, gacha_type: GachaType) -> List[Gacha]:
-        return self.records.get(gacha_type)
+        if gacha_type != GachaType.ALL:
+            return self.records.get(gacha_type)
+        rt = self.get_gacha_list(GachaType.STELLAR) + self.get_gacha_list(GachaType.DEPARTURE) + self.get_gacha_list(
+            GachaType.CHARACTER) + self.get_gacha_list(GachaType.LIGHT_CONE)
+        return rt
 
     def save_to_file(self, path=None):
         if not os.path.exists('userData'):
@@ -33,11 +37,15 @@ class GachaManager:
             with open(f'userData/gacha-list-{self.uid}.json', 'r', encoding='utf-8') as f:
                 data = json.load(f)
             for gacha_type in GachaType:
+                if gacha_type == GachaType.ALL:
+                    continue
                 self.records[gacha_type] = []
                 for d in data.get(gacha_type.value, []):
                     self.records[gacha_type].append(Gacha(**d))
         else:
             for gacha_type in GachaType:
+                if gacha_type == GachaType.ALL:
+                    continue
                 self.records[gacha_type] = []
             self.save_to_file()
 
@@ -65,60 +73,60 @@ class GachaManager:
         return False
 
     def get_count(self, gacha_type: GachaType) -> int:
-        return len(self.records[gacha_type])
+        return len(self.get_gacha_list(gacha_type))
 
     def get_5star_count(self, gacha_type: GachaType) -> int:
         count = 0
-        for record in self.records[gacha_type]:
+        for record in self.get_gacha_list(gacha_type):
             if record.is_5star:
                 count += 1
         return count
 
     def get_5star_character_count(self, gacha_type: GachaType) -> int:
         count = 0
-        for record in self.records[gacha_type]:
+        for record in self.get_gacha_list(gacha_type):
             if record.is_5star and record.is_character:
                 count += 1
         return count
 
     def get_5star_light_cone_count(self, gacha_type: GachaType) -> int:
         count = 0
-        for record in self.records[gacha_type]:
+        for record in self.get_gacha_list(gacha_type):
             if record.is_5star and record.is_light_cone:
                 count += 1
         return count
 
     def get_4star_count(self, gacha_type: GachaType) -> int:
         count = 0
-        for record in self.records[gacha_type]:
+        for record in self.get_gacha_list(gacha_type):
             if record.is_4star:
                 count += 1
         return count
 
     def get_4star_character_count(self, gacha_type: GachaType) -> int:
         count = 0
-        for record in self.records[gacha_type]:
+        for record in self.get_gacha_list(gacha_type):
             if record.is_4star and record.is_character:
                 count += 1
         return count
 
     def get_4star_light_cone_count(self, gacha_type: GachaType) -> int:
         count = 0
-        for record in self.records[gacha_type]:
+        for record in self.get_gacha_list(gacha_type):
             if record.is_4star and record.is_light_cone:
                 count += 1
         return count
 
     def get_3star_count(self, gacha_type: GachaType) -> int:
         count = 0
-        for record in self.records[gacha_type]:
+        for record in self.get_gacha_list(gacha_type):
             if record.is_3star:
                 count += 1
         return count
 
     def get_last_5star_count(self, gacha_type: GachaType) -> int:
         count = 0
-        for record in self.records[gacha_type]:
+        for record in self.get_gacha_list(gacha_type):
             if record.is_5star:
                 break
             count += 1
@@ -126,7 +134,7 @@ class GachaManager:
 
     def get_last_4star_count(self, gacha_type: GachaType) -> int:
         count = 0
-        for record in self.records[gacha_type]:
+        for record in self.get_gacha_list(gacha_type):
             if record.is_4star:
                 break
             count += 1
@@ -135,7 +143,7 @@ class GachaManager:
     def get_5star_history(self, gacha_type: GachaType) -> List[Tuple[str, int]]:
         rt = []
         cost = 0
-        for record in reversed(self.records[gacha_type]):
+        for record in reversed(self.get_gacha_list(gacha_type)):
             if not record.is_5star:
                 cost += 1
             else:
@@ -147,9 +155,17 @@ class GachaManager:
     def get_5star_average(self, gacha_type: GachaType) -> float:
         count = 0
         total = 0
-        for _, cost in self.get_5star_history(gacha_type):
-            count += 1
-            total += cost
+        if gacha_type == GachaType.ALL:
+            for gacha_type in GachaType:
+                if gacha_type == GachaType.ALL:
+                    continue
+                for _, cost in self.get_5star_history(gacha_type):
+                    count += 1
+                    total += cost
+        else:
+            for _, cost in self.get_5star_history(gacha_type):
+                count += 1
+                total += cost
         if total == 0:
             return 0
         return total / count
@@ -163,8 +179,10 @@ class GachaManager:
                 sheet_name = '光锥活动跃迁'
             elif gacha_type == GachaType.STELLAR:
                 sheet_name = '群星跃迁'
-            else:
+            elif gacha_type == GachaType.DEPARTURE:
                 sheet_name = '始发跃迁'
+            else:
+                continue
             ws = wb.create_sheet(sheet_name)  # type: Worksheet
             ws.append(['时间', '名称', '类别', '星级', '总跃迁次数', '保底内'])
             for col in range(1, 7):

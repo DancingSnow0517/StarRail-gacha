@@ -97,7 +97,7 @@ class HomePage(QFrame):
 
         self.pool_box = ComboBox(self)
         self.pool_box.setMinimumSize(QSize(140, 0))
-        self.pool_box.addItems(['群星跃迁', '角色活动跃迁', '光锥活动跃迁', '始发跃迁'])
+        self.pool_box.addItems(['群星跃迁', '角色活动跃迁', '光锥活动跃迁', '始发跃迁', '跃迁总览'])
         self.pool_box.setCurrentIndex(0)
         self.pool_box.currentTextChanged.connect(self.update_chart)
 
@@ -302,6 +302,8 @@ class HomePage(QFrame):
             pool = GachaType.LIGHT_CONE
         elif pool_type == '始发跃迁':
             pool = GachaType.DEPARTURE
+        elif pool_type == '跃迁总览':
+            pool = GachaType.ALL
         else:
             return
 
@@ -337,16 +339,19 @@ class HomePage(QFrame):
                                                 (f'{(gm.get_3star_count(pool) / gm.get_count(pool) * 100):.2f}%'
                                                  if gm.get_3star_count(pool) != 0 else "0%"), '#00BFFF'))
 
-        history_text = '5星历史记录: '
-        his = gm.get_5star_history(pool)
-        for i, history in enumerate(his):
-            if i > 0:
-                if his[i - 1][0] == history[0]:
-                    history_text += coloredText(f'{history[0]}[{history[1]}]', now_color()) + ' '
+        if pool == GachaType.ALL:
+            history_text = ''
+        else:
+            history_text = '5星历史记录: '
+            his = gm.get_5star_history(pool)
+            for i, history in enumerate(his):
+                if i > 0:
+                    if his[i - 1][0] == history[0]:
+                        history_text += coloredText(f'{history[0]}[{history[1]}]', now_color()) + ' '
+                    else:
+                        history_text += coloredText(f'{history[0]}[{history[1]}]', next_color()) + ' '
                 else:
-                    history_text += coloredText(f'{history[0]}[{history[1]}]', next_color()) + ' '
-            else:
-                history_text += coloredText(f'{history[0]}[{history[1]}]', now_color()) + ' '
+                    history_text += coloredText(f'{history[0]}[{history[1]}]', now_color()) + ' '
 
         self.poolLabel5StarHistory.setText(history_text)
 
