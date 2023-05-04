@@ -325,10 +325,15 @@ class HomePage(QFrame):
             f"4星光锥: {gm.get_4star_light_cone_count(pool)}" if self.lightCone4StarButton.isChecked() else "")
         self.poolSlice5.setLabel(
             f"3星光锥: {gm.get_3star_count(pool)}" if self.lightCone3StarButton.isChecked() else "")
-
+        count_text = gm.get_last_5star_count(pool) if \
+            pool != GachaType.ALL else f"{gm.get_last_5star_count(GachaType.STELLAR)} + " \
+                                       f"{gm.get_last_5star_count(GachaType.CHARACTER)} + " \
+                                       f"{gm.get_last_5star_count(GachaType.LIGHT_CONE)} + " \
+                                       f"{gm.get_last_5star_count(GachaType.DEPARTURE)}" \
+                                       f" ({gm.get_last_5star_count(GachaType.STELLAR) + gm.get_last_5star_count(GachaType.CHARACTER) + gm.get_last_5star_count(GachaType.LIGHT_CONE) + gm.get_last_5star_count(GachaType.DEPARTURE)})"
         self.poolLabelTotal.setText(
             f"一共 {coloredText(gm.get_count(pool), '#00BFFF')} 抽 "
-            f"已累计 {coloredText(gm.get_last_5star_count(pool), '#32CD32')} 未出5星")
+            f"已累计 {coloredText(count_text, '#32CD32')} 未出5星")
         self.poolLabel5Star.setText(coloredText(f'5星: {gm.get_5star_count(pool)}'.ljust(10, '-') +
                                                 (f'{(gm.get_5star_count(pool) / gm.get_count(pool) * 100):.2f}%'
                                                  if gm.get_5star_count(pool) != 0 else "0%"), '#DAA520'))
