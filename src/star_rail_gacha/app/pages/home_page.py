@@ -6,9 +6,10 @@ import time
 
 from PyQt5.QtChart import QPieSeries, QChart, QChartView, QPieSlice
 from PyQt5.QtCore import QSize, Qt, QThread
-from PyQt5.QtGui import QPainter, QColor, QFont
+from PyQt5.QtGui import QPainter, QColor, QFont, QPen, QPalette
 from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QSpacerItem, QSizePolicy, QLabel
-from qfluentwidgets import PushButton, FluentIcon, ComboBox, ToggleButton, MessageBox, InfoBar, InfoBarPosition
+from qfluentwidgets import PushButton, FluentIcon, ComboBox, ToggleButton, MessageBox, InfoBar, InfoBarPosition, Theme, \
+    qconfig
 
 from ...gacha.files import get_local_api_url
 from ...gacha.gacha import Gacha
@@ -19,6 +20,7 @@ from ...gacha.url import get_url_template, get_api_url
 from ...utils.QtStringUtil import coloredText
 from ...utils.colormap import now_color, next_color, reset_index
 from ...utils.config import config
+from ...utils.style_sheet import StyleSheet
 
 log = logging.getLogger(__name__)
 
@@ -256,6 +258,8 @@ class HomePage(QFrame):
         self.uid_box.setCurrentIndex(0)
         self.update_chart()
 
+        qconfig.themeChanged.connect(self.set_theme)
+
     def check_response(self, payload, code):
         if payload is None or not 200 <= code < 300:
             self.statusLabel.setText(f"HTTP 错误: 得到了预期之外的状态码: {code}")
@@ -282,7 +286,6 @@ class HomePage(QFrame):
         update_thread = UpdateThread(self)
         update_thread.start()
 
-
     def update_chart(self):
         reset_index()
         uid = self.uid_box.currentText()  # type: str
@@ -303,6 +306,7 @@ class HomePage(QFrame):
             return
 
         gm = GachaManager.load_from_uid(uid)
+        self.poolChart.setTitle(pool_type)
         self.poolSlice1.setValue(gm.get_5star_character_count(pool) if self.character5StarButton.isChecked() else 0)
         self.poolSlice2.setValue(gm.get_5star_light_cone_count(pool) if self.lightCone5StarButton.isChecked() else 0)
         self.poolSlice3.setValue(gm.get_4star_character_count(pool) if self.character4StarButton.isChecked() else 0)
@@ -372,3 +376,48 @@ class HomePage(QFrame):
         else:
             pieSlice.setExploded(False)
             pieSlice.setLabelVisible(False)
+
+    def set_theme(self):
+        StyleSheet.HOME_PAGE.apply(self)
+
+        theme = Theme.DARK if config.dark_mode else Theme.LIGHT
+        if theme == Theme.DARK:
+            self.poolChart.setTheme(QChart.ChartThemeDark)
+            self.poolChartView.setBackgroundBrush(QColor(32, 32, 32))
+            self.poolChart.setBackgroundBrush(QColor(39, 39, 39))
+
+            self.poolSlice1.setPen(QColor(39, 39, 39))
+            self.poolSlice2.setPen(QColor(39, 39, 39))
+            self.poolSlice3.setPen(QColor(39, 39, 39))
+            self.poolSlice4.setPen(QColor(39, 39, 39))
+            self.poolSlice5.setPen(QColor(39, 39, 39))
+
+        else:
+            self.poolChart.setTheme(QChart.ChartThemeLight)
+            self.poolChartView.setBackgroundBrush(QColor(240, 240, 240))
+            self.poolChart.setBackgroundBrush(QColor(255, 255, 255))
+
+            self.poolSlice1.setPen(QColor(255, 255, 255))
+            self.poolSlice2.setPen(QColor(255, 255, 255))
+            self.poolSlice3.setPen(QColor(255, 255, 255))
+            self.poolSlice4.setPen(QColor(255, 255, 255))
+            self.poolSlice5.setPen(QColor(255, 255, 255))
+
+        self.poolSlice1.setBrush(QColor(248, 220, 109))
+        self.poolSlice1.setLabelFont(QFont("Microsoft YaHei", 10))
+
+        self.poolSlice2.setBrush(QColor(219, 111, 103))
+        self.poolSlice2.setLabelFont(QFont("Microsoft YaHei", 10))
+
+        self.poolSlice3.setBrush(QColor(91, 113, 194))
+        self.poolSlice3.setLabelFont(QFont("Microsoft YaHei", 10))
+
+        self.poolSlice4.setBrush(QColor(159, 201, 124))
+        self.poolSlice4.setLabelFont(QFont("Microsoft YaHei", 10))
+
+        self.poolSlice5.setBrush(QColor(136, 192, 223))
+        self.poolSlice5.setLabelFont(QFont("Microsoft YaHei", 10))
+
+        self.poolChart.setTitle("群星跃迁")
+        self.poolChart.setTitleFont(QFont("Microsoft YaHei", 12, QFont.Bold))
+        self.poolChart.setFont(QFont("Microsoft YaHei", 10))

@@ -1,10 +1,12 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy
-from qfluentwidgets import LineEdit, ToolButton, PushButton, HyperlinkButton, SwitchButton, FluentIcon, InfoBar
+from qfluentwidgets import LineEdit, ToolButton, PushButton, HyperlinkButton, SwitchButton, FluentIcon, InfoBar, \
+    qconfig, setTheme, Theme
 
 from ...gacha.files import get_game_path
-from src.star_rail_gacha.utils.config import config
+from ...utils.config import config
+from ...utils.style_sheet import StyleSheet
 
 
 class SettingsPage(QFrame):
@@ -53,7 +55,7 @@ class SettingsPage(QFrame):
         self.getFullDataLabel.setFont(QFont("Microsoft YaHei", 12))
         # noinspection PyTypeChecker
         self.getFullDataButton = SwitchButton("关", self)
-        self.getFullDataButton.checkedChanged.connect(self.onButtonSwitch)
+        self.getFullDataButton.checkedChanged.connect(self.onGetFullDataButtonSwitch)
         self.getFullDataButton.setChecked(config.get_full_data)
         self.getFullDataDescLabel = QLabel(
             "开启后，点击”更新数据“按钮会完整获取6个月内的所有的抽卡记录，可能会花费比较长的时间。", self)
@@ -64,6 +66,24 @@ class SettingsPage(QFrame):
         self.getFullDataLayout.addWidget(self.getFullDataButton, 1, Qt.AlignRight)
         self.vBoxLayout.addLayout(self.getFullDataLayout)
         self.vBoxLayout.addWidget(self.getFullDataDescLabel)
+
+        self.vBoxLayout.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
+
+        self.darkModeLayout = QHBoxLayout()
+        self.darkModeLabel = QLabel("黑暗模式", self)
+        self.darkModeLabel.setFont(QFont("Microsoft YaHei", 12))
+        # noinspection PyTypeChecker
+        self.darkModeButton = SwitchButton("关", self)
+        self.darkModeButton.checkedChanged.connect(self.onDarkModeButtonSwitch)
+        self.darkModeButton.setChecked(config.dark_mode)
+        self.darkModeDescLabel = QLabel("开启后，界面会变成黑暗模式。", self)
+        self.darkModeDescLabel.setFont(QFont("Microsoft YaHei", 8))
+        self.darkModeDescLabel.setStyleSheet("color: #666666;")
+
+        self.darkModeLayout.addWidget(self.darkModeLabel)
+        self.darkModeLayout.addWidget(self.darkModeButton, 1, Qt.AlignRight)
+        self.vBoxLayout.addLayout(self.darkModeLayout)
+        self.vBoxLayout.addWidget(self.darkModeDescLabel)
 
         self.vBoxLayout.addItem(QSpacerItem(40, 340, QSizePolicy.Expanding, QSizePolicy.Minimum))
 
@@ -99,20 +119,34 @@ class SettingsPage(QFrame):
         # leave some space for title bar
         self.vBoxLayout.setContentsMargins(16, 32, 16, 16)
 
+        qconfig.themeChanged.connect(self.set_theme)
+
     def onGetInGamePathButtonClick(self):
         game_path = get_game_path()
         if game_path:
             self.gamePathEdit.setText(game_path)
 
-    def onButtonSwitch(self):
+    def onGetFullDataButtonSwitch(self):
         if self.getFullDataButton.isChecked():
             self.getFullDataButton.setText("开")
         else:
             self.getFullDataButton.setText("关")
 
+    def onDarkModeButtonSwitch(self):
+        if self.darkModeButton.isChecked():
+            self.darkModeButton.setText("开")
+        else:
+            self.darkModeButton.setText("关")
+
     def save_config(self):
         config.game_path = self.gamePathEdit.text()
-        print(self.getFullDataButton.isChecked())
         config.get_full_data = self.getFullDataButton.isChecked()
+        config.dark_mode = self.darkModeButton.isChecked()
         config.save()
+
+        setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
+
         InfoBar.success("", "配置文件保存成功！", parent=self, duration=2000)
+
+    def set_theme(self):
+        StyleSheet.HOME_PAGE.apply(self)
