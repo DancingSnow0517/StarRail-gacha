@@ -29,7 +29,7 @@ jobs:
 
       - name: Build
         run: |
-          powershell -noprofile -command (nuitka --mingw64 --windows-disable-console --enable-plugin=pyqt5 --standalone --windows-icon-from-ico=.\src\resources\star_rail.ico --output-dir=build --output-filename="StarRail Gacha Exporter" .\src\main.py) -and (xcopy .\src\resources\ .\build\main.dist\resources\ /y/s) -and (Compress-Archive -Path .\build\main.dist\ .\build\"StarRail Gacha Exporter.zip" -Force)
+          powershell -noprofile -command (nuitka --mingw64 --windows-disable-console --enable-plugin=pyqt5 --standalone --windows-icon-from-ico=.\src\resources\star_rail.ico --output-dir=build --output-filename="StarRail Gacha Exporter" .\src\main.py) -and (Copy-Item -Path .\src\resources\ -Destination .\build\main.dist\ -Recurse -Force) -or (Compress-Archive -Path .\build\main.dist\ .\build\"StarRail Gacha Exporter.zip" -Force)
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3.1.2
