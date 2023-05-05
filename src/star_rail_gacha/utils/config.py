@@ -11,6 +11,7 @@ class Config:
         self.game_path = kwargs.get('game_path', '')
         self.get_full_data = kwargs.get('get_full_data', False)
         self.dark_mode = kwargs.get('dark_mode', False)
+        self.log_level = kwargs.get('log_level', 'INFO')
 
     @classmethod
     def load(cls):
@@ -28,7 +29,8 @@ class Config:
         return {
             'game_path': self.game_path,
             'get_full_data': self.get_full_data,
-            'dark_mode': self.dark_mode
+            'dark_mode': self.dark_mode,
+            'log_level': self.log_level
         }
 
     def save(self):

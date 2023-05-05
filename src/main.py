@@ -1,21 +1,19 @@
-import logging
 import sys
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 
-from star_rail_gacha.app.main_window import MainWindow
+from star_rail_gacha.utils.config import config
+from star_rail_gacha.utils.logger import patch_getLogger, ColoredLogger
 
-log = logging.getLogger(__name__)
+log = ColoredLogger('LittlePaimon', level=config.log_level)
 
 
 def main():
-    logging.basicConfig(
-        format='[%(asctime)s] [%(threadName)s/%(levelname)s]: %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S',
-        level='INFO'
-    )
+    patch_getLogger(log)
+    log.set_file('logs/latest.log')
 
+    from star_rail_gacha.app.main_window import MainWindow
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)

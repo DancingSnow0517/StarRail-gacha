@@ -1,8 +1,10 @@
-from PyQt5.QtCore import Qt
+import logging
+
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy
 from qfluentwidgets import LineEdit, ToolButton, PushButton, HyperlinkButton, SwitchButton, FluentIcon, InfoBar, \
-    qconfig, setTheme, Theme
+    qconfig, setTheme, Theme, ComboBox
 
 from ...utils.files import get_game_path
 from ...utils.config import config
@@ -85,6 +87,24 @@ class SettingsPage(QFrame):
         self.vBoxLayout.addLayout(self.darkModeLayout)
         self.vBoxLayout.addWidget(self.darkModeDescLabel)
 
+        self.vBoxLayout.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
+
+        self.logValueLayout = QHBoxLayout()
+        self.logValueLabel = QLabel("日志等级", self)
+        self.logValueLabel.setFont(QFont("Microsoft YaHei", 12))
+        self.logValueBox = ComboBox(self)
+        self.logValueBox.addItems(["DEBUG", "INFO", "WARNING", "ERROR", "FATAL"])
+        self.logValueBox.setCurrentText(config.log_level)
+        self.logValueBox.setMinimumSize(QSize(140, 0))
+        self.logValueDescLabel = QLabel("设置日志等级。重启后生效！", self)
+        self.logValueDescLabel.setFont(QFont("Microsoft YaHei", 8))
+        self.logValueDescLabel.setStyleSheet("color: #666666;")
+
+        self.logValueLayout.addWidget(self.logValueLabel)
+        self.logValueLayout.addWidget(self.logValueBox, 1, Qt.AlignRight)
+        self.vBoxLayout.addLayout(self.logValueLayout)
+        self.vBoxLayout.addWidget(self.logValueDescLabel)
+
         self.vBoxLayout.addItem(QSpacerItem(40, 250, QSizePolicy.Expanding, QSizePolicy.Minimum))
 
         self.aboutLabel = QLabel("关于", self)
@@ -142,6 +162,7 @@ class SettingsPage(QFrame):
         config.game_path = self.gamePathEdit.text()
         config.get_full_data = self.getFullDataButton.isChecked()
         config.dark_mode = self.darkModeButton.isChecked()
+        config.log_level = self.logValueBox.currentText()
         config.save()
 
         setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
