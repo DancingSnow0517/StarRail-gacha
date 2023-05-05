@@ -1,8 +1,8 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QFont
-from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget, QApplication, QVBoxLayout, QLabel
-from qfluentwidgets import NavigationInterface, FluentIcon, NavigationItemPosition, setTheme, Theme, qconfig
-from qframelesswindow import FramelessWindow, StandardTitleBar, TitleBar
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget, QApplication
+from qfluentwidgets import NavigationInterface, FluentIcon, NavigationItemPosition, qconfig, setTheme, Theme
+from qframelesswindow import FramelessWindow, StandardTitleBar
 
 from .pages.history_page import HistoryPage
 from .pages.home_page import HomePage
@@ -92,8 +92,7 @@ class MainWindow(FramelessWindow):
         w, h = desktop.width(), desktop.height()
         self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
 
-        qconfig.themeChanged.connect(self.set_theme)
-        setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
+        StyleSheet.MAIN_WINDOW.apply(self)
 
     def switchTo(self, widget):
         self.stackWidget.setCurrentWidget(widget)
@@ -105,6 +104,3 @@ class MainWindow(FramelessWindow):
     def resizeEvent(self, e):
         self.titleBar.move(46, 0)
         self.titleBar.resize(self.width() - 46, self.titleBar.height())
-
-    def set_theme(self):
-        StyleSheet.MAIN_WINDOW.apply(self)

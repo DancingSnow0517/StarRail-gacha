@@ -1,13 +1,11 @@
-import logging
-
 from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QColor
 from PyQt5.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy
 from qfluentwidgets import LineEdit, ToolButton, PushButton, HyperlinkButton, SwitchButton, FluentIcon, InfoBar, \
-    qconfig, setTheme, Theme, ComboBox
+    setTheme, setThemeColor, Theme, ComboBox, ColorDialog
 
-from ...utils.files import get_game_path
 from ...utils.config import config
+from ...utils.files import get_game_path
 from ...utils.style_sheet import StyleSheet
 
 
@@ -89,6 +87,31 @@ class SettingsPage(QFrame):
 
         self.vBoxLayout.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
 
+        self.themeColorLayout = QHBoxLayout()
+        self.themeColorLabel = QLabel("主题颜色", self)
+        self.themeColorLabel.setFont(QFont("Microsoft YaHei", 12))
+        self.themeColorLineEdit = LineEdit(self)
+        self.themeColorLineEdit.setPlaceholderText("主题颜色(#RRGGBB)")
+        self.themeColorLineEdit.setFont(QFont("Microsoft YaHei", 12))
+        self.themeColorLineEdit.setClearButtonEnabled(True)
+        self.themeColorLineEdit.setText(config.theme_color)
+        # noinspection PyTypeChecker
+        self.themeColorButton = ToolButton(FluentIcon.PENCIL_INK)
+        self.themeColorButton.setToolTip("选择主题颜色")
+        self.themeColorButton.clicked.connect(self.onThemeColorButtonClick)
+        self.themeColorButton.resize(40, 40)
+        self.themeColorDescLabel = QLabel("设置主题颜色。留空为默认主题色。", self)
+        self.themeColorDescLabel.setFont(QFont("Microsoft YaHei", 8))
+        self.themeColorDescLabel.setStyleSheet("color: #666666;")
+
+        self.themeColorLayout.addWidget(self.themeColorLabel)
+        self.themeColorLayout.addWidget(self.themeColorLineEdit)
+        self.themeColorLayout.addWidget(self.themeColorButton)
+        self.vBoxLayout.addLayout(self.themeColorLayout)
+        self.vBoxLayout.addWidget(self.themeColorDescLabel)
+
+        self.vBoxLayout.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
+
         self.logValueLayout = QHBoxLayout()
         self.logValueLabel = QLabel("日志等级", self)
         self.logValueLabel.setFont(QFont("Microsoft YaHei", 12))
@@ -105,7 +128,7 @@ class SettingsPage(QFrame):
         self.vBoxLayout.addLayout(self.logValueLayout)
         self.vBoxLayout.addWidget(self.logValueDescLabel)
 
-        self.vBoxLayout.addItem(QSpacerItem(40, 250, QSizePolicy.Expanding, QSizePolicy.Minimum))
+        self.vBoxLayout.addItem(QSpacerItem(40, 180, QSizePolicy.Expanding, QSizePolicy.Minimum))
 
         self.aboutLabel = QLabel("关于", self)
         self.aboutLabel.setFont(QFont("Microsoft YaHei", 24, QFont.Bold))
@@ -122,8 +145,14 @@ class SettingsPage(QFrame):
         self.issueLink = HyperlinkButton("https://github.com/DancingSnow0517/StarRail-gacha/issues", "问题反馈")
         self.issueLink.setFont(QFont("Microsoft YaHei", 12))
         self.issueLink.setMaximumWidth(100)
+        self.qqLink = HyperlinkButton(
+            "https://qm.qq.com/cgi-bin/qm/qr?k=s61-P0XfzSf31k7U1DwEy9gwwZQZ1ibP&jump_from=webapi&authKey=rr2tKgtASGSdUZWfhmgd75Tz49BPyCELq20t4q4Qg9uiP8+aXM2BGonpssyeCxpp",
+            "QQ交流群")
+        self.qqLink.setFont(QFont("Microsoft YaHei", 12))
+        self.qqLink.setMaximumWidth(100)
         self.linkLayout.addWidget(self.githubLink, Qt.AlignLeft)
         self.linkLayout.addWidget(self.issueLink, Qt.AlignRight)
+        self.linkLayout.addWidget(self.qqLink, Qt.AlignRight)
         self.linkLayout.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
 
         self.vBoxLayout.addLayout(self.linkLayout)
@@ -139,7 +168,7 @@ class SettingsPage(QFrame):
         # leave some space for title bar
         self.vBoxLayout.setContentsMargins(16, 32, 16, 16)
 
-        qconfig.themeChanged.connect(self.set_theme)
+        StyleSheet.HOME_PAGE.apply(self)
 
     def onGetInGamePathButtonClick(self):
         game_path = get_game_path()
@@ -158,16 +187,19 @@ class SettingsPage(QFrame):
         else:
             self.darkModeButton.setText("关")
 
+    def onThemeColorButtonClick(self):
+        dialog = ColorDialog(QColor(config.theme_color), "选择主题颜色", self)
+        dialog.colorChanged.connect(lambda x: self.themeColorLineEdit.setText(x.name()))
+        dialog.exec_()
+
     def save_config(self):
         config.game_path = self.gamePathEdit.text()
         config.get_full_data = self.getFullDataButton.isChecked()
         config.dark_mode = self.darkModeButton.isChecked()
+        config.theme_color = self.themeColorLineEdit.text()
         config.log_level = self.logValueBox.currentText()
         config.save()
-
         setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
+        setThemeColor(config.theme_color)
 
         InfoBar.success("", "配置文件保存成功！", parent=self, duration=2000)
-
-    def set_theme(self):
-        StyleSheet.HOME_PAGE.apply(self)

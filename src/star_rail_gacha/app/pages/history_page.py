@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QFrame, QVBoxLayout, QLabel, QHBoxLayout, QSpacerItem, QSizePolicy, QTableWidgetItem, \
     QAbstractItemView
-from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget, qconfig
+from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget
 
 from ...gacha.gachaManager import GachaManager
 from ...gacha.types import GachaType
@@ -54,7 +54,7 @@ class HistoryPage(QFrame):
         self.uid_box.setCurrentIndex(0)
         self.fill_table()
 
-        qconfig.themeChanged.connect(self.set_theme)
+        StyleSheet.HISTORY_PAGE.apply(self)
 
     def update_uid_box(self):
         if not os.path.exists('userData'):
@@ -108,9 +108,6 @@ class HistoryPage(QFrame):
         self.update_uid_box()
         self.fill_table()
 
-    def set_theme(self):
-        StyleSheet.HISTORY_PAGE.apply(self)
-
 
 class TableFrame(QFrame):
     def __init__(self, parent=None) -> None:
@@ -135,6 +132,6 @@ class TableFrame(QFrame):
         self.table.setColumnWidth(4, 100)
         self.table.setColumnWidth(5, 80)
 
-        self.table.setMinimumHeight(500)
+        self.table.setMinimumHeight(650)
 
         self.hBoxLayout.addWidget(self.table)

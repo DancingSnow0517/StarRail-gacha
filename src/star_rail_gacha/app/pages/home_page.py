@@ -9,7 +9,7 @@ from PyQt5.QtCore import QSize, Qt, QThread
 from PyQt5.QtGui import QPainter, QColor, QFont
 from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QSpacerItem, QSizePolicy, QLabel, QFileDialog
 from qfluentwidgets import PushButton, FluentIcon, ComboBox, ToggleButton, MessageBox, InfoBar, InfoBarPosition, Theme, \
-    qconfig
+    qconfig, setTheme, setThemeColor
 
 from ...utils.files import get_local_api_url, get_doc_path
 from ...gacha.gacha import Gacha
@@ -259,6 +259,10 @@ class HomePage(QFrame):
         self.update_chart()
 
         qconfig.themeChanged.connect(self.set_theme)
+        StyleSheet.HOME_PAGE.apply(self)
+
+        setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
+        setThemeColor(config.theme_color)
 
     def check_response(self, payload, code):
         if payload is None or not 200 <= code < 300:
@@ -411,8 +415,6 @@ class HomePage(QFrame):
             pieSlice.setLabelVisible(False)
 
     def set_theme(self):
-        StyleSheet.HOME_PAGE.apply(self)
-
         theme = Theme.DARK if config.dark_mode else Theme.LIGHT
         if theme == Theme.DARK:
             self.poolChart.setTheme(QChart.ChartThemeDark)
