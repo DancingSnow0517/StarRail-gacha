@@ -1,5 +1,6 @@
 import json
 import os.path
+from json import JSONDecodeError
 from typing import List, Dict, Tuple
 
 from openpyxl.styles import PatternFill, Font, Border, Side
@@ -34,8 +35,11 @@ class GachaManager:
         if not os.path.exists('userData'):
             os.mkdir('userData')
         if os.path.exists(f'userData/gacha-list-{self.uid}.json'):
-            with open(f'userData/gacha-list-{self.uid}.json', 'r', encoding='utf-8') as f:
-                data = json.load(f)
+            try:
+                with open(f'userData/gacha-list-{self.uid}.json', 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+            except JSONDecodeError:
+                data = {}
             for gacha_type in GachaType:
                 if gacha_type == GachaType.ALL:
                     continue
@@ -47,7 +51,7 @@ class GachaManager:
                 if gacha_type == GachaType.ALL:
                     continue
                 self.records[gacha_type] = []
-            self.save_to_file()
+        self.save_to_file()
 
     def add_records(self, records: List[Gacha]) -> Tuple[bool, int]:
         flag = True
@@ -234,6 +238,8 @@ class GachaManager:
     def record_dict(self):
         rt = {}
         for gacha_type in GachaType:
+            if gacha_type == GachaType.ALL:
+                continue
             rt[gacha_type.value] = []
             for record in self.records[gacha_type]:
                 rt[gacha_type.value].append(record.dict)

@@ -37,6 +37,7 @@ class HistoryPage(QFrame):
         self.pool_box.currentTextChanged.connect(self.fill_table)
 
         self.refresh_button = PushButton("刷新页面", self, FluentIcon.SYNC)
+        self.refresh_button.clicked.connect(self.refresh)
 
         self.infoLayout.addWidget(self.uid_box)
         self.infoLayout.addWidget(self.pool_box)
@@ -59,12 +60,17 @@ class HistoryPage(QFrame):
         if not os.path.exists('userData'):
             os.mkdir('userData')
             return
-        self.uid_box.clear()
+
+        uids = [self.uid_box.itemText(i) for i in range(self.uid_box.count())]
         for file in os.listdir('userData'):
             match = re.match(r'^gacha-list-(\d{9})\.json$', file)
             if match:
                 uid = match.group(1)
-                self.uid_box.addItem(uid)
+                if uid not in uids:
+                    self.uid_box.addItem(uid)
+        if self.uid_box.currentText() == '' and self.uid_box.count() > 0:
+            self.uid_box.setCurrentIndex(0)
+            self.uid_box.currentTextChanged.emit(self.uid_box.currentText())
 
     def fill_table(self):
         uid = self.uid_box.currentText()  # type: str
@@ -93,7 +99,7 @@ class HistoryPage(QFrame):
             self.tableFrame.table.setItem(i, 1, QTableWidgetItem(gacha.name))
             self.tableFrame.table.setItem(i, 2, QTableWidgetItem(gacha.item_type.value))
             self.tableFrame.table.setItem(i, 3, QTableWidgetItem(gacha.rank_type))
-            self.tableFrame.table.setItem(i, 4, QTableWidgetItem(str(i+1)))
+            self.tableFrame.table.setItem(i, 4, QTableWidgetItem(str(i + 1)))
             self.tableFrame.table.setItem(i, 5, QTableWidgetItem(str(cost)))
             if gacha.is_5star:
                 cost = 0
@@ -129,6 +135,6 @@ class TableFrame(QFrame):
         self.table.setColumnWidth(4, 100)
         self.table.setColumnWidth(5, 80)
 
-        self.table.setMinimumHeight(600)
+        self.table.setMinimumHeight(500)
 
         self.hBoxLayout.addWidget(self.table)

@@ -32,11 +32,11 @@ class UpdateThread(QThread):
 
     def run(self) -> None:
         self.parent().statusLabel.setText("正在更新数据...")
+        log.info("正在更新数据...")
         api_url = get_local_api_url()
         if api_url is None:
             InfoBar.error("未找到API地址", "请检查是否开启过星穹铁道的历史记录", duration=2000, parent=self.parent(),
                           position=InfoBarPosition.TOP)
-            # self.wait_status(False, False)
             return
         response, code = fetch(api_url)
         valid = self.parent().check_response(response, code)
@@ -47,12 +47,13 @@ class UpdateThread(QThread):
 
         api_template = get_url_template(api_url)
         uid = response['data']['list'][0]['uid']
-
         gm = GachaManager.load_from_uid(uid)
         if config.get_full_data:
             gm.clear()
         count = 0
         for gacha_type in GachaType:
+            if gacha_type == GachaType.ALL:
+                continue
             end_id = '0'
             for page in itertools.count(1, 1):
                 log.info(f'正在获取 {gacha_type.name} 第 {page} 页')
@@ -73,10 +74,10 @@ class UpdateThread(QThread):
                     break
                 end_id = gacha_list[-1].id
                 time.sleep(0.3)
-        gm.save_to_file()
         log.info("数据更新成功, 共更新了 %d 条数据", count)
+        gm.save_to_file()
         self.parent().statusLabel.setText(f"数据更新成功, 共更新了 {count} 条数据")
-        self.parent().update_button.setCheckable(True)
+        self.parent().update_button.setEnabled(True)
         self.parent().update_uid_box()
 
 
@@ -255,7 +256,6 @@ class HomePage(QFrame):
         self.vBoxLayout.setContentsMargins(0, 32, 0, 0)
 
         self.update_uid_box()
-        self.uid_box.setCurrentIndex(0)
         self.update_chart()
 
         qconfig.themeChanged.connect(self.set_theme)
@@ -282,7 +282,7 @@ class HomePage(QFrame):
         return True
 
     def update_data(self):
-        self.update_button.setCheckable(False)
+        self.update_button.setEnabled(False)
         update_thread = UpdateThread(self)
         update_thread.start()
 
@@ -389,12 +389,17 @@ class HomePage(QFrame):
         if not os.path.exists('userData'):
             os.mkdir('userData')
             return
-        self.uid_box.clear()
+
+        uids = [self.uid_box.itemText(i) for i in range(self.uid_box.count())]
         for file in os.listdir('userData'):
             match = re.match(r'^gacha-list-(\d{9})\.json$', file)
             if match:
                 uid = match.group(1)
-                self.uid_box.addItem(uid)
+                if uid not in uids:
+                    self.uid_box.addItem(uid)
+        if self.uid_box.currentText() == '' and self.uid_box.count() > 0:
+            self.uid_box.setCurrentIndex(0)
+            self.uid_box.currentTextChanged.emit(self.uid_box.currentText())
 
     @staticmethod
     def on_hovered(pieSlice: QPieSlice, state: bool):
