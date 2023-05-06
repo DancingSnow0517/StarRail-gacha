@@ -5,11 +5,11 @@ import re
 import time
 
 from PyQt5.QtChart import QPieSeries, QChart, QChartView, QPieSlice
-from PyQt5.QtCore import QSize, Qt, QThread
+from PyQt5.QtCore import QSize, Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QPainter, QColor, QFont
 from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QSpacerItem, QSizePolicy, QLabel, QFileDialog
 from qfluentwidgets import PushButton, FluentIcon, ComboBox, ToggleButton, MessageBox, InfoBar, InfoBarPosition, Theme, \
-    qconfig, setTheme, setThemeColor
+    qconfig, setTheme, setThemeColor, StateToolTip
 
 from ...utils.files import get_local_api_url, get_doc_path
 from ...gacha.gacha import Gacha
@@ -33,16 +33,17 @@ class UpdateThread(QThread):
     def run(self) -> None:
         self.parent().statusLabel.setText("正在更新数据...")
         log.info("正在更新数据...")
+        self.parent().stateTooltipSignal.emit("正在更新数据...", "可能会花上一段时间，请耐心等待", True)
         api_url = get_local_api_url()
         if api_url is None:
-            InfoBar.error("未找到API地址", "请检查是否开启过星穹铁道的历史记录", duration=2000, parent=self.parent(),
-                          position=InfoBarPosition.TOP)
+            self.parent().statusLabel.setText("未找到API地址", "请检查是否开启过星穹铁道的历史记录")
+            self.parent().stateTooltipSignal.emit("数据更新失败，未找到API地址！", "", False)
             return
         response, code = fetch(api_url)
         valid = self.parent().check_response(response, code)
         if not valid:
             log.error("得到预期之外的回应")
-            # self.wait_status(False, False)
+            self.parent().stateTooltipSignal.emit("数据更新失败！", "", False)
             return
 
         api_template = get_url_template(api_url)
@@ -79,12 +80,18 @@ class UpdateThread(QThread):
         self.parent().statusLabel.setText(f"数据更新成功, 共更新了 {count} 条数据")
         self.parent().update_button.setEnabled(True)
         self.parent().update_uid_box()
+        self.parent().stateTooltipSignal.emit("数据更新完成！", "", False)
 
 
 class HomePage(QFrame):
+    stateTooltipSignal = pyqtSignal(str, str, bool)
+
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setObjectName("home_page")
+
+        self.stateTooltip = None
+        self.stateTooltipSignal.connect(self.onStateTooltip)
 
         self.update_button = PushButton("更新数据", self, FluentIcon.SYNC)
         self.update_button.clicked.connect(self.update_data)
@@ -270,13 +277,17 @@ class HomePage(QFrame):
             log.warning(f'回应是否为空: {payload is None}')
             log.warning(f'状态码: {code}')
             return False
-        if 'data' not in payload or 'list' not in payload['data']:
+        if 'data' not in payload:
             self.statusLabel.setText(
                 "HTTP 错误: 得到了错误的http回应" + '' if 'message' not in payload else f": {payload['message']}")
             log.warning(f'回应是否包含 `data`: {"data" in payload}')
             log.warning(
                 f'回应 `data` 是否包含 `list`: {"list" in payload["data"]}',
             )
+            return False
+        if 'list' not in payload['data']:
+            self.statusLabel.setText(
+                "HTTP 错误: 得到了错误的http回应" + '' if 'message' not in payload else f": {payload['message']}")
             return False
         if not payload['data']['list']:
             log.warning(
@@ -413,6 +424,16 @@ class HomePage(QFrame):
         else:
             pieSlice.setExploded(False)
             pieSlice.setLabelVisible(False)
+
+    def onStateTooltip(self, title: str, subTitle: str, show: bool):
+        if show:
+            self.stateTooltip = StateToolTip(title, subTitle, self.window())
+            self.stateTooltip.move(self.stateTooltip.getSuitablePos())
+            self.stateTooltip.show()
+        else:
+            self.stateTooltip.setContent(title)
+            self.stateTooltip.setState(True)
+            self.stateTooltip = None
 
     def set_theme(self):
         theme = Theme.DARK if config.dark_mode else Theme.LIGHT

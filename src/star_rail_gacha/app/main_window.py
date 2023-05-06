@@ -1,14 +1,13 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget, QApplication
-from qfluentwidgets import NavigationInterface, FluentIcon, NavigationItemPosition, qconfig, setTheme, Theme
+from qfluentwidgets import NavigationInterface, FluentIcon, NavigationItemPosition
 from qframelesswindow import FramelessWindow, StandardTitleBar
 
 from .pages.history_page import HistoryPage
 from .pages.home_page import HomePage
 from .pages.settings_page import SettingsPage
 from ..constant import VERSION
-from ..utils.config import config
 from ..utils.style_sheet import StyleSheet
 
 

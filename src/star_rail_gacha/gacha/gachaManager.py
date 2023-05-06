@@ -67,7 +67,7 @@ class GachaManager:
         if self.is_record_exist(record):
             return False
         self.records[record.gacha_type].append(record)
-        sorted(self.records[record.gacha_type], key=lambda x: x.id, reverse=True)
+        self.records[record.gacha_type] = sorted(self.get_gacha_list(record.gacha_type), reverse=True)
         return True
 
     def is_record_exist(self, record: Gacha) -> bool:
