@@ -44,6 +44,7 @@ class UpdateThread(QThread):
         if not valid:
             log.error("得到预期之外的回应")
             self.parent().stateTooltipSignal.emit("数据更新失败！", "", False)
+            self.parent().update_button.setEnabled(True)
             return
 
         api_template = get_url_template(api_url)
@@ -284,6 +285,10 @@ class HomePage(QFrame):
             log.warning(
                 f'回应 `data` 是否包含 `list`: {"list" in payload["data"]}',
             )
+            return False
+        if payload['data'] == None:
+            self.statusLabel.setText(f"http回应的data为空")
+            log.warning("返回的data为null")
             return False
         if 'list' not in payload['data']:
             self.statusLabel.setText(
