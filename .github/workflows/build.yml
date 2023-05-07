@@ -44,7 +44,7 @@ jobs:
       - name: Copy resources and zip
         run: |
           powershell Copy-Item -Path .\src\resources\ -Destination .\build\main.dist\ -Recurse -Force
-          powershell Compress-Archive -Path .\build\main.dist\ .\build\\"StarRail-Gacha-Exporter.zip" -Force
+          powershell Compress-Archive -Path .\build\main.dist\* .\build\\"StarRail-Gacha-Exporter.zip" -Force
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
