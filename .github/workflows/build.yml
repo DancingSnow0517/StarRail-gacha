@@ -16,9 +16,7 @@ jobs:
       - name: cache
         uses: actions/cache@v3.2.6
         with:
-          path:
-            - ${{ env.NUITKA_CACHE_DIR }}
-            - ~/.cache/pip
+          path: ${{ env.NUITKA_CACHE_DIR }}
           key: ${{ runner.os }}-nuitka-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-nuitka-
