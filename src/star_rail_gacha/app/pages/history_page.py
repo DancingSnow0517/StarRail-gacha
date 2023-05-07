@@ -104,6 +104,8 @@ class HistoryPage(QFrame):
             if gacha.is_5star:
                 cost = 0
 
+        self.tableFrame.table.resizeRowsToContents()
+
     def refresh(self):
         self.update_uid_box()
         self.fill_table()
