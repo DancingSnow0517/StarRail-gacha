@@ -6,14 +6,14 @@ import subprocess
 from typing import Optional
 
 GAME_LOG_PATH_LIST = ['miHoYo/崩坏：星穹铁道', 'Cognosphere/Star Rail']
-Player_Log_Path= os.environ["userprofile"] + '/AppData/LocalLow/{0}/Player.log'
+PLAYER_LOG_PATH = os.environ["userprofile"] + '/AppData/LocalLow/{0}/Player.log'
 
 log = logging.getLogger(__name__)
 
 
 def get_game_path() -> Optional[str]:
     for PATH in GAME_LOG_PATH_LIST:
-        log_path = Player_Log_Path.format(PATH)
+        log_path = PLAYER_LOG_PATH.format(PATH)
         log.info(f'尝试查找日志位置：{log_path}')
         if not os.path.exists(log_path):
             log.error("未找到\"崩坏：星穹铁道\"日志")
