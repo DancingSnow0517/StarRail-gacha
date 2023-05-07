@@ -5,21 +5,21 @@ import re
 import subprocess
 from typing import Optional
 
-Game_Log_Path_List = ['miHoYo/崩坏：星穹铁道', 'Cognosphere/Star Rail']
-PLAYER_LOG_PATH = os.environ["userprofile"] + '/AppData/LocalLow/{0}/Player.log'
+GAME_LOG_PATH_LIST = ['miHoYo/崩坏：星穹铁道', 'Cognosphere/Star Rail']
+Player_Log_Path= os.environ["userprofile"] + '/AppData/LocalLow/{0}/Player.log'
 
 log = logging.getLogger(__name__)
 
 
 def get_game_path() -> Optional[str]:
-    for PATH in Game_Log_Path_List:
-        log_path = PLAYER_LOG_PATH.format(PATH)
+    for PATH in GAME_LOG_PATH_LIST:
+        log_path = Player_Log_Path.format(PATH)
         log.info(f'尝试查找日志位置：{log_path}')
         if not os.path.exists(log_path):
             log.error("未找到\"崩坏：星穹铁道\"日志")
             return None
         log.info("正在读取 \"Player.log\"...")
-        with open(PLAYER_LOG_PATH, 'r', encoding='utf-8') as f:
+        with open(log_path, 'r', encoding='utf-8') as f:
             log_content = f.read()
         match = re.match(r'Loading player data from (.*)StarRail_Data.*', log_content)
         if match:
