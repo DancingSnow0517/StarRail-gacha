@@ -279,11 +279,8 @@ class HomePage(QFrame):
             return False
         if 'data' not in payload:
             self.statusLabel.setText(
-                "HTTP 错误: 得到了错误的http回应" + '' if 'message' not in payload else f": {payload['message']}")
-            log.warning(f'回应是否包含 `data`: {"data" in payload}')
-            log.warning(
-                f'回应 `data` 是否包含 `list`: {"list" in payload["data"]}',
-            )
+                "HTTP 错误: 得到了空的http回应" + '' if 'message' not in payload else f": {payload['message']}")
+            log.warning(f"收到了个空回应: {payload}")
             return False
         if 'list' not in payload['data']:
             self.statusLabel.setText(
