@@ -38,12 +38,14 @@ class UpdateThread(QThread):
         if api_url is None:
             self.parent().statusLabel.setText("未找到API地址", "请检查是否开启过星穹铁道的历史记录")
             self.parent().stateTooltipSignal.emit("数据更新失败，未找到API地址！", "", False)
+            self.parent().update_button.setEnabled(True)
             return
         response, code = fetch(api_url)
         valid = self.parent().check_response(response, code)
         if not valid:
             log.error("得到预期之外的回应")
             self.parent().stateTooltipSignal.emit("数据更新失败！", "", False)
+            self.parent().update_button.setEnabled(True)
             return
 
         api_template = get_url_template(api_url)
