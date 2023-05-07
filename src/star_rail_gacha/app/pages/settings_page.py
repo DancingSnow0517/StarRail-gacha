@@ -103,7 +103,7 @@ class SettingsPage(ScrollArea):
     def __initWidget(self):
         self.resize(1000, 800)
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setViewportMargins(0, 10, 0, 20)
+        self.setViewportMargins(0, 80, 0, 20)
         self.setWidget(self.scrollWidget)
         self.setWidgetResizable(True)
 
@@ -133,7 +133,7 @@ class SettingsPage(ScrollArea):
         self.aboutGroup.addSettingCard(self.qqGroupCard)
 
         self.expandLayout.setSpacing(28)
-        self.expandLayout.setContentsMargins(36, 76, 36, 0)
+        self.expandLayout.setContentsMargins(36, 10, 36, 0)
         self.expandLayout.addWidget(self.gachaSettingGroup)
         self.expandLayout.addWidget(self.personalGroup)
         self.expandLayout.addWidget(self.otherGroup)

@@ -8,10 +8,9 @@ from PyQt5.QtChart import QPieSeries, QChart, QChartView, QPieSlice
 from PyQt5.QtCore import QSize, Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QPainter, QColor, QFont
 from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QSpacerItem, QSizePolicy, QLabel, QFileDialog
-from qfluentwidgets import PushButton, FluentIcon, ComboBox, ToggleButton, MessageBox, InfoBar, InfoBarPosition, Theme, \
-    qconfig, setTheme, setThemeColor, StateToolTip
+from qfluentwidgets import PushButton, FluentIcon, ComboBox, ToggleButton, MessageBox, Theme, StateToolTip, qconfig, \
+    setTheme, setThemeColor
 
-from ...utils.files import get_local_api_url, get_doc_path
 from ...gacha.gacha import Gacha
 from ...gacha.gachaManager import GachaManager
 from ...gacha.http import fetch
@@ -20,6 +19,7 @@ from ...gacha.url import get_url_template, get_api_url
 from ...utils.QtStringUtil import coloredText
 from ...utils.colormap import now_color, next_color, reset_index
 from ...utils.config import config
+from ...utils.files import get_local_api_url, get_doc_path
 from ...utils.style_sheet import StyleSheet
 
 log = logging.getLogger(__name__)
