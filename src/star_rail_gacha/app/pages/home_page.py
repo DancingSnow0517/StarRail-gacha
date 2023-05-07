@@ -13,13 +13,13 @@ from qfluentwidgets import PushButton, FluentIcon, ComboBox, ToggleButton, Messa
 
 from ...gacha.gacha import Gacha
 from ...gacha.gachaManager import GachaManager
-from ...gacha.http import fetch
 from ...gacha.types import GachaType
 from ...gacha.url import get_url_template, get_api_url
 from ...utils.QtStringUtil import coloredText
 from ...utils.colormap import now_color, next_color, reset_index
 from ...utils.config import config
 from ...utils.files import get_local_api_url, get_doc_path
+from ...utils.http import get
 from ...utils.style_sheet import StyleSheet
 
 log = logging.getLogger(__name__)
@@ -40,7 +40,7 @@ class UpdateThread(QThread):
             self.parent().stateTooltipSignal.emit("数据更新失败，未找到API地址！", "", False)
             self.parent().update_button.setEnabled(True)
             return
-        response, code = fetch(api_url)
+        response, code = get(api_url)
         valid = self.parent().check_response(response, code)
         if not valid:
             log.error("得到预期之外的回应")
@@ -65,7 +65,7 @@ class UpdateThread(QThread):
                     api_template, end_id, str(gacha_type.value),
                     str(page), '5',
                 )
-                response, code = fetch(url)
+                response, code = get(url)
                 if not self.parent().check_response(response, code):
                     time.sleep(0.3)
                     break
@@ -126,7 +126,7 @@ class HomePage(QFrame):
 
         self.statusLabel = QLabel(self)
         self.statusLabel.setFont(QFont("Microsoft YaHei", 12))
-        self.statusLabel.setContentsMargins(10, 0, 0, 0)
+        self.statusLabel.setContentsMargins(20, 0, 0, 0)
         self.vBoxLayout.addWidget(self.statusLabel, alignment=Qt.AlignLeft)
 
         # 饼图数据布局
@@ -279,14 +279,11 @@ class HomePage(QFrame):
             log.warning(f'回应是否为空: {payload is None}')
             log.warning(f'状态码: {code}')
             return False
-        if 'data' not in payload:
-            self.statusLabel.setText(
-                "HTTP 错误: 得到了空的http回应" + '' if 'message' not in payload else f": {payload['message']}")
-            log.warning(f"收到了个空回应: {payload}")
-            return False
-        if 'list' not in payload['data']:
-            self.statusLabel.setText(
-                "HTTP 错误: 得到了错误的http回应" + '' if 'message' not in payload else f": {payload['message']}")
+        if payload['retcode'] != 0:
+            self.statusLabel.setText(f"HTTP 错误: 得到了错误的http回应"
+                                     f"{'' if 'message' not in payload else ': ' + payload['message']}")
+            log.warning(f"回应的状态码: {payload['retcode']}")
+            log.warning(f"回应的信息: {payload['message']}")
             return False
         if not payload['data']['list']:
             log.warning(

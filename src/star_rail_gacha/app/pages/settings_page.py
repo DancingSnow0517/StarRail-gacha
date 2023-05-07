@@ -2,14 +2,17 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QLabel, QWidget, QFileDialog
 from qfluentwidgets import FluentIcon, InfoBar, setTheme, setThemeColor, Theme, ColorDialog, SettingCardGroup, \
-    SwitchSettingCard, ExpandLayout, ScrollArea, HyperlinkCard
+    SwitchSettingCard, ExpandLayout, ScrollArea, HyperlinkCard, MessageBox
 
 from ..components.combo_box_setting_card import ComboBoxSettingCard
 from ..components.game_path_setting_card import GamePathSettingCard
-from ..components.save_setting_card import SaveSettingCard
+from ..components.line_edit_setting_card import LineEditSettingCard
+from ..components.save_setting_card import PrimaryPushSettingCard
 from ..components.theme_color_setting_card import ThemeColorSettingCard
+from ...constant import VERSION
 from ...utils.config import config
 from ...utils.style_sheet import StyleSheet
+from ...utils.update import check_update, download_update, apply_update
 
 
 class SettingsPage(ScrollArea):
@@ -65,6 +68,29 @@ class SettingsPage(ScrollArea):
             parent=self.otherGroup
         )
 
+        self.updateGroup = SettingCardGroup("软件更新", self.scrollWidget)
+        self.updateCard = PrimaryPushSettingCard(
+            "检查更新",
+            FluentIcon.UPDATE,
+            "检查 StarRail Gacha Exporter 更新",
+            "当前版本：" + VERSION,
+            parent=self.updateGroup
+        )
+        self.updateCard.clicked.connect(self.onCheckUpdate)
+        self.useProxyCard = SwitchSettingCard(
+            FluentIcon.GLOBE,
+            "代理",
+            "开启后，软件会使用代理地址来下载新版本。",
+            parent=self.updateGroup
+        )
+        self.ghProxyCard = LineEditSettingCard(
+            config.gh_proxy,
+            FluentIcon.GLOBE,
+            "GitHub 代理",
+            "设置 GitHub 代理地址",
+            parent=self.updateGroup
+        )
+
         self.aboutGroup = SettingCardGroup("关于", self.scrollWidget)
         self.githubCard = HyperlinkCard(
             "https://github.com/DancingSnow0517/StarRail-gacha",
@@ -91,7 +117,7 @@ class SettingsPage(ScrollArea):
             self.aboutGroup
         )
 
-        self.saveCard = SaveSettingCard(
+        self.saveCard = PrimaryPushSettingCard(
             "保存",
             FluentIcon.SAVE,
             "保存设置",
@@ -128,6 +154,10 @@ class SettingsPage(ScrollArea):
 
         self.otherGroup.addSettingCard(self.logLevelCard)
 
+        self.updateGroup.addSettingCard(self.updateCard)
+        self.updateGroup.addSettingCard(self.useProxyCard)
+        self.updateGroup.addSettingCard(self.ghProxyCard)
+
         self.aboutGroup.addSettingCard(self.githubCard)
         self.aboutGroup.addSettingCard(self.feedbackCard)
         self.aboutGroup.addSettingCard(self.qqGroupCard)
@@ -137,6 +167,7 @@ class SettingsPage(ScrollArea):
         self.expandLayout.addWidget(self.gachaSettingGroup)
         self.expandLayout.addWidget(self.personalGroup)
         self.expandLayout.addWidget(self.otherGroup)
+        self.expandLayout.addWidget(self.updateGroup)
         self.expandLayout.addWidget(self.aboutGroup)
         self.expandLayout.addWidget(self.saveCard)
 
@@ -158,8 +189,25 @@ class SettingsPage(ScrollArea):
             self.themeColorCard.customRadioButton.isChecked() else \
             "#009faa"
         config.log_level = self.logLevelCard.comboBox.text()
+        config.gh_proxy = self.ghProxyCard.lineEdit.text()
+        config.use_proxy = self.useProxyCard.switchButton.isChecked()
         config.save()
         setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
         setThemeColor(config.theme_color)
 
         InfoBar.success("", "配置文件保存成功！", parent=self, duration=2000)
+
+    def onCheckUpdate(self):
+        tag = check_update()
+        if tag is None:
+            InfoBar.success("检查更新", "当前已经是最新版本！", parent=self.window(), duration=2000)
+            return
+
+        m = MessageBox("检查更新", "发现新版本：" + tag + "\n是否现在下载安装？", self.window())
+        if m.exec_():
+            if not download_update():
+                InfoBar.error("下载更新", "下载更新失败！", parent=self.window(), duration=2000)
+                return
+            InfoBar.success("下载更新", "下载更新成功！\n即将退出程序，并安装更新。", parent=self.window(), duration=2000)
+            apply_update()
+            ...

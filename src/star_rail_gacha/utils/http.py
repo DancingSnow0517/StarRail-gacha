@@ -1,9 +1,12 @@
 import json
+import logging
 
 import requests
 
+log = logging.getLogger(__name__)
 
-def fetch(url):
+
+def get(url):
     res = requests.get(url)
     if 200 <= res.status_code < 300:
         content = res.content.decode('utf-8')
