@@ -36,7 +36,7 @@ class UpdateThread(QThread):
         self.parent().stateTooltipSignal.emit("正在更新数据...", "可能会花上一段时间，请耐心等待", True)
         api_url = get_local_api_url()
         if api_url is None:
-            self.parent().statusLabel.setText("未找到API地址", "请检查是否开启过星穹铁道的历史记录")
+            self.parent().statusLabel.setText("未找到API地址, 请检查是否开启过星穹铁道的历史记录")
             self.parent().stateTooltipSignal.emit("数据更新失败，未找到API地址！", "", False)
             self.parent().update_button.setEnabled(True)
             return
