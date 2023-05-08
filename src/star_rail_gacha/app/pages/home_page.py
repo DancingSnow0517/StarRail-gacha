@@ -27,25 +27,30 @@ log = logging.getLogger(__name__)
 
 class UpdateThread(QThread):
 
+    statusLabelSignal = pyqtSignal(str)
+    stateTooltipSignal = pyqtSignal(str, str, bool)
+    updateButtonSignal = pyqtSignal(bool)
+
     def __init__(self, parent: 'HomePage' = ...) -> None:
         super().__init__(parent)
 
     def run(self) -> None:
-        self.parent().statusLabel.setText("正在更新数据...")
+        self.statusLabelSignal.emit("正在更新数据...")
         log.info("正在更新数据...")
-        self.parent().stateTooltipSignal.emit("正在更新数据...", "可能会花上一段时间，请耐心等待", True)
+        self.stateTooltipSignal.emit("正在更新数据...", "可能会花上一段时间，请耐心等待", True)
         api_url = get_local_api_url()
         if api_url is None:
-            self.parent().statusLabel.setText("未找到API地址, 请检查是否开启过星穹铁道的历史记录")
-            self.parent().stateTooltipSignal.emit("数据更新失败，未找到API地址！", "", False)
-            self.parent().update_button.setEnabled(True)
+            self.statusLabelSignal.emit("未找到API地址, 请检查是否开启过星穹铁道的历史记录")
+            self.stateTooltipSignal.emit("数据更新失败，未找到API地址！", "", False)
+            self.updateButtonSignal.emit(True)
             return
         response, code = get(api_url)
         valid = self.parent().check_response(response, code)
         if not valid:
             log.error("得到预期之外的回应")
-            self.parent().stateTooltipSignal.emit("数据更新失败！", "", False)
-            self.parent().update_button.setEnabled(True)
+            self.statusLabelSignal.emit("")
+            self.stateTooltipSignal.emit("数据更新失败！", "", False)
+            self.updateButtonSignal.emit(True)
             return
 
         api_template = get_url_template(api_url)
@@ -60,40 +65,37 @@ class UpdateThread(QThread):
             end_id = '0'
             for page in itertools.count(1, 1):
                 log.info(f'正在获取 {gacha_type.name} 第 {page} 页')
-                self.parent().statusLabel.setText(f"正在获取 {gacha_type.name} 第 {page} 页")
+                self.statusLabelSignal.emit(f"正在获取 {gacha_type.name} 第 {page} 页")
                 url = get_api_url(
                     api_template, end_id, str(gacha_type.value),
                     str(page), '5',
                 )
                 response, code = get(url)
                 if not self.parent().check_response(response, code):
-                    time.sleep(0.3)
+                    self.usleep(300)
                     break
                 gacha_list = [Gacha(**o) for o in response['data']['list']]
                 should_next, add_count = gm.add_records(gacha_list)
                 count += add_count
                 if not should_next:
-                    time.sleep(0.3)
+                    self.usleep(300)
                     break
                 end_id = gacha_list[-1].id
                 time.sleep(0.3)
         log.info("数据更新成功, 共更新了 %d 条数据", count)
         gm.save_to_file()
-        self.parent().statusLabel.setText(f"数据更新成功, 共更新了 {count} 条数据")
-        self.parent().update_button.setEnabled(True)
-        self.parent().update_uid_box()
-        self.parent().stateTooltipSignal.emit("数据更新完成！", "", False)
+        self.statusLabelSignal.emit(f"数据更新成功, 共更新了 {count} 条数据")
+        self.updateButtonSignal.emit(True)
+        self.stateTooltipSignal.emit("数据更新完成！", "", False)
 
 
 class HomePage(QFrame):
-    stateTooltipSignal = pyqtSignal(str, str, bool)
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setObjectName("home_page")
 
         self.stateTooltip = None
-        self.stateTooltipSignal.connect(self.onStateTooltip)
 
         self.update_button = PushButton("更新数据", self, FluentIcon.SYNC)
         self.update_button.clicked.connect(self.update_data)
@@ -292,10 +294,24 @@ class HomePage(QFrame):
             return False
         return True
 
+    def __update_data_statusLabel_signalReceive(self, text):
+        self.statusLabel.setText(text)
+
+    def __update_data_stateTooltip_signalReceive(self, title, content, status):
+        self.onStateTooltip(title, content, status)
+
+    def __update_data_updateButton_signalReceive(self, status):
+        self.update_button.setEnabled(status)
+
+
     def update_data(self):
         self.update_button.setEnabled(False)
         update_thread = UpdateThread(self)
+        update_thread.statusLabelSignal.connect(self.__update_data_statusLabel_signalReceive)
+        update_thread.stateTooltipSignal.connect(self.__update_data_stateTooltip_signalReceive)
+        update_thread.updateButtonSignal.connect(self.__update_data_updateButton_signalReceive)
         update_thread.start()
+        self.update_uid_box()
 
     def update_chart(self):
         reset_index()

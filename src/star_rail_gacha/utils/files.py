@@ -67,6 +67,8 @@ def get_local_api_url(game_path: Optional[str] = None) -> Optional[str]:
         log.info("已获取到api地址：%s", api_url)
     else:
         log.error("未找到api地址！")
+    if api_url.endswith("end_id=1"):
+        api_url = '='.join(api_url.split('=')[:-1]) + '=0'
     return api_url
 
 
