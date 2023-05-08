@@ -60,7 +60,7 @@ def get_local_api_url(game_path: Optional[str] = None) -> Optional[str]:
     split_url = data.split('1/0/')
     api_url = None
     for s in split_url:
-        match = re.match(r'https?.+getGachaLog.*(?:begin_id|end_id)=\w', s)
+        match = re.match(r'https?.+getGachaLog.*(?:begin_id|end_id)=\d*', s)
         if match:
             api_url = match.group()
     if api_url:
