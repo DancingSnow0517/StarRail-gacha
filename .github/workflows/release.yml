@@ -1,0 +1,28 @@
+name: Release StarRail Gacha Exporter
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  release:
+    needs:
+      - build
+    permissions: write-all
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v2.1.1
+        with:
+          name: StarRail-Gacha-Exporter
+
+      - name: Upload Release Zip
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          files: StarRail-Gacha-Exporter.zip

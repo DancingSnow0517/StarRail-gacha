@@ -4,6 +4,8 @@ on:
     paths:
       - 'src/**'
       - '.github/workflows/**'
+  workflow_call:
+
 env:
   NUITKA_CACHE_DIR: ${{ github.workspace }}\nuitka_cache
 jobs:
