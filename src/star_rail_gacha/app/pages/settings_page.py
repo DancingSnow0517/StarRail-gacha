@@ -1,8 +1,8 @@
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QLabel, QWidget, QFileDialog
 from qfluentwidgets import FluentIcon, InfoBar, setTheme, setThemeColor, Theme, ColorDialog, SettingCardGroup, \
-    SwitchSettingCard, ExpandLayout, ScrollArea, HyperlinkCard, MessageBox
+    SwitchSettingCard, ExpandLayout, ScrollArea, HyperlinkCard, MessageBox, StateToolTip
 
 from ..components.combo_box_setting_card import ComboBoxSettingCard
 from ..components.game_path_setting_card import GamePathSettingCard
@@ -16,9 +16,16 @@ from ...utils.update import check_update, download_update, apply_update
 
 
 class SettingsPage(ScrollArea):
+    stateTooltipSignal = pyqtSignal(str, str, bool)
+    downloadedUpdateSignal = pyqtSignal()
+
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setObjectName("setting_page")
+
+        self.stateTooltip = None
+        self.stateTooltipSignal.connect(self.onStateTooltip)
+        self.downloadedUpdateSignal.connect(apply_update)
 
         self.scrollWidget = QWidget()
         self.expandLayout = ExpandLayout(self.scrollWidget)
@@ -181,6 +188,16 @@ class SettingsPage(ScrollArea):
         if directory:
             self.gamePathCard.setContent(directory)
 
+    def onStateTooltip(self, title: str, subTitle: str, show: bool):
+        if show:
+            self.stateTooltip = StateToolTip(title, subTitle, self.window())
+            self.stateTooltip.move(self.stateTooltip.getSuitablePos())
+            self.stateTooltip.show()
+        else:
+            self.stateTooltip.setContent(title)
+            self.stateTooltip.setState(True)
+            self.stateTooltip = None
+
     def save_config(self):
         config.game_path = self.gamePathCard.contentLabel.text()
         config.get_full_data = self.getFullDataCard.switchButton.isChecked()
@@ -205,9 +222,4 @@ class SettingsPage(ScrollArea):
 
         m = MessageBox("检查更新", "发现新版本：" + tag + "\n是否现在下载安装？", self.window())
         if m.exec_():
-            if not download_update():
-                InfoBar.error("下载更新", "下载更新失败！", parent=self.window(), duration=2000)
-                return
-            InfoBar.success("下载更新", "下载更新成功！\n即将退出程序，并安装更新。", parent=self.window(), duration=2000)
-            apply_update()
-            ...
+            download_update(self)
