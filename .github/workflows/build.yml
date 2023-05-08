@@ -41,7 +41,7 @@ jobs:
           pip install nuitka
 
       - name: Build
-        run: nuitka --windows-disable-console --assume-yes-for-downloads --enable-plugin=pyqt5 --lto="yes" --standalone --windows-icon-from-ico=.\src\resources\star_rail.ico --output-dir=build --output-filename="StarRail Gacha Exporter" .\src\main.py
+        run: nuitka --windows-disable-console --assume-yes-for-downloads --enable-plugin=pyqt5 --standalone --windows-icon-from-ico=.\src\resources\star_rail.ico --output-dir=build --output-filename="StarRail Gacha Exporter" .\src\main.py
 
       - name: Copy resources and zip
         run: |
