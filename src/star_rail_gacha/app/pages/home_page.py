@@ -26,7 +26,6 @@ log = logging.getLogger(__name__)
 
 
 class UpdateThread(QThread):
-
     statusLabelSignal = pyqtSignal(str)
     stateTooltipSignal = pyqtSignal(str, str, bool)
     updateButtonSignal = pyqtSignal(bool)
@@ -38,7 +37,10 @@ class UpdateThread(QThread):
         self.statusLabelSignal.emit("正在更新数据...")
         log.info("正在更新数据...")
         self.stateTooltipSignal.emit("正在更新数据...", "可能会花上一段时间，请耐心等待", True)
-        api_url = get_local_api_url()
+        if config.game_path == "":
+            api_url = get_local_api_url()
+        else:
+            api_url = get_local_api_url(config.game_path)
         if api_url is None:
             self.statusLabelSignal.emit("未找到API地址, 请检查是否开启过星穹铁道的历史记录")
             self.stateTooltipSignal.emit("数据更新失败，未找到API地址！", "", False)
@@ -48,7 +50,8 @@ class UpdateThread(QThread):
         valid = self.parent().check_response(response, code)
         if not valid:
             log.error("得到预期之外的回应")
-            self.statusLabelSignal.emit("")
+            self.statusLabelSignal.emit(
+                f"得到预期之外的回应{'' if 'message' not in response else ': ' + response['message']}")
             self.stateTooltipSignal.emit("数据更新失败！", "", False)
             self.updateButtonSignal.emit(True)
             return
@@ -56,8 +59,6 @@ class UpdateThread(QThread):
         api_template = get_url_template(api_url)
         uid = response['data']['list'][0]['uid']
         gm = GachaManager.load_from_uid(uid)
-        if config.get_full_data:
-            gm.clear()
         count = 0
         for gacha_type in GachaType:
             if gacha_type == GachaType.ALL:
@@ -77,7 +78,7 @@ class UpdateThread(QThread):
                 gacha_list = [Gacha(**o) for o in response['data']['list']]
                 should_next, add_count = gm.add_records(gacha_list)
                 count += add_count
-                if not should_next:
+                if not should_next or config.get_full_data:
                     self.usleep(300)
                     break
                 end_id = gacha_list[-1].id
@@ -302,7 +303,6 @@ class HomePage(QFrame):
 
     def __update_data_updateButton_signalReceive(self, status):
         self.update_button.setEnabled(status)
-
 
     def update_data(self):
         self.update_button.setEnabled(False)

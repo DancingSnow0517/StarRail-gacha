@@ -9,6 +9,7 @@ from openpyxl.worksheet.worksheet import Worksheet
 
 from .gacha import Gacha
 from .types import GachaType
+from ..utils.config import config
 
 
 class GachaManager:
@@ -64,8 +65,12 @@ class GachaManager:
         return flag, count
 
     def add_record(self, record: Gacha) -> bool:
-        if self.is_record_exist(record):
+        if self.is_record_exist(record) and not config.get_full_data:
             return False
+        for r in self.records[record.gacha_type]:
+            if r.id == record.id:
+                self.records[record.gacha_type].remove(r)
+                break
         self.records[record.gacha_type].append(record)
         self.records[record.gacha_type] = sorted(self.get_gacha_list(record.gacha_type), reverse=True)
         return True
