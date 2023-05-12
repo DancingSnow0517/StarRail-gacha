@@ -29,6 +29,7 @@ class UpdateThread(QThread):
     statusLabelSignal = pyqtSignal(str)
     stateTooltipSignal = pyqtSignal(str, str, bool)
     updateButtonSignal = pyqtSignal(bool)
+    updateUidBoxSignal = pyqtSignal()
 
     def __init__(self, parent: 'HomePage' = ...) -> None:
         super().__init__(parent)
@@ -78,7 +79,7 @@ class UpdateThread(QThread):
                 gacha_list = [Gacha(**o) for o in response['data']['list']]
                 should_next, add_count = gm.add_records(gacha_list)
                 count += add_count
-                if not should_next or config.get_full_data:
+                if not should_next and not config.get_full_data:
                     self.usleep(300)
                     break
                 end_id = gacha_list[-1].id
@@ -88,6 +89,7 @@ class UpdateThread(QThread):
         self.statusLabelSignal.emit(f"数据更新成功, 共更新了 {count} 条数据")
         self.updateButtonSignal.emit(True)
         self.stateTooltipSignal.emit("数据更新完成！", "", False)
+        self.updateUidBoxSignal.emit()
 
 
 class HomePage(QFrame):
@@ -310,8 +312,8 @@ class HomePage(QFrame):
         update_thread.statusLabelSignal.connect(self.__update_data_statusLabel_signalReceive)
         update_thread.stateTooltipSignal.connect(self.__update_data_stateTooltip_signalReceive)
         update_thread.updateButtonSignal.connect(self.__update_data_updateButton_signalReceive)
+        update_thread.updateUidBoxSignal.connect(self.update_uid_box)
         update_thread.start()
-        self.update_uid_box()
 
     def update_chart(self):
         reset_index()

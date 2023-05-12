@@ -90,6 +90,7 @@ class SettingsPage(ScrollArea):
             "开启后，软件会使用代理地址来下载新版本。",
             parent=self.updateGroup
         )
+        self.useProxyCard.switchButton.setChecked(config.use_proxy)
         self.ghProxyCard = LineEditSettingCard(
             config.gh_proxy,
             FluentIcon.GLOBE,
