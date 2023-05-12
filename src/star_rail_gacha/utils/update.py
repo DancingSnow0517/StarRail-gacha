@@ -23,7 +23,7 @@ powershell -command \"Start-Sleep -s 5\"
 powershell -command \"Get-childitem -Path .. -exclude *.json,*.zip,*.bat,temp,userData -Recurse | Remove-Item -Force -Recurse\"
 powershell -command \"Expand-Archive -Path .\\StarRail-Gacha-Exporter.zip -DestinationPath ..\\ -Force\"
 powershell -command \"Remove-Item -Path .\\StarRail-Gacha-Exporter.zip\"
-start ..\\StarRail-Gacha-Exporter.exe
+start ..\\StarRail Gacha Exporter.exe
 powershell -command \"Remove-Item -Path .\\update.bat\"
 """
 
