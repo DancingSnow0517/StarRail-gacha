@@ -4,6 +4,8 @@ on:
     paths:
       - 'src/**'
       - '.github/workflows/**'
+    branches-ignore:
+      - 'releases/**'
   workflow_call:
 
 env:
