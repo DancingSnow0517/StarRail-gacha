@@ -1,15 +1,19 @@
 import os
 import re
 
-from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt, QSize, QModelIndex
+from PyQt5.QtGui import QFont, QPalette, QColor
 from PyQt5.QtWidgets import QFrame, QVBoxLayout, QLabel, QHBoxLayout, QSpacerItem, QSizePolicy, QTableWidgetItem, \
-    QAbstractItemView
-from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget
+    QAbstractItemView, QStyleOptionViewItem
+from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget, TableItemDelegate
 
 from ...gacha.gachaManager import GachaManager
 from ...gacha.types import GachaType
 from ...utils.style_sheet import StyleSheet
+
+
+ITEM_COLOR_MAPPING = {"3": "#1E90FF", "4": "#6A5ACD", "5": "#FFA500", "X": "#FF0000"}
+rowColorMapping = {}
 
 
 class HistoryPage(QFrame):
@@ -73,6 +77,7 @@ class HistoryPage(QFrame):
             self.uid_box.currentTextChanged.emit(self.uid_box.currentText())
 
     def fill_table(self):
+        global rowColorMapping
         uid = self.uid_box.currentText()  # type: str
         pool_type = self.pool_box.currentText()  # type: str
 
@@ -102,13 +107,28 @@ class HistoryPage(QFrame):
             self.tableFrame.table.setItem(i, 4, QTableWidgetItem(str(i + 1)))
             self.tableFrame.table.setItem(i, 5, QTableWidgetItem(str(cost)))
             if gacha.is_5star:
+                rowColorMapping.update({i: QColor(ITEM_COLOR_MAPPING["5"])})
                 cost = 0
-
+            elif gacha.is_4star:
+                rowColorMapping.update({i: QColor(ITEM_COLOR_MAPPING["4"])})
+            elif gacha.is_3star:
+                rowColorMapping.update({i: QColor(ITEM_COLOR_MAPPING["3"])})
+        self.tableFrame.table.setItemDelegate(CustomTableItemDelegate(self.tableFrame.table))
         self.tableFrame.table.resizeRowsToContents()
 
     def refresh(self):
         self.update_uid_box()
         self.fill_table()
+
+
+class CustomTableItemDelegate(TableItemDelegate):
+    """ Custom table item delegate """
+
+    def initStyleOption(self, option: QStyleOptionViewItem, index: QModelIndex):
+        super().initStyleOption(option, index)
+        global rowColorMapping
+        option.palette.setColor(QPalette.Text, rowColorMapping[index.row()])
+        option.palette.setColor(QPalette.HighlightedText, rowColorMapping[index.row()])
 
 
 class TableFrame(QFrame):
