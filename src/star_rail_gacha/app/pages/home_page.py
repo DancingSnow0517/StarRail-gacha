@@ -83,7 +83,7 @@ class UpdateThread(QThread):
                     self.usleep(300)
                     break
                 end_id = gacha_list[-1].id
-                time.sleep(0.3)
+                self.usleep(300)
         log.info("数据更新成功, 共更新了 %d 条数据", count)
         gm.save_to_file()
         self.statusLabelSignal.emit(f"数据更新成功, 共更新了 {count} 条数据")
