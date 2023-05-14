@@ -12,7 +12,7 @@ from ...gacha.types import GachaType
 from ...utils.style_sheet import StyleSheet
 
 
-ITEM_COLOR_MAPPING = {"3": "#1E90FF", "4": "#6A5ACD", "5": "#FFA500", "X": "#FF0000"}
+ITEM_COLOR_MAPPING = {"4": "#A256E1", "5": "#BD6932", "X": "#FF0000"}
 rowColorMapping = {}
 
 
@@ -78,6 +78,7 @@ class HistoryPage(QFrame):
 
     def fill_table(self):
         global rowColorMapping
+        rowColorMapping = {}
         uid = self.uid_box.currentText()  # type: str
         pool_type = self.pool_box.currentText()  # type: str
 
@@ -111,8 +112,6 @@ class HistoryPage(QFrame):
                 cost = 0
             elif gacha.is_4star:
                 rowColorMapping.update({i: QColor(ITEM_COLOR_MAPPING["4"])})
-            elif gacha.is_3star:
-                rowColorMapping.update({i: QColor(ITEM_COLOR_MAPPING["3"])})
         self.tableFrame.table.setItemDelegate(CustomTableItemDelegate(self.tableFrame.table))
         self.tableFrame.table.resizeRowsToContents()
 
@@ -126,9 +125,9 @@ class CustomTableItemDelegate(TableItemDelegate):
 
     def initStyleOption(self, option: QStyleOptionViewItem, index: QModelIndex):
         super().initStyleOption(option, index)
-        global rowColorMapping
-        option.palette.setColor(QPalette.Text, rowColorMapping[index.row()])
-        option.palette.setColor(QPalette.HighlightedText, rowColorMapping[index.row()])
+        if index.row() in rowColorMapping:
+            option.palette.setColor(QPalette.Text, rowColorMapping[index.row()])
+            option.palette.setColor(QPalette.HighlightedText, rowColorMapping[index.row()])
 
 
 class TableFrame(QFrame):
