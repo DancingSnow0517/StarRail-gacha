@@ -30,6 +30,7 @@ class UpdateThread(QThread):
     stateTooltipSignal = pyqtSignal(str, str, bool)
     updateButtonSignal = pyqtSignal(bool)
     updateUidBoxSignal = pyqtSignal()
+    updateChartSignal = pyqtSignal()
 
     def __init__(self, parent: 'HomePage' = ...) -> None:
         super().__init__(parent)
@@ -90,6 +91,7 @@ class UpdateThread(QThread):
         self.updateButtonSignal.emit(True)
         self.stateTooltipSignal.emit("数据更新完成！", "", False)
         self.updateUidBoxSignal.emit()
+        self.updateChartSignal.emit()
 
 
 class HomePage(QFrame):
@@ -313,6 +315,7 @@ class HomePage(QFrame):
         update_thread.stateTooltipSignal.connect(self.__update_data_stateTooltip_signalReceive)
         update_thread.updateButtonSignal.connect(self.__update_data_updateButton_signalReceive)
         update_thread.updateUidBoxSignal.connect(self.update_uid_box)
+        update_thread.updateChartSignal.connect(self.update_chart)
         update_thread.start()
 
     def update_chart(self):
