@@ -187,7 +187,7 @@ class SettingsPage(ScrollArea):
     def onGamePathCardClicked(self):
         directory = QFileDialog.getExistingDirectory(self.window(), "选择游戏路径", config.game_path)
         if directory:
-            self.gamePathCard.setContent(directory)
+            self.gamePathCard.setContent(directory + "/")
 
     def onStateTooltip(self, title: str, subTitle: str, show: bool):
         if show:

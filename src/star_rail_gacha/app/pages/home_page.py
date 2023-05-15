@@ -75,16 +75,16 @@ class UpdateThread(QThread):
                 )
                 response, code = get(url)
                 if not self.parent().check_response(response, code):
-                    self.usleep(300)
+                    self.msleep(350)
                     break
                 gacha_list = [Gacha(**o) for o in response['data']['list']]
                 should_next, add_count = gm.add_records(gacha_list)
                 count += add_count
                 if not should_next and not config.get_full_data:
-                    self.usleep(300)
+                    self.msleep(300)
                     break
                 end_id = gacha_list[-1].id
-                self.usleep(300)
+                self.msleep(300)
         log.info("数据更新成功, 共更新了 %d 条数据", count)
         gm.save_to_file()
         self.statusLabelSignal.emit(f"数据更新成功, 共更新了 {count} 条数据")
