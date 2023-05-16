@@ -59,7 +59,7 @@ jobs:
           
           key: ${{ runner.os }}-nuxt-build-${{ hashFiles('docs/dist') }}
           restore-keys: |
-              ${{ runner.os }}-nuxt-build-
+            ${{ runner.os }}-nuxt-build-
 
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
@@ -72,14 +72,14 @@ jobs:
         with:
           path: ./docs/dist
 
-    deploy:
-      environment:
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }}
-      runs-on: ubuntu-latest
-      needs: build
-      steps:
-        - name: Deploy to GitHub Pages
-          id: deployment
-          uses: actions/deploy-pages@v2
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
 
