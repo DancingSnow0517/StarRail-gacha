@@ -1,6 +1,7 @@
 /build/
 /venv/
 /.idea/
+/docs/.idea/
 /gallery/
 /src/temp/
 /src/userData/
