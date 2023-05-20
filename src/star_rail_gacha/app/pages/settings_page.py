@@ -187,11 +187,6 @@ class SettingsPage(ScrollArea):
         self.expandLayout.addWidget(self.aboutGroup)
         self.expandLayout.addWidget(self.saveCard)
 
-    def onThemeColorButtonClick(self):
-        dialog = ColorDialog(QColor(config.theme_color), "选择主题颜色", self)
-        dialog.colorChanged.connect(lambda x: self.themeColorLineEdit.setText(x.name()))
-        dialog.exec_()
-
     def onGamePathCardClicked(self):
         directory = QFileDialog.getExistingDirectory(self.window(), "选择游戏路径", config.game_path)
         if directory:

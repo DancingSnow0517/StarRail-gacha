@@ -25,7 +25,7 @@ class ThemeColorSettingCard(ExpandGroupSettingCard):
 
         self.customLabel = QLabel("自定义颜色", self.customColorWidget)
         self.customColorLineEdit = LineEdit(self.customColorWidget)
-        self.customColorLineEdit.setMaximumWidth(100)
+        self.customColorLineEdit.setMinimumWidth(100)
         self.chooseColorButton = QPushButton("选择颜色", self.customColorWidget)
 
         self.addWidget(self.choiceLabel)
@@ -41,8 +41,9 @@ class ThemeColorSettingCard(ExpandGroupSettingCard):
 
         self.customColorLayout.setContentsMargins(48, 18, 44, 18)
         self.customColorLayout.addWidget(self.customLabel, 0, Qt.AlignLeft)
+        self.customColorLayout.addSpacing(8)
         self.customColorLayout.addWidget(self.customColorLineEdit, 0, Qt.AlignLeft)
-        self.customColorLayout.addItem(QSpacerItem(300, 0, QSizePolicy.Expanding, QSizePolicy.Minimum))
+        self.customColorLayout.addItem(QSpacerItem(600, 0, QSizePolicy.Expanding, QSizePolicy.Expanding))
         self.customColorLayout.addWidget(self.chooseColorButton, 0, Qt.AlignRight)
         self.customColorLayout.setSizeConstraint(QHBoxLayout.SetMinimumSize)
 

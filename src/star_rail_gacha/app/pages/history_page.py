@@ -26,7 +26,7 @@ class HistoryPage(QFrame):
         self.historyLabel = QLabel("跃迁记录", self)
         self.historyLabel.setContentsMargins(0, 8, 0, 0)
         self.historyLabel.setFont(QFont("Microsoft YaHei", 24, QFont.Bold))
-        self.vBoxLayout.addWidget(self.historyLabel, 1, Qt.AlignTop)
+        self.vBoxLayout.addWidget(self.historyLabel)
 
         self.infoLayout = QHBoxLayout()
         self.uid_box = ComboBox(self)
@@ -49,7 +49,7 @@ class HistoryPage(QFrame):
         self.vBoxLayout.addLayout(self.infoLayout, Qt.AlignTop)
 
         self.tableFrame = TableFrame(self)
-        self.vBoxLayout.addWidget(self.tableFrame, 1, Qt.AlignTop)
+        self.vBoxLayout.addWidget(self.tableFrame)
 
         self.vBoxLayout.setContentsMargins(16, 32, 16, 16)
 
@@ -152,11 +152,7 @@ class TableFrame(QFrame):
         self.table.setColumnWidth(4, 100)
         self.table.setColumnWidth(5, 80)
 
-        # self.table.setMinimumHeight(650)
         self.table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Fixed)
-        # 使表格上下填满窗口
-        self.table.setMinimumHeight(800)
-
 
         self.vBoxLayout.addWidget(self.table, Qt.AlignLeft)
