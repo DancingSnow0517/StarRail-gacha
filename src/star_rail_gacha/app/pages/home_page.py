@@ -131,6 +131,8 @@ class HomePage(ScrollArea):
         self.chart2 = PoolChart(GachaType.CHARACTER, self.scrollWidget)
         self.chart3 = PoolChart(GachaType.LIGHT_CONE, self.scrollWidget)
         self.chart4 = PoolChart(GachaType.DEPARTURE, self.scrollWidget)
+        self.chart4.setVisible(config.show_departure)
+        config.showDepartureChanged.connect(self.chart4.setVisible)
         self.chart5 = PoolChart(GachaType.ALL, self.scrollWidget)
 
         self.expandLayout.setSpacing(28)

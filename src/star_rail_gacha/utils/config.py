@@ -1,8 +1,10 @@
 import json
 import os
 
+from PyQt5.QtCore import QObject, pyqtSignal
 
-class Config:
+
+class Config(QObject):
     game_path: str
     get_full_data: bool
     dark_mode: bool
@@ -10,8 +12,12 @@ class Config:
     log_level: str
     use_proxy: bool
     gh_proxy: str
+    show_departure: bool
+
+    showDepartureChanged = pyqtSignal(bool)
 
     def __init__(self, **kwargs):
+        super().__init__()
         self.game_path = kwargs.get('game_path', '')
         self.get_full_data = kwargs.get('get_full_data', False)
         self.dark_mode = kwargs.get('dark_mode', False)
@@ -19,8 +25,7 @@ class Config:
         self.log_level = kwargs.get('log_level', 'INFO')
         self.use_proxy = kwargs.get('use_proxy', False)
         self.gh_proxy = kwargs.get('gh_proxy', 'http://ghproxy.tbooks.com.cn/')
-        self.window_size = kwargs.get('window_size', [1000, 800])
-        self.window_pos = kwargs.get('window_pos', [0, 0])
+        self.show_departure = kwargs.get('show_departure', True)
 
     @classmethod
     def load(cls):
@@ -43,8 +48,7 @@ class Config:
             'log_level': self.log_level,
             'use_proxy': self.use_proxy,
             'gh_proxy': self.gh_proxy,
-            'window_size': self.window_size,
-            'window_pos': self.window_pos
+            'show_departure': self.show_departure
         }
 
     def save(self):

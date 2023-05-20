@@ -64,6 +64,13 @@ class SettingsPage(ScrollArea):
             "主题颜色",
             parent=self.personalGroup
         )
+        self.showDepartureCard = SwitchSettingCard(
+            FluentIcon.TAG,
+            "显示始发跃迁",
+            "开启后，抽卡记录中会显示始发跃迁。",
+            parent=self.personalGroup
+        )
+        self.showDepartureCard.switchButton.setChecked(config.show_departure)
 
         self.otherGroup = SettingCardGroup("其他", self.scrollWidget)
         self.logLevelCard = ComboBoxSettingCard(
@@ -159,6 +166,7 @@ class SettingsPage(ScrollArea):
 
         self.personalGroup.addSettingCard(self.themeCard)
         self.personalGroup.addSettingCard(self.themeColorCard)
+        self.personalGroup.addSettingCard(self.showDepartureCard)
 
         self.otherGroup.addSettingCard(self.logLevelCard)
 
@@ -209,6 +217,8 @@ class SettingsPage(ScrollArea):
         config.log_level = self.logLevelCard.comboBox.text()
         config.gh_proxy = self.ghProxyCard.lineEdit.text()
         config.use_proxy = self.useProxyCard.switchButton.isChecked()
+        config.show_departure = self.showDepartureCard.switchButton.isChecked()
+        config.showDepartureChanged.emit(config.show_departure)
         config.save()
         setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
         setThemeColor(config.theme_color)
