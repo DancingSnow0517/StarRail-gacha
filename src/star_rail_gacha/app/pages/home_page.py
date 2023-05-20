@@ -3,14 +3,17 @@ import logging
 import os
 import re
 import time
+from urllib.parse import urlparse
 
 from PyQt5.QtCore import Qt, QSize, QThread, pyqtSignal
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QVBoxLayout, QWidget, QHBoxLayout, QSpacerItem, QSizePolicy, QLabel, QFileDialog
 from qfluentwidgets import ScrollArea, PushButton, FluentIcon, ComboBox, FlowLayout, StateToolTip, MessageBox, Theme, \
-    setThemeColor, setTheme
+    setThemeColor, setTheme, InfoBar, InfoBarPosition
+from requests.exceptions import MissingSchema
 
 from ..components.pool_chart import PoolChart
+from ..components.url_input_dialog import URLInputDialog
 from ...gacha.gacha import Gacha
 from ...gacha.gachaManager import GachaManager
 from ...gacha.types import GachaType
@@ -30,17 +33,21 @@ class UpdateThread(QThread):
     updateUidBoxSignal = pyqtSignal()
     updateChartSignal = pyqtSignal()
 
-    def __init__(self, parent: 'HomePage' = ...) -> None:
+    def __init__(self, parent: 'HomePage' = None, api_url: str = None) -> None:
         super().__init__(parent)
+        self.api_url = api_url
 
     def run(self) -> None:
         self.statusLabelSignal.emit("正在更新数据...")
         log.info("正在更新数据...")
         self.stateTooltipSignal.emit("正在更新数据...", "可能会花上一段时间，请耐心等待", True)
-        if config.game_path == "":
-            api_url = get_local_api_url()
+        if self.api_url is None:
+            if config.game_path == "":
+                api_url = get_local_api_url()
+            else:
+                api_url = get_local_api_url(config.game_path)
         else:
-            api_url = get_local_api_url(config.game_path)
+            api_url = self.api_url
         if api_url is None:
             self.statusLabelSignal.emit("未找到API地址, 请检查是否开启过星穹铁道的历史记录")
             self.stateTooltipSignal.emit("数据更新失败，未找到API地址！", "", False)
@@ -104,6 +111,8 @@ class HomePage(ScrollArea):
         self.update_button.clicked.connect(self.__on_update_button_clicked)
         self.export_button = PushButton("导出数据", self, FluentIcon.FOLDER)
         self.export_button.clicked.connect(self.__on_export_button_clicked)
+        self.manual_button = PushButton("手动导入", self, FluentIcon.COPY)
+        self.manual_button.clicked.connect(self.__on_manual_button_clicked)
 
         self.uid_box = ComboBox(self)
         self.uid_box.setMinimumSize(QSize(140, 0))
@@ -113,6 +122,7 @@ class HomePage(ScrollArea):
         self.buttonLayout.setContentsMargins(8, 8, 8, 8)
         self.buttonLayout.addWidget(self.update_button)
         self.buttonLayout.addWidget(self.export_button)
+        self.buttonLayout.addWidget(self.manual_button)
         self.buttonLayout.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
         self.buttonLayout.addWidget(self.uid_box)
 
@@ -223,6 +233,24 @@ class HomePage(ScrollArea):
 
         m = MessageBox("抽卡数据导出", "导出成功", self.window())
         m.exec_()
+
+    def __on_manual_button_clicked(self):
+        dialog = URLInputDialog(self.window())
+        if dialog.exec_():
+            api_url = dialog.urlLineEdit.text()
+
+            p = urlparse(api_url)
+            if p.scheme == '' or p.netloc == '':
+                InfoBar.error("URL错误", "URL格式不正确", duration=3000, position=InfoBarPosition.TOP, parent=self.window())
+                return
+
+            update_thread = UpdateThread(self, api_url=api_url)
+            update_thread.statusLabelSignal.connect(self.__update_data_statusLabel_signalReceive)
+            update_thread.stateTooltipSignal.connect(self.__update_data_stateTooltip_signalReceive)
+            update_thread.updateButtonSignal.connect(self.__update_data_updateButton_signalReceive)
+            update_thread.updateUidBoxSignal.connect(self.update_uid_box)
+            update_thread.updateChartSignal.connect(self.update_chart)
+            update_thread.start()
 
     def __update_data_statusLabel_signalReceive(self, text):
         self.statusLabel.setText(text)

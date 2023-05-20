@@ -1,7 +1,6 @@
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QLabel, QWidget, QFileDialog
-from qfluentwidgets import FluentIcon, InfoBar, setTheme, setThemeColor, Theme, ColorDialog, SettingCardGroup, \
+from qfluentwidgets import FluentIcon, InfoBar, setTheme, setThemeColor, Theme, SettingCardGroup, \
     SwitchSettingCard, ExpandLayout, ScrollArea, HyperlinkCard, MessageBox, StateToolTip
 
 from ..components.combo_box_setting_card import ComboBoxSettingCard

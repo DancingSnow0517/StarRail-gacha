@@ -10,6 +10,7 @@ class StyleSheet(StyleSheetBase, Enum):
     HOME_PAGE = "home_page"
     SETTINGS_PAGE = "settings_page"
     HISTORY_PAGE = "history_page"
+    URL_INPUT_DIALOG = "url_input_dialog"
 
     def path(self, theme: Theme = Theme.AUTO):
         theme = qconfig.theme if theme == Theme.AUTO else theme
