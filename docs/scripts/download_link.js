@@ -21,9 +21,9 @@ function set_download_url() {
             let bt1 = document.getElementById('download_1')
             let bt2 = document.getElementById('download_2')
             if (version_tag === null) {
-                bt1.innerText = '立即下载'
+                bt2.innerText = '立即下载'
             } else {
-                bt1.innerText = '立即下载 v.' + version_tag
+                bt2.innerText = '立即下载 v.' + version_tag
             }
             bt1.href = download_url
             bt2.href = download_url
