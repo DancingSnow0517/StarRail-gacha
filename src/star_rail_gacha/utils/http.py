@@ -7,7 +7,11 @@ log = logging.getLogger(__name__)
 
 
 def get(url):
-    res = requests.get(url)
+    try:
+        res = requests.get(url)
+    except requests.exceptions.RequestException as e:
+        log.warning(f'请求异常: {e}')
+        return None, 404
     if 200 <= res.status_code < 300:
         content = res.content.decode('utf-8')
         payload = json.loads(content)

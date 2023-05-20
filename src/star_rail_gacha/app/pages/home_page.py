@@ -10,7 +10,6 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QVBoxLayout, QWidget, QHBoxLayout, QSpacerItem, QSizePolicy, QLabel, QFileDialog
 from qfluentwidgets import ScrollArea, PushButton, FluentIcon, ComboBox, FlowLayout, StateToolTip, MessageBox, Theme, \
     setThemeColor, setTheme, InfoBar, InfoBarPosition
-from requests.exceptions import MissingSchema
 
 from ..components.pool_chart import PoolChart
 from ..components.url_input_dialog import URLInputDialog
