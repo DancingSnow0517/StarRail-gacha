@@ -1,7 +1,8 @@
-from PyQt5.QtCore import Qt
+from PyQt5 import QtGui
+from PyQt5.QtCore import Qt, QSettings, QSize, QPoint, QVariant
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget, QApplication
-from qfluentwidgets import NavigationInterface, FluentIcon, NavigationItemPosition
+from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget
+from qfluentwidgets import NavigationInterface, FluentIcon, NavigationItemPosition, qrouter
 from qframelesswindow import FramelessWindow, StandardTitleBar
 
 from .pages.history_page import HistoryPage
@@ -75,21 +76,18 @@ class MainWindow(FramelessWindow):
             position=NavigationItemPosition.BOTTOM
         )
 
-        self.navigationInterface.setDefaultRouteKey(self.home_interface.objectName())
+        # self.navigationInterface.setDefaultRouteKey(self.home_interface.objectName())
+        qrouter.setDefaultRouteKey(self.stackWidget, self.home_interface.objectName())
         self.navigationInterface.setCurrentItem(self.home_interface.objectName())
 
         self.stackWidget.currentChanged.connect(self.onCurrentInterfaceChanged)
         self.stackWidget.setCurrentIndex(0)
 
     def initWindow(self):
-        self.resize(900, 700)
+        self.readSettings()
         self.setWindowIcon(QIcon('resources/star_rail.ico'))
         self.setWindowTitle(f'崩坏：星穹铁道抽卡导出工具 - v{VERSION}')
         self.titleBar.setAttribute(Qt.WA_StyledBackground)
-
-        desktop = QApplication.desktop().availableGeometry()
-        w, h = desktop.width(), desktop.height()
-        self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
 
         StyleSheet.MAIN_WINDOW.apply(self)
 
@@ -103,3 +101,19 @@ class MainWindow(FramelessWindow):
     def resizeEvent(self, e):
         self.titleBar.move(46, 0)
         self.titleBar.resize(self.width() - 46, self.titleBar.height())
+
+    def closeEvent(self, event: QtGui.QCloseEvent) -> None:
+        super().closeEvent(event)
+        self.saveSettings()
+
+    def readSettings(self):
+        settings = QSettings("DancingSnow", "StarRailGachaExporter")
+        size = settings.value("size", QVariant(QSize(900, 700)))
+        pos = settings.value("pos", QVariant(QPoint(200, 200)))
+        self.resize(size)
+        self.move(pos)
+
+    def saveSettings(self):
+        settings = QSettings("DancingSnow", "StarRailGachaExporter")
+        settings.setValue("size", QVariant(self.size()))
+        settings.setValue("pos", QVariant(self.pos()))

@@ -4,13 +4,12 @@ import re
 from PyQt5.QtCore import Qt, QSize, QModelIndex
 from PyQt5.QtGui import QFont, QPalette, QColor
 from PyQt5.QtWidgets import QFrame, QVBoxLayout, QLabel, QHBoxLayout, QSpacerItem, QSizePolicy, QTableWidgetItem, \
-    QAbstractItemView, QStyleOptionViewItem
+    QAbstractItemView, QStyleOptionViewItem, QHeaderView
 from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget, TableItemDelegate
 
 from ...gacha.gachaManager import GachaManager
 from ...gacha.types import GachaType
 from ...utils.style_sheet import StyleSheet
-
 
 ITEM_COLOR_MAPPING = {"4": "#A256E1", "5": "#BD6932", "X": "#FF0000"}
 rowColorMapping = {}
@@ -134,8 +133,8 @@ class TableFrame(QFrame):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
 
-        self.hBoxLayout = QHBoxLayout(self)
-        self.hBoxLayout.setContentsMargins(0, 8, 0, 0)
+        self.vBoxLayout = QVBoxLayout(self)
+        self.vBoxLayout.setContentsMargins(0, 8, 0, 0)
 
         # 表格部分
         self.table = TableWidget(self)
@@ -153,6 +152,11 @@ class TableFrame(QFrame):
         self.table.setColumnWidth(4, 100)
         self.table.setColumnWidth(5, 80)
 
-        self.table.setMinimumHeight(650)
+        # self.table.setMinimumHeight(650)
+        self.table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Fixed)
+        # 使表格上下填满窗口
+        self.table.setMinimumHeight(800)
 
-        self.hBoxLayout.addWidget(self.table)
+
+        self.vBoxLayout.addWidget(self.table, Qt.AlignLeft)

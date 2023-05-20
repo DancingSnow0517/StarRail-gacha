@@ -19,6 +19,8 @@ class Config:
         self.log_level = kwargs.get('log_level', 'INFO')
         self.use_proxy = kwargs.get('use_proxy', False)
         self.gh_proxy = kwargs.get('gh_proxy', 'http://ghproxy.tbooks.com.cn/')
+        self.window_size = kwargs.get('window_size', [1000, 800])
+        self.window_pos = kwargs.get('window_pos', [0, 0])
 
     @classmethod
     def load(cls):
@@ -40,7 +42,9 @@ class Config:
             'theme_color': self.theme_color,
             'log_level': self.log_level,
             'use_proxy': self.use_proxy,
-            'gh_proxy': self.gh_proxy
+            'gh_proxy': self.gh_proxy,
+            'window_size': self.window_size,
+            'window_pos': self.window_pos
         }
 
     def save(self):
