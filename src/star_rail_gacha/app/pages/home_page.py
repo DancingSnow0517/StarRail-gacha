@@ -17,6 +17,7 @@ from ...gacha.gacha import Gacha
 from ...gacha.gachaManager import GachaManager
 from ...gacha.types import GachaType
 from ...gacha.url import get_url_template, get_api_url
+from ...utils.alias import get_gacha_name_by_type
 from ...utils.config import config
 from ...utils.files import get_local_api_url, get_doc_path
 from ...utils.http import get, check_response
@@ -71,7 +72,7 @@ class UpdateThread(QThread):
             end_id = '0'
             for page in itertools.count(1, 1):
                 log.info(f'正在获取 {gacha_type.name} 第 {page} 页')
-                self.statusLabelSignal.emit(f"正在获取 {gacha_type.name} 第 {page} 页")
+                self.statusLabelSignal.emit(f"正在获取 {get_gacha_name_by_type(gacha_type)} 第 {page} 页")
                 url = get_api_url(
                     api_template, end_id, str(gacha_type.value),
                     str(page), '5',
@@ -203,6 +204,7 @@ class HomePage(ScrollArea):
             self.uid_box.currentTextChanged.emit(self.uid_box.currentText())
 
     def __on_update_button_clicked(self):
+        self.update_button.setEnabled(False)
         update_thread = UpdateThread(self)
         update_thread.statusLabelSignal.connect(self.__update_data_statusLabel_signalReceive)
         update_thread.stateTooltipSignal.connect(self.__update_data_stateTooltip_signalReceive)

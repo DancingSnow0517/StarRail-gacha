@@ -965,3 +965,7 @@ a.direct-link, a.direct-link:visited {
         align-self: flex-start
     }
 }
+
+.invisible {
+    visibility: hidden;
+}

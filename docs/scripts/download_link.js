@@ -20,13 +20,16 @@ function set_download_url() {
             }
             let bt1 = document.getElementById('download_1')
             let bt2 = document.getElementById('download_2')
+            let backup_download = document.getElementById('backup_download')
             if (version_tag === null) {
                 bt2.innerText = '立即下载'
             } else {
                 bt2.innerText = '立即下载 v.' + version_tag
+                backup_download.className = 'button size-large type-link'
             }
             bt1.href = download_url
             bt2.href = download_url
+            backup_download.href = 'http://ghproxy.tbooks.com.cn/' + download_url
         }
     }
 }
