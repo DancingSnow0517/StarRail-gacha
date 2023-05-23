@@ -4,3 +4,4 @@ PyQt5
 PyQtChart
 openpyxl
 colorlog
+bidict

@@ -1,22 +1,45 @@
 import json
 import os.path
+import time
 from json import JSONDecodeError
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 
 from openpyxl.styles import PatternFill, Font, Border, Side
 from openpyxl.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
 from .gacha import Gacha
+from .item_translate import translate_manager
 from .types import GachaType
+from ..constant import VERSION
 from ..utils.config import config
 
 
 class GachaManager:
+    uid: str
+    lang: Optional[str]
+    region_time_zone: Optional[int]
 
     def __init__(self, uid: str):
         self.uid = uid
+        self.lang = None
+        self.region_time_zone = None
         self.records: Dict[GachaType, List[Gacha]] = {}
+
+    def _translate(self, lang: str):
+        for gacha_type in GachaType:
+            for gacha in self.records.get(gacha_type, []):
+                gacha.name = translate_manager.translate_from_item_id(lang, int(gacha.item_id))
+
+    def set_lang(self, lang: str):
+        self.lang = lang
+        self._translate(lang)
+
+    def set_region_time_zone(self, region_time_zone: int):
+        self.region_time_zone = region_time_zone
+        for gacha_type in GachaType:
+            for gacha in self.records.get(gacha_type, []):
+                gacha.set_region_time_zone(region_time_zone)
 
     def get_gacha_list(self, gacha_type: GachaType) -> List[Gacha]:
         if gacha_type != GachaType.ALL:
@@ -30,7 +53,29 @@ class GachaManager:
             os.mkdir('userData')
         path = f'userData/gacha-list-{self.uid}.json' if path is None else path
         with open(path, 'w', encoding='utf-8') as f:
-            json.dump(self.record_dict, f, indent=4, ensure_ascii=False)
+            json.dump({'lang': self.lang, 'region_time_zone': self.region_time_zone, **self.record_dict}, f, indent=4,
+                      ensure_ascii=False)
+
+    def save_srgf_to_file(self, path):
+        data = {
+            'info': {
+                'uid': self.uid,
+                'lang': self.lang,
+                'region_time_zone': self.region_time_zone,
+                'export_timestamp': int(time.time()),
+                'export_app': 'star-rail-gacha',
+                'export_app_version': VERSION,
+                'srgf_version': 'v1.0'
+            },
+            'list': []
+        }
+        for gacha_type in GachaType:
+            if gacha_type == GachaType.ALL:
+                continue
+            for gacha in self.records.get(gacha_type, []):
+                data['list'].append(gacha.dict)
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
 
     def load_from_file(self):
         if not os.path.exists('userData'):
@@ -41,12 +86,17 @@ class GachaManager:
                     data = json.load(f)
             except JSONDecodeError:
                 data = {}
+
+            self.lang = data.get('lang', None)
+            self.region_time_zone = data.get('region_time_zone', None)
+
             for gacha_type in GachaType:
                 if gacha_type == GachaType.ALL:
                     continue
                 self.records[gacha_type] = []
                 for d in data.get(gacha_type.value, []):
-                    self.records[gacha_type].append(Gacha(**d))
+                    self.records[gacha_type].append(Gacha(region_time_zone=self.region_time_zone, **d))
+
         else:
             for gacha_type in GachaType:
                 if gacha_type == GachaType.ALL:
@@ -248,4 +298,6 @@ class GachaManager:
             rt[gacha_type.value] = []
             for record in self.records[gacha_type]:
                 rt[gacha_type.value].append(record.dict)
+        rt["lang"] = self.lang
+        rt["region_time_zone"] = self.region_time_zone
         return rt

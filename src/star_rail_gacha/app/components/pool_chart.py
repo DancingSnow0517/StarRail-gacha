@@ -4,7 +4,7 @@ from PyQt5.QtGui import QColor, QFont, QPainter
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel
 from qfluentwidgets import ToggleButton, Theme, qconfig, setTheme, setThemeColor
 
-from ...gacha.gachaManager import GachaManager
+from ...gacha.gacha_manager import GachaManager
 from ...gacha.types import GachaType
 from ...utils.QtStringUtil import coloredText
 from ...utils.alias import get_gacha_name_by_type

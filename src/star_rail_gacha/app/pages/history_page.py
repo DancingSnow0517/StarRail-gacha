@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QFrame, QVBoxLayout, QLabel, QHBoxLayout, QSpacerIte
     QAbstractItemView, QStyleOptionViewItem, QHeaderView
 from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget, TableItemDelegate
 
-from ...gacha.gachaManager import GachaManager
+from ...gacha.gacha_manager import GachaManager
 from ...gacha.types import GachaType
 from ...utils.style_sheet import StyleSheet
 

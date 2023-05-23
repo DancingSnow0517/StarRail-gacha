@@ -14,7 +14,7 @@ from qfluentwidgets import ScrollArea, PushButton, FluentIcon, ComboBox, FlowLay
 from ..components.pool_chart import PoolChart
 from ..components.url_input_dialog import URLInputDialog
 from ...gacha.gacha import Gacha
-from ...gacha.gachaManager import GachaManager
+from ...gacha.gacha_manager import GachaManager
 from ...gacha.types import GachaType
 from ...gacha.url import get_url_template, get_api_url
 from ...utils.alias import get_gacha_name_by_type
@@ -64,7 +64,16 @@ class UpdateThread(QThread):
 
         api_template = get_url_template(api_url)
         uid = response['data']['list'][0]['uid']
+        lang = response['data']['list'][0]['lang']
+        region_time_zone = response['data']['region_time_zone']
+
+        print(lang)
+        print(region_time_zone)
+
         gm = GachaManager.load_from_uid(uid)
+        gm.set_lang(lang)
+        gm.set_region_time_zone(region_time_zone)
+
         count = 0
         for gacha_type in GachaType:
             if gacha_type == GachaType.ALL:
@@ -82,7 +91,7 @@ class UpdateThread(QThread):
                 if not valid:
                     self.msleep(350)
                     break
-                gacha_list = [Gacha(**o) for o in response['data']['list']]
+                gacha_list = [Gacha(region_time_zone=region_time_zone, **o) for o in response['data']['list']]
                 should_next, add_count = gm.add_records(gacha_list)
                 count += add_count
                 if not should_next and not config.get_full_data:
@@ -216,7 +225,7 @@ class HomePage(ScrollArea):
     def __on_export_button_clicked(self):
         file_path, file_type = QFileDialog.getSaveFileName(self.window(), "导出数据",
                                                            get_doc_path() + f'\\sr-gacha-data-{time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())}',
-                                                           "Excel File (*.xlsx);;JSON File (*.json)")
+                                                           "Excel File (*.xlsx);;JSON File (*.json);;SRGF JSON File (*.json)")
         if file_path == '' and file_type == '':
             return
         uid = self.uid_box.currentText()
@@ -227,6 +236,8 @@ class HomePage(ScrollArea):
             gm.save_to_excel(file_path)
         elif file_type == 'JSON File (*.json)':
             gm.save_to_file(file_path)
+        elif file_type == 'SRGF JSON File (*.json)':
+            gm.save_srgf_to_file(file_path)
         else:
             m = MessageBox("抽卡数据导出", "不支持的类型", self.window())
             m.exec_()
@@ -242,7 +253,8 @@ class HomePage(ScrollArea):
 
             p = urlparse(api_url)
             if p.scheme == '' or p.netloc == '':
-                InfoBar.error("URL错误", "URL格式不正确", duration=3000, position=InfoBarPosition.TOP, parent=self.window())
+                InfoBar.error("URL错误", "URL格式不正确", duration=3000, position=InfoBarPosition.TOP,
+                              parent=self.window())
                 return
 
             update_thread = UpdateThread(self, api_url=api_url)
