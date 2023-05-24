@@ -38,9 +38,10 @@ class UpdateThread(QThread):
         self.api_url = api_url
 
     def run(self) -> None:
-        self.statusLabelSignal.emit("正在更新数据...")
+        self.statusLabelSignal.emit(self.tr("Updating data..."))
         log.info("正在更新数据...")
-        self.stateTooltipSignal.emit("正在更新数据...", "可能会花上一段时间，请耐心等待", True)
+        self.stateTooltipSignal.emit(self.tr("Updating data..."),
+                                     self.tr("It may take some time, please be patient and wait"), True)
         if self.api_url is None:
             if config.game_path == "":
                 api_url = get_local_api_url()
@@ -49,8 +50,9 @@ class UpdateThread(QThread):
         else:
             api_url = self.api_url
         if api_url is None:
-            self.statusLabelSignal.emit("未找到API地址, 请检查是否开启过星穹铁道的历史记录")
-            self.stateTooltipSignal.emit("数据更新失败，未找到API地址！", "", False)
+            self.statusLabelSignal.emit(
+                self.tr("API address not found, please check if the gacha history of StarRail has been opened"))
+            self.stateTooltipSignal.emit(self.tr("Data update failed, API address not found!"), "", False)
             self.updateButtonSignal.emit(True)
             return
         response, code = get(api_url)
@@ -58,7 +60,7 @@ class UpdateThread(QThread):
         if not valid:
             log.error("得到预期之外的回应")
             self.statusLabelSignal.emit(msg)
-            self.stateTooltipSignal.emit("数据更新失败！", "", False)
+            self.stateTooltipSignal.emit(self.tr("Data update failed!"), "", False)
             self.updateButtonSignal.emit(True)
             return
 
@@ -66,9 +68,6 @@ class UpdateThread(QThread):
         uid = response['data']['list'][0]['uid']
         lang = response['data']['list'][0]['lang']
         region_time_zone = response['data']['region_time_zone']
-
-        print(lang)
-        print(region_time_zone)
 
         gm = GachaManager.load_from_uid(uid)
         gm.set_lang(lang)
@@ -81,7 +80,7 @@ class UpdateThread(QThread):
             end_id = '0'
             for page in itertools.count(1, 1):
                 log.info(f'正在获取 {gacha_type.name} 第 {page} 页')
-                self.statusLabelSignal.emit(f"正在获取 {get_gacha_name_by_type(gacha_type)} 第 {page} 页")
+                self.statusLabelSignal.emit(self.tr("Getting %s page %d") % (gacha_type.name, page))
                 url = get_api_url(
                     api_template, end_id, str(gacha_type.value),
                     str(page), '5',
@@ -101,9 +100,9 @@ class UpdateThread(QThread):
                 self.msleep(300)
         log.info("数据更新成功, 共更新了 %d 条数据", count)
         gm.save_to_file()
-        self.statusLabelSignal.emit(f"数据更新成功, 共更新了 {count} 条数据")
+        self.statusLabelSignal.emit(self.tr("Data update successful, a total of %d data were updated") % count)
         self.updateButtonSignal.emit(True)
-        self.stateTooltipSignal.emit("数据更新完成！", "", False)
+        self.stateTooltipSignal.emit(self.tr("Data update completed!"), "", False)
         self.updateUidBoxSignal.emit()
         self.updateChartSignal.emit()
 
@@ -116,11 +115,11 @@ class HomePage(ScrollArea):
         self.stateTooltip = None
 
         self.vBoxLayout = QVBoxLayout(self)
-        self.update_button = PushButton("更新数据", self, FluentIcon.SYNC)
+        self.update_button = PushButton(self.tr("Update data"), self, FluentIcon.SYNC)
         self.update_button.clicked.connect(self.__on_update_button_clicked)
-        self.export_button = PushButton("导出数据", self, FluentIcon.FOLDER)
+        self.export_button = PushButton(self.tr("Export Data"), self, FluentIcon.FOLDER)
         self.export_button.clicked.connect(self.__on_export_button_clicked)
-        self.manual_button = PushButton("手动导入", self, FluentIcon.COPY)
+        self.manual_button = PushButton(self.tr("Manual import"), self, FluentIcon.COPY)
         self.manual_button.clicked.connect(self.__on_manual_button_clicked)
 
         self.uid_box = ComboBox(self)
@@ -223,7 +222,7 @@ class HomePage(ScrollArea):
         update_thread.start()
 
     def __on_export_button_clicked(self):
-        file_path, file_type = QFileDialog.getSaveFileName(self.window(), "导出数据",
+        file_path, file_type = QFileDialog.getSaveFileName(self.window(), self.tr("Export Data"),
                                                            get_doc_path() + f'\\sr-gacha-data-{time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())}',
                                                            "Excel File (*.xlsx);;JSON File (*.json);;SRGF JSON File (*.json)")
         if file_path == '' and file_type == '':
@@ -239,11 +238,11 @@ class HomePage(ScrollArea):
         elif file_type == 'SRGF JSON File (*.json)':
             gm.save_srgf_to_file(file_path)
         else:
-            m = MessageBox("抽卡数据导出", "不支持的类型", self.window())
+            m = MessageBox(self.tr("Gacha data export"), self.tr("Unsupported type"), self.window())
             m.exec_()
             return
 
-        m = MessageBox("抽卡数据导出", "导出成功", self.window())
+        m = MessageBox(self.tr("Gacha data export"), self.tr("Export successful"), self.window())
         m.exec_()
 
     def __on_manual_button_clicked(self):
@@ -253,7 +252,7 @@ class HomePage(ScrollArea):
 
             p = urlparse(api_url)
             if p.scheme == '' or p.netloc == '':
-                InfoBar.error("URL错误", "URL格式不正确", duration=3000, position=InfoBarPosition.TOP,
+                InfoBar.error(self.tr("URL error"), self.tr("Incorrect URL format"), duration=3000, position=InfoBarPosition.TOP,
                               parent=self.window())
                 return
 
