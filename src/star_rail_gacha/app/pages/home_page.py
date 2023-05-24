@@ -17,7 +17,7 @@ from ...gacha.gacha import Gacha
 from ...gacha.gacha_manager import GachaManager
 from ...gacha.types import GachaType
 from ...gacha.url import get_url_template, get_api_url
-from ...utils.alias import get_gacha_name_by_type
+from ...utils.alias import alias_utils
 from ...utils.config import config
 from ...utils.files import get_local_api_url, get_doc_path
 from ...utils.http import get, check_response
@@ -80,7 +80,9 @@ class UpdateThread(QThread):
             end_id = '0'
             for page in itertools.count(1, 1):
                 log.info(f'正在获取 {gacha_type.name} 第 {page} 页')
-                self.statusLabelSignal.emit(self.tr("Getting %s page %d") % (gacha_type.name, page))
+                self.statusLabelSignal.emit(
+                    self.tr("Getting %s page %d") % (alias_utils.get_gacha_name_by_type(gacha_type), page)
+                )
                 url = get_api_url(
                     api_template, end_id, str(gacha_type.value),
                     str(page), '5',

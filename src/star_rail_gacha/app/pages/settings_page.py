@@ -32,30 +32,30 @@ class SettingsPage(ScrollArea):
         self.scrollWidget = QWidget()
         self.expandLayout = ExpandLayout(self.scrollWidget)
 
-        self.settingLabel = QLabel("设置", self)
+        self.settingLabel = QLabel(self.tr("Settings"), self)
 
-        self.gachaSettingGroup = SettingCardGroup("抽卡记录获取设置", self.scrollWidget)
+        self.gachaSettingGroup = SettingCardGroup(self.tr("Gacha record fetch settings"), self.scrollWidget)
         self.gamePathCard = GamePathSettingCard(
-            "选择文件夹",
+            self.tr("Select folder"),
             FluentIcon.FOLDER,
-            "游戏路径",
+            "Game Path",
             config.game_path,
             self.gachaSettingGroup
         )
         self.gamePathCard.clicked.connect(self.onGamePathCardClicked)
         self.getFullDataCard = SwitchSettingCard(
             FluentIcon.SYNC,
-            "获取完整数据",
-            "开启后，点击”更新数据“按钮会完整获取6个月内的所有的抽卡记录，可能会花费比较长的时间。",
+            self.tr("Fetch full data"),
+            self.tr("When opening, clicking the 'Update Data' button will fully fetch all gacha records within 6 months, which may take a relatively long time."),
             parent=self.gachaSettingGroup
         )
         self.getFullDataCard.switchButton.setChecked(config.get_full_data)
 
-        self.personalGroup = SettingCardGroup("个性化", self.scrollWidget)
+        self.personalGroup = SettingCardGroup(self.tr("personalization"), self.scrollWidget)
         self.themeCard = SwitchSettingCard(
             FluentIcon.BRUSH,
-            "深色主题",
-            "开启后，界面会变成深色模式。",
+            self.tr("Dark Theme"),
+            self.tr("When opening, the interface will change to dark mode."),
             parent=self.personalGroup
         )
         self.themeCard.switchButton.setChecked(config.dark_mode)
@@ -63,88 +63,88 @@ class SettingsPage(ScrollArea):
             "#009faa",
             config.theme_color,
             FluentIcon.PALETTE,
-            "主题颜色",
+            self.tr("Theme Color"),
             parent=self.personalGroup
         )
         self.languageCard = LanguageSettingCard(
             config.language,
             FluentIcon.LANGUAGE,
-            "语言",
-            "选择软件软件显示语言，重启后生效。",
+            self.tr("Language"),
+            self.tr("Select the software display language, which will take effect after restarting."),
             parent=self.personalGroup
         )
         self.showDepartureCard = SwitchSettingCard(
             FluentIcon.TAG,
-            "显示始发跃迁",
-            "开启后，抽卡记录中会显示始发跃迁。",
+            self.tr("Show Departure Warp"),
+            "When opening，Departure warp will be displayed in the Home Page.",
             parent=self.personalGroup
         )
         self.showDepartureCard.switchButton.setChecked(config.show_departure)
 
-        self.otherGroup = SettingCardGroup("其他", self.scrollWidget)
+        self.otherGroup = SettingCardGroup(self.tr("Other"), self.scrollWidget)
         self.logLevelCard = ComboBoxSettingCard(
             config.log_level,
             ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
             FluentIcon.BOOK_SHELF,
-            "日志等级",
-            "设置写入文件日志等级，重启后生效。",
+            self.tr("Log Level"),
+            self.tr("Set the log level of the software. The higher the level, the more logs will be output, which will take effect after restarting."),
             parent=self.otherGroup
         )
 
-        self.updateGroup = SettingCardGroup("软件更新", self.scrollWidget)
+        self.updateGroup = SettingCardGroup(self.tr("Software updates"), self.scrollWidget)
         self.updateCard = PrimaryPushSettingCard(
-            "检查更新",
+            self.tr("Check for updates"),
             FluentIcon.UPDATE,
-            "检查 StarRail Gacha Exporter 更新",
-            "当前版本：" + VERSION,
+            self.tr("Check for updates to StarRail Gacha Exporter."),
+            self.tr("Current version: ") + VERSION,
             parent=self.updateGroup
         )
         self.updateCard.clicked.connect(self.onCheckUpdate)
         self.useProxyCard = SwitchSettingCard(
             FluentIcon.GLOBE,
-            "代理",
-            "开启后，软件会使用代理地址来下载新版本。",
+            self.tr("Proxy"),
+            self.tr("When opening, The software will use a proxy address to download new versions."),
             parent=self.updateGroup
         )
         self.useProxyCard.switchButton.setChecked(config.use_proxy)
         self.ghProxyCard = LineEditSettingCard(
             config.gh_proxy,
             FluentIcon.GLOBE,
-            "GitHub 代理",
-            "设置 GitHub 代理地址",
+            self.tr("GitHub Proxy"),
+            self.tr("Set GitHub proxy address"),
             parent=self.updateGroup
         )
 
-        self.aboutGroup = SettingCardGroup("关于", self.scrollWidget)
+        self.aboutGroup = SettingCardGroup(self.tr("About"), self.scrollWidget)
         self.githubCard = HyperlinkCard(
             "https://github.com/DancingSnow0517/StarRail-gacha",
-            "GitHub 仓库",
+            self.tr("GitHub repository"),
             FluentIcon.GITHUB,
-            "打开 GitHub 仓库",
-            "本项目已经在github使用 MIT 许可证开源！",
+            self.tr("Open the GitHub repository"),
+            self.tr("This project is already open source using the MIT license on Github!"),
             self.aboutGroup
         )
         self.feedbackCard = HyperlinkCard(
             "https://github.com/DancingSnow0517/StarRail-gacha/issues",
-            "反馈问题",
+            self.tr("Feedback issues"),
             FluentIcon.FEEDBACK,
-            "打开 GitHub Issues",
-            "如果你在使用过程中遇到了问题，欢迎在 GitHub Issues 中反馈！",
+            self.tr("Open GitHub Issues"),
+            self.tr("If you encounter any problems during use, please feel free to provide feedback on GitHub Issues!"),
             self.aboutGroup
         )
         self.qqGroupCard = HyperlinkCard(
             "https://qm.qq.com/cgi-bin/qm/qr?k=s61-P0XfzSf31k7U1DwEy9gwwZQZ1ibP&jump_from=webapi&authKey=rr2tKgtASGSdUZWfhmgd75Tz49BPyCELq20t4q4Qg9uiP8+aXM2BGonpssyeCxpp",
-            "QQ群",
+            self.tr("QQ Group"),
             FluentIcon.CHAT,
-            "加入QQ群",
-            "欢迎加入QQ群，一起讨论本项目可以改进的地方！",
+            self.tr("Join QQ group"),
+            self.tr("Welcome to join the QQ group and discuss for improvement in this project together!"),
             self.aboutGroup
         )
 
         self.saveCard = PrimaryPushSettingCard(
-            "保存",
+            self.tr("Save Settings"),
             FluentIcon.SAVE,
-            "保存设置",
+            self.tr("Save the current settings"),
             parent=self.scrollWidget
         )
 
@@ -198,7 +198,7 @@ class SettingsPage(ScrollArea):
         self.expandLayout.addWidget(self.saveCard)
 
     def onGamePathCardClicked(self):
-        directory = QFileDialog.getExistingDirectory(self.window(), "选择游戏路径", config.game_path)
+        directory = QFileDialog.getExistingDirectory(self.window(), self.tr("Choose a game path"), config.game_path)
         if directory:
             self.gamePathCard.setContent(directory + "/")
 
@@ -234,14 +234,16 @@ class SettingsPage(ScrollArea):
         setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
         setThemeColor(config.theme_color)
 
-        InfoBar.success("", "配置文件保存成功！", parent=self, duration=2000)
+        InfoBar.success("", self.tr("Configuration file saved successfully!"), parent=self, duration=2000)
 
     def onCheckUpdate(self):
         tag = check_update()
         if tag is None:
-            InfoBar.success("检查更新", "当前已经是最新版本！", parent=self.window(), duration=2000)
+            InfoBar.success(self.tr("Check update"), self.tr("It is currently the latest version!"), parent=self.window(), duration=2000)
             return
 
-        m = MessageBox("检查更新", "发现新版本：" + tag + "\n是否现在下载安装？", self.window())
+        m = MessageBox(self.tr("Check update"),
+                       self.tr("Discovering a new version: %s\nDo you want to download and install now?") % tag,
+                       self.window())
         if m.exec_():
             download_update(self)

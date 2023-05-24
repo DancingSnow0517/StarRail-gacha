@@ -9,7 +9,16 @@ language_map = {
     "zh-CN": "简体中文",
     "zh-TW": "繁體中文",
     "en-US": "English",
-    "ja": "日本語"
+    "ja-JP": "日本語",
+    "de-DE": "Deutsch",
+    "es-ES": "Español",
+    "fr-FR": "Français",
+    "id-ID": "Indonesia",
+    "ko-KR": "한국어",
+    "pt-PT": "Português",
+    "ru-RU": "Русский",
+    "th-TH": "ภาษาไทย",
+    "vi-VN": "Tiếng Việt"
 }
 
 
@@ -24,10 +33,11 @@ class LanguageSettingCard(SettingCard):
 
         language_list = os.listdir("resources/i18n")
         language_list.append("en-US")
+        item_list = []
+        for language in language_list:
+            if os.path.isdir(f"resources/i18n/{language}"):
+                item_list.append(f"{language_map[language]} ({language})" if language in language_map else language)
 
-        language_list = [f"{language_map[language]} ({language})" if language in language_map else language
-                         for language in language_list]
-
-        self.comboBox.addItems(language_list)
+        self.comboBox.addItems(item_list)
         self.comboBox.setCurrentText(f"{language_map[value]} ({value})" if value in language_map else value)
         self.comboBox.setMinimumWidth(180)

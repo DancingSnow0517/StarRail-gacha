@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QFrame, QVBoxLayout, QLabel, QHBoxLayout, QSpacerIte
 from qfluentwidgets import ComboBox, PushButton, FluentIcon, TableWidget, TableItemDelegate
 
 from ...gacha.gacha_manager import GachaManager
-from ...gacha.types import GachaType
+from ...gacha.types import GachaType, ItemType
 from ...utils.style_sheet import StyleSheet
 
 ITEM_COLOR_MAPPING = {"4": "#A256E1", "5": "#BD6932", "X": "#FF0000"}
@@ -23,7 +23,7 @@ class HistoryPage(QFrame):
 
         self.vBoxLayout = QVBoxLayout(self)
 
-        self.historyLabel = QLabel("跃迁记录", self)
+        self.historyLabel = QLabel(self.tr("Warp record"), self)
         self.historyLabel.setContentsMargins(0, 8, 0, 0)
         self.historyLabel.setFont(QFont("Microsoft YaHei", 24, QFont.Bold))
         self.vBoxLayout.addWidget(self.historyLabel)
@@ -35,11 +35,16 @@ class HistoryPage(QFrame):
 
         self.pool_box = ComboBox(self)
         self.pool_box.setMinimumSize(QSize(140, 0))
-        self.pool_box.addItems(['群星跃迁', '角色活动跃迁', '光锥活动跃迁', '始发跃迁'])
+        self.pool_box.addItems([
+            self.tr("Stellar Warp"),
+            self.tr("Character Event Warp"),
+            self.tr("Light Cone Event Warp"),
+            self.tr("Departure Warp")
+        ])
         self.pool_box.setCurrentIndex(0)
         self.pool_box.currentTextChanged.connect(self.fill_table)
 
-        self.refresh_button = PushButton("刷新页面", self, FluentIcon.SYNC)
+        self.refresh_button = PushButton(self.tr("Refresh Page"), self, FluentIcon.SYNC)
         self.refresh_button.clicked.connect(self.refresh)
 
         self.infoLayout.addWidget(self.uid_box)
@@ -84,13 +89,13 @@ class HistoryPage(QFrame):
         if uid == '':
             return
 
-        if pool_type == '群星跃迁':
+        if pool_type == self.tr("Stellar Warp"):
             pool = GachaType.STELLAR
-        elif pool_type == '角色活动跃迁':
+        elif pool_type == self.tr("Character Event Warp"):
             pool = GachaType.CHARACTER
-        elif pool_type == '光锥活动跃迁':
+        elif pool_type == self.tr("Light Cone Event Warp"):
             pool = GachaType.LIGHT_CONE
-        elif pool_type == '始发跃迁':
+        elif pool_type == self.tr("Departure Warp"):
             pool = GachaType.DEPARTURE
         else:
             return
@@ -102,7 +107,8 @@ class HistoryPage(QFrame):
             cost += 1
             self.tableFrame.table.setItem(i, 0, QTableWidgetItem(gacha.time))
             self.tableFrame.table.setItem(i, 1, QTableWidgetItem(gacha.name))
-            self.tableFrame.table.setItem(i, 2, QTableWidgetItem(gacha.item_type.value))
+            self.tableFrame.table.setItem(i, 2, QTableWidgetItem(
+                self.tr("Character") if gacha.item_type == ItemType.CHARACTER else self.tr("Light Cone")))
             self.tableFrame.table.setItem(i, 3, QTableWidgetItem(gacha.rank_type))
             self.tableFrame.table.setItem(i, 4, QTableWidgetItem(str(i + 1)))
             self.tableFrame.table.setItem(i, 5, QTableWidgetItem(str(cost)))
@@ -143,14 +149,21 @@ class TableFrame(QFrame):
         self.table.setRowCount(0)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-        self.table.setHorizontalHeaderLabels(['时间', '名称', '类别', '星级', '总跃迁次数', '保底内'])
+        self.table.setHorizontalHeaderLabels([
+            self.tr("Warp Time"),
+            self.tr("Warp Name"),
+            self.tr("Entity Type"),
+            self.tr("Entity Rank"),
+            self.tr("Total number of Warp"),
+            self.tr("In guarantees")
+        ])
 
         self.table.setColumnWidth(0, 250)
         self.table.setColumnWidth(1, 140)
-        self.table.setColumnWidth(2, 80)
-        self.table.setColumnWidth(3, 50)
-        self.table.setColumnWidth(4, 100)
-        self.table.setColumnWidth(5, 80)
+        self.table.setColumnWidth(2, 100)
+        self.table.setColumnWidth(3, 100)
+        self.table.setColumnWidth(4, 150)
+        self.table.setColumnWidth(5, 150)
 
         self.table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Fixed)

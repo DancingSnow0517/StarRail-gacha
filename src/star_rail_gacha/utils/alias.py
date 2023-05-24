@@ -1,18 +1,24 @@
 from typing import Optional
 
+from PyQt5.QtCore import QObject
+
 from ..gacha.types import GachaType
 
 
-def get_gacha_name_by_type(gacha_type: GachaType) -> Optional[str]:
-    if gacha_type == GachaType.ALL:
-        return "跃迁总览"
-    elif gacha_type == GachaType.CHARACTER:
-        return "角色活动跃迁"
-    elif gacha_type == GachaType.LIGHT_CONE:
-        return "光锥活动跃迁"
-    elif gacha_type == GachaType.DEPARTURE:
-        return "始发跃迁"
-    elif gacha_type == GachaType.STELLAR:
-        return "群星跃迁"
-    else:
-        return None
+class AliasUtils(QObject):
+    def get_gacha_name_by_type(self, gacha_type: GachaType) -> Optional[str]:
+        if gacha_type == GachaType.ALL:
+            return self.tr("Warp Overview")
+        elif gacha_type == GachaType.CHARACTER:
+            return self.tr("Character Event Warp")
+        elif gacha_type == GachaType.LIGHT_CONE:
+            return self.tr("Light Cone Event Warp")
+        elif gacha_type == GachaType.DEPARTURE:
+            return self.tr("Departure Warp")
+        elif gacha_type == GachaType.STELLAR:
+            return self.tr("Stellar Warp")
+        else:
+            return None
+
+
+alias_utils = AliasUtils()

@@ -57,21 +57,21 @@ class MainWindow(FramelessWindow):
         self.navigationInterface.addItem(
             routeKey=self.home_interface.objectName(),
             icon=FluentIcon.HOME,
-            text="主页",
+            text=self.tr("Home Page"),
             onClick=lambda: self.switchTo(self.home_interface)
         )
 
         self.navigationInterface.addItem(
             routeKey=self.history_interface.objectName(),
             icon=FluentIcon.HISTORY,
-            text="跃迁记录",
+            text=self.tr("Warp Record"),
             onClick=lambda: self.switchTo(self.history_interface)
         )
 
         self.navigationInterface.addItem(
             routeKey=self.settings_interface.objectName(),
             icon=FluentIcon.SETTING,
-            text="设置",
+            text=self.tr("Settings"),
             onClick=lambda: self.switchTo(self.settings_interface),
             position=NavigationItemPosition.BOTTOM
         )
@@ -86,7 +86,7 @@ class MainWindow(FramelessWindow):
     def initWindow(self):
         self.readSettings()
         self.setWindowIcon(QIcon('resources/star_rail.ico'))
-        self.setWindowTitle(f'崩坏：星穹铁道抽卡导出工具 - v{VERSION}')
+        self.setWindowTitle(self.tr("StarRail Gacha Exporter v%s") % VERSION)
         self.titleBar.setAttribute(Qt.WA_StyledBackground)
 
         StyleSheet.MAIN_WINDOW.apply(self)

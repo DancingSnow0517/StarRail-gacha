@@ -16,6 +16,6 @@ class GachaType(Enum):
 
 
 class ItemType(Enum):
-    CHARACTER = "角色"
-    LIGHT_CONE = "光锥"
+    CHARACTER = "Character"
+    LIGHT_CONE = "Light Cone"
 
