@@ -16,14 +16,14 @@ class ThemeColorSettingCard(ExpandGroupSettingCard):
 
         self.radioWidget = QWidget(self.view)
         self.radioLayout = QVBoxLayout(self.radioWidget)
-        self.defaultRadioButton = RadioButton(self.tr("default color"), self.radioWidget)
-        self.customRadioButton = RadioButton(self.tr("custom color"), self.radioWidget)
+        self.defaultRadioButton = RadioButton(self.tr("Default color"), self.radioWidget)
+        self.customRadioButton = RadioButton(self.tr("Custom color"), self.radioWidget)
         self.buttonGroup = QButtonGroup(self)
 
         self.customColorWidget = QWidget(self.view)
         self.customColorLayout = QHBoxLayout(self.customColorWidget)
 
-        self.customLabel = QLabel(self.tr("custom color"), self.customColorWidget)
+        self.customLabel = QLabel(self.tr("Custom color"), self.customColorWidget)
         self.customColorLineEdit = LineEdit(self.customColorWidget)
         self.customColorLineEdit.setMinimumWidth(100)
         self.chooseColorButton = QPushButton(self.tr("Choose a color"), self.customColorWidget)
