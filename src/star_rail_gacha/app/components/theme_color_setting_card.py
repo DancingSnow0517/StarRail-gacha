@@ -16,17 +16,17 @@ class ThemeColorSettingCard(ExpandGroupSettingCard):
 
         self.radioWidget = QWidget(self.view)
         self.radioLayout = QVBoxLayout(self.radioWidget)
-        self.defaultRadioButton = RadioButton("默认颜色", self.radioWidget)
-        self.customRadioButton = RadioButton("自定义颜色", self.radioWidget)
+        self.defaultRadioButton = RadioButton(self.tr("default color"), self.radioWidget)
+        self.customRadioButton = RadioButton(self.tr("custom color"), self.radioWidget)
         self.buttonGroup = QButtonGroup(self)
 
         self.customColorWidget = QWidget(self.view)
         self.customColorLayout = QHBoxLayout(self.customColorWidget)
 
-        self.customLabel = QLabel("自定义颜色", self.customColorWidget)
+        self.customLabel = QLabel(self.tr("custom color"), self.customColorWidget)
         self.customColorLineEdit = LineEdit(self.customColorWidget)
         self.customColorLineEdit.setMinimumWidth(100)
-        self.chooseColorButton = QPushButton("选择颜色", self.customColorWidget)
+        self.chooseColorButton = QPushButton(self.tr("Choose a color"), self.customColorWidget)
 
         self.addWidget(self.choiceLabel)
 
@@ -87,6 +87,6 @@ class ThemeColorSettingCard(ExpandGroupSettingCard):
             self.customColorLineEdit.setDisabled(False)
 
     def __showColorDialog(self):
-        w = ColorDialog(self.customColorLineEdit.text(), "选择颜色", self.window())
+        w = ColorDialog(self.customColorLineEdit.text(), self.tr("Choose a color"), self.window())
         w.colorChanged.connect(lambda x: self.customColorLineEdit.setText(x.name()))
         w.exec()

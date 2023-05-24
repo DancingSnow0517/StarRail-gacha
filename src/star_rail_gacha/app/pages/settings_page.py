@@ -1,3 +1,5 @@
+import re
+
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import QLabel, QWidget, QFileDialog
 from qfluentwidgets import FluentIcon, InfoBar, setTheme, setThemeColor, Theme, SettingCardGroup, \
@@ -5,6 +7,7 @@ from qfluentwidgets import FluentIcon, InfoBar, setTheme, setThemeColor, Theme, 
 
 from ..components.combo_box_setting_card import ComboBoxSettingCard
 from ..components.game_path_setting_card import GamePathSettingCard
+from ..components.language_setting_card import LanguageSettingCard
 from ..components.line_edit_setting_card import LineEditSettingCard
 from ..components.save_setting_card import PrimaryPushSettingCard
 from ..components.theme_color_setting_card import ThemeColorSettingCard
@@ -61,6 +64,13 @@ class SettingsPage(ScrollArea):
             config.theme_color,
             FluentIcon.PALETTE,
             "主题颜色",
+            parent=self.personalGroup
+        )
+        self.languageCard = LanguageSettingCard(
+            config.language,
+            FluentIcon.LANGUAGE,
+            "语言",
+            "选择软件软件显示语言，重启后生效。",
             parent=self.personalGroup
         )
         self.showDepartureCard = SwitchSettingCard(
@@ -165,6 +175,7 @@ class SettingsPage(ScrollArea):
 
         self.personalGroup.addSettingCard(self.themeCard)
         self.personalGroup.addSettingCard(self.themeColorCard)
+        self.personalGroup.addSettingCard(self.languageCard)
         self.personalGroup.addSettingCard(self.showDepartureCard)
 
         self.otherGroup.addSettingCard(self.logLevelCard)
@@ -208,6 +219,12 @@ class SettingsPage(ScrollArea):
         config.theme_color = self.themeColorCard.customColorLineEdit.text() if \
             self.themeColorCard.customRadioButton.isChecked() else \
             "#009faa"
+        language_text = self.languageCard.comboBox.currentText()
+        match = re.match(r".*\((.*)\)", language_text)
+        if match:
+            config.language = match.group(1)
+        else:
+            config.language = language_text
         config.log_level = self.logLevelCard.comboBox.text()
         config.gh_proxy = self.ghProxyCard.lineEdit.text()
         config.use_proxy = self.useProxyCard.switchButton.isChecked()

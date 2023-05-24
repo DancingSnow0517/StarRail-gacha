@@ -1,7 +1,7 @@
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt, QSettings, QSize, QPoint, QVariant
+from PyQt5.QtCore import Qt, QSettings, QSize, QPoint, QVariant, QTranslator
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget
+from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget, QApplication
 from qfluentwidgets import NavigationInterface, FluentIcon, NavigationItemPosition, qrouter
 from qframelesswindow import FramelessWindow, StandardTitleBar
 

@@ -16,7 +16,6 @@ class GamePathSettingCard(SettingCard):
         # noinspection PyTypeChecker
         self.gamePathButton = ToolButton(FluentIcon.SYNC)
         self.gamePathButton.clicked.connect(lambda: self.setContent(get_game_path()))
-        self.gamePathButton.setToolTip("自动获取游戏路径")
 
         self.button = PushButton(button_text, self)
         self.hBoxLayout.addWidget(self.button, 0, Qt.AlignRight)

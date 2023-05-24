@@ -9,6 +9,7 @@ class Config(QObject):
     get_full_data: bool
     dark_mode: bool
     theme_color: str
+    language: str
     log_level: str
     use_proxy: bool
     gh_proxy: str
@@ -22,6 +23,7 @@ class Config(QObject):
         self.get_full_data = kwargs.get('get_full_data', False)
         self.dark_mode = kwargs.get('dark_mode', False)
         self.theme_color = kwargs.get('theme_color', '#009FAA')
+        self.language = kwargs.get('language', 'zh-CN')
         self.log_level = kwargs.get('log_level', 'INFO')
         self.use_proxy = kwargs.get('use_proxy', False)
         self.gh_proxy = kwargs.get('gh_proxy', 'http://ghproxy.tbooks.com.cn/')
@@ -45,6 +47,7 @@ class Config(QObject):
             'get_full_data': self.get_full_data,
             'dark_mode': self.dark_mode,
             'theme_color': self.theme_color,
+            'language': self.language,
             'log_level': self.log_level,
             'use_proxy': self.use_proxy,
             'gh_proxy': self.gh_proxy,

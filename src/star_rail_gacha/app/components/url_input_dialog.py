@@ -14,17 +14,17 @@ class URLInputDialog(MaskDialogBase):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.titleLabel = QLabel("请输入抽卡记录URL：", self.widget)
+        self.titleLabel = QLabel(self.tr("Please enter gacha record URL:"), self.widget)
         self.urlLineEdit = LineEdit(self.widget)
         self.urlLineEdit.setPlaceholderText("https://api-takumi.mihoyo.com/")
         self.urlLineEdit.setClearButtonEnabled(True)
         self.urlLineEdit.setMinimumWidth(650)
 
         self.buttonGroup = QFrame(self.widget)
-        self.yesButton = PrimaryPushButton("确认", self.buttonGroup)
+        self.yesButton = PrimaryPushButton(self.tr("OK"), self.buttonGroup)
         self.yesButton.clicked.connect(self.__yes_button_clicked)
         self.yesButton.setAttribute(Qt.WA_LayoutUsesWidgetRect)
-        self.cancelButton = PushButton("取消", self.buttonGroup)
+        self.cancelButton = PushButton(self.tr("Cancel"), self.buttonGroup)
         self.cancelButton.clicked.connect(self.__cancel_button_clicked)
         self.cancelButton.setAttribute(Qt.WA_LayoutUsesWidgetRect)
 

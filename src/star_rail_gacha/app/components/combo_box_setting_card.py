@@ -6,7 +6,6 @@ from qfluentwidgets import SettingCard, FluentIconBase, ComboBox
 
 
 class ComboBoxSettingCard(SettingCard):
-    ...
 
     def __init__(self, value: str, values: List[str], icon: Union[str, QIcon, FluentIconBase], title, content=None,
                  parent=None):

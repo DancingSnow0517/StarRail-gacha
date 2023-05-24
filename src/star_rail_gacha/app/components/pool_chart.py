@@ -2,7 +2,7 @@ from PyQt5.QtChart import QPieSeries, QPieSlice, QChart, QChartView
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QColor, QFont, QPainter
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel
-from qfluentwidgets import ToggleButton, Theme, qconfig, setTheme, setThemeColor
+from qfluentwidgets import ToggleButton, Theme, qconfig
 
 from ...gacha.gacha_manager import GachaManager
 from ...gacha.types import GachaType
