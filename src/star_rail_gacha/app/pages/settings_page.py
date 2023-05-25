@@ -73,6 +73,14 @@ class SettingsPage(ScrollArea):
             self.tr("Select the software display language, which will take effect after restarting."),
             parent=self.personalGroup
         )
+        self.translateLinkCard = HyperlinkCard(
+            "https://crowdin.com/project/starrail-gacha",
+            self.tr("Open Crowdin"),
+            FluentIcon.LANGUAGE,
+            self.tr("Help us translate"),
+            self.tr("Don't see your language or the quality is poor? Help us translate!"),
+            parent = self.personalGroup
+        )
         self.showDepartureCard = SwitchSettingCard(
             FluentIcon.TAG,
             self.tr("Show Departure Warp"),
@@ -176,6 +184,7 @@ class SettingsPage(ScrollArea):
         self.personalGroup.addSettingCard(self.themeCard)
         self.personalGroup.addSettingCard(self.themeColorCard)
         self.personalGroup.addSettingCard(self.languageCard)
+        self.personalGroup.addSettingCard(self.translateLinkCard)
         self.personalGroup.addSettingCard(self.showDepartureCard)
 
         self.otherGroup.addSettingCard(self.logLevelCard)

@@ -32,9 +32,12 @@ class LanguageSettingCard(SettingCard):
         self.hBoxLayout.addSpacing(16)
 
         language_list = os.listdir("resources/i18n")
-        language_list.append("en-US")
+        language_list = ["en-US"] + language_list
         item_list = []
         for language in language_list:
+            if language == "en-US":
+                item_list.append(f"{language_map[language]} ({language})")
+                continue
             if os.path.isdir(f"resources/i18n/{language}"):
                 item_list.append(f"{language_map[language]} ({language})" if language in language_map else language)
 
