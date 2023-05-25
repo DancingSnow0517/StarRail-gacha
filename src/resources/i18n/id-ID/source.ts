@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh-TW" sourcelanguage="en">
+<TS version="2.1" language="id" sourcelanguage="en">
   <context>
     <name>AliasUtils</name>
     <message>
@@ -77,12 +77,12 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="120"/>
       <source>Update data</source>
-      <translation>更新数据</translation>
+      <translation type="unfinished">Update data</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="227"/>
       <source>Export Data</source>
-      <translation>導出數據</translation>
+      <translation type="unfinished">Export Data</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="124"/>
@@ -449,17 +449,17 @@ Do you want to download and install now?</translation>
     <message>
       <location filename="../../star_rail_gacha/app/components/theme_color_setting_card.py" line="19"/>
       <source>Default color</source>
-      <translation>預設顏色</translation>
+      <translation type="unfinished">Default color</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/theme_color_setting_card.py" line="26"/>
       <source>Custom color</source>
-      <translation>自訂顏色</translation>
+      <translation type="unfinished">Custom color</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/theme_color_setting_card.py" line="90"/>
       <source>Choose a color</source>
-      <translation>選擇一種顏色</translation>
+      <translation type="unfinished">Choose a color</translation>
     </message>
   </context>
   <context>
@@ -472,12 +472,12 @@ Do you want to download and install now?</translation>
     <message>
       <location filename="../../star_rail_gacha/app/components/url_input_dialog.py" line="24"/>
       <source>OK</source>
-      <translation>確認</translation>
+      <translation type="unfinished">OK</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/url_input_dialog.py" line="27"/>
       <source>Cancel</source>
-      <translation>取消</translation>
+      <translation type="unfinished">Cancel</translation>
     </message>
   </context>
   <context>
@@ -485,7 +485,7 @@ Do you want to download and install now?</translation>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="43"/>
       <source>Updating data...</source>
-      <translation>正在更新資料...</translation>
+      <translation type="unfinished">Updating data...</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="43"/>

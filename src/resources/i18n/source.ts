@@ -2,6 +2,34 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>AliasUtils</name>
+    <message>
+        <location filename="../../star_rail_gacha/utils/alias.py" line="11"/>
+        <source>Warp Overview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../star_rail_gacha/utils/alias.py" line="13"/>
+        <source>Character Event Warp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../star_rail_gacha/utils/alias.py" line="15"/>
+        <source>Light Cone Event Warp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../star_rail_gacha/utils/alias.py" line="17"/>
+        <source>Departure Warp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../star_rail_gacha/utils/alias.py" line="19"/>
+        <source>Stellar Warp</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HistoryPage</name>
     <message>
         <location filename="../../star_rail_gacha/app/pages/history_page.py" line="26"/>
@@ -369,6 +397,16 @@
         <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="245"/>
         <source>Discovering a new version: %s
 Do you want to download and install now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="38"/>
+        <source>Game Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="76"/>
+        <source>When opening，Departure warp will be displayed in the Home Page.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

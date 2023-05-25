@@ -38,7 +38,7 @@ class SettingsPage(ScrollArea):
         self.gamePathCard = GamePathSettingCard(
             self.tr("Select folder"),
             FluentIcon.FOLDER,
-            "Game Path",
+            self.tr("Game Path"),
             config.game_path,
             self.gachaSettingGroup
         )
@@ -76,7 +76,7 @@ class SettingsPage(ScrollArea):
         self.showDepartureCard = SwitchSettingCard(
             FluentIcon.TAG,
             self.tr("Show Departure Warp"),
-            "When opening，Departure warp will be displayed in the Home Page.",
+            self.tr("When opening，Departure warp will be displayed in the Home Page."),
             parent=self.personalGroup
         )
         self.showDepartureCard.switchButton.setChecked(config.show_departure)
