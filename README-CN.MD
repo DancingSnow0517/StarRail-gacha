@@ -42,6 +42,8 @@
 
 从 [Release](https://github.com/DancingSnow0517/StarRail-gacha/releases) 页面下载最新版本的压缩包，解压后运行 `StarRail Gacha Exporter.exe` 即可。
 
+打开游戏的跃迁历史记录，点击左上角的 `导出数据` 按钮，软件会自动的将最近 6 个月的所有数据导出来。
+
 ## 丨 维护者
 
 [@DancingSnow0517](https://github.com/DancingSnow0517)

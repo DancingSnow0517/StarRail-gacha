@@ -42,6 +42,8 @@ A tool for exporting gacha records from [Honkai: StarRail](https://hsr.hoyoverse
 
 From [Release](https://github.com/DancingSnow0517/StarRail-gacha/releases) download the latest version of the compressed package on the page, Run after decompression `StarRail Gacha Exporter.exe`.
 
+Open the game warp history, and then click `Export Data` button in the software, the software will automatically export the data.
+
 ## 丨 Maintainer
 
 [@DancingSnow0517](https://github.com/DancingSnow0517)
