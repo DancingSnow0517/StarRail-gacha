@@ -4,10 +4,14 @@
   </a>
 </p>
 
-<h1 align="center">崩坏：星穹铁道抽卡导出工具</h1>
+<h1 align="center">StarRail Gacha Exporter</h1>
 
 <h3 align="center">
-  ✨ 基于 <a href="https://www.python.org/">Python 3.10</a> 和 <a href="https://pypi.org/project/PyQt5/">PyQt5</a> 编写的工具 ✨
+    English | <a href="README-CN.MD">简体中文</a>
+</h3>
+
+<h3 align="center">
+  ✨ Tools written based on <a href="https://www.python.org/">Python 3.10</a> and <a href="https://pypi.org/project/PyQt5/">PyQt5</a> ✨
 </h3>
 
 <p align="center">
@@ -17,38 +21,44 @@
   <a href="https://qm.qq.com/cgi-bin/qm/qr?k=s61-P0XfzSf31k7U1DwEy9gwwZQZ1ibP&jump_from=webapi&authKey=rr2tKgtASGSdUZWfhmgd75Tz49BPyCELq20t4q4Qg9uiP8+aXM2BGonpssyeCxpp"><img src="https://img.shields.io/badge/QQ%E4%BA%A4%E6%B5%81%E7%BE%A4-723453160-ff69b4" alt="QQ"></a>
 </p>
 
-## 丨简介
+## 丨Introduction
 
-一个用于导出 [崩坏：星穹铁道](https://sr.mihoyo.com/) 抽卡记录的小工具。
+A tool for exporting gacha records from [Honkai: StarRail](https://hsr.hoyoverse.com/en-us/).
 
-## 丨功能列表
+## 丨Features
 
-- 从游戏中导出抽卡记录
-- 从记录中绘制饼图分析记录
-- 导出记录为 Excel 表格
-- 导出原始记录为 JSON 文件
-- 内置的抽卡记录分析器，快速帮你分析你的记录，以及你的已垫抽数。
+- Export gacha records from the game
+- Draw pie chart from the records
+- Export records to Excel table
+- Export raw records to JSON file
+- Built-in gacha record analyzer, which can help you analyze your records.
 
 <details>
-<summary>软件截图</summary>
-<img src="imgs/1.png" alt="软件主界面"/>
+<summary>Screenshot</summary>
+<img src="imgs/1.png" alt="Software main page"/>
 </details>
 
-## 丨 使用方法
+## 丨 Usage
 
-从 [Release](https://github.com/DancingSnow0517/StarRail-gacha/releases) 页面下载最新版本的压缩包，解压后运行 `StarRail Gacha Exporter.exe` 即可。
+From [Release](https://github.com/DancingSnow0517/StarRail-gacha/releases) download the latest version of the compressed package on the page, Run after decompression `StarRail Gacha Exporter.exe`.
 
-## 丨 维护者
+## 丨 Maintainer
 
 [@DancingSnow0517](https://github.com/DancingSnow0517)
 
-## 丨 如何贡献
+## 丨 Localization
 
-非常欢迎你的加入！[提一个 Issue](https://github.com/DancingSnow0517/StarRail-gacha/issues/new) 或者提交一个 Pull Request。
+Currently, the software supports multiple languages, but currently only Simplified Chinese and English are available, with most of the others being machine translated.
 
-崩坏：星穹铁道抽卡导出工具遵循 [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) 行为规范。
+If you want to improve our translation, welcome to [Crowdin](https://crowdin.com/project/StarRail-gacha) to translate for us.
 
-## 丨 使用许可
+## 丨 Contributing
+
+We welcome you to join us! [Create an Issue](https://github.com/DancingSnow0517/StarRail-gacha/issues/new) or create a Pull Request.
+
+Honkai: StarRail Gacha Exporter follows the [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) Code of Conduct.
+
+## 丨 License
 
 [MIT](LICENSE) © DancingSnow0517
 
