@@ -29,6 +29,8 @@ class Gacha:
         self.id = kwargs.get('id')
 
         self._region_time_zone = region_time_zone
+        if self._region_time_zone is None:
+            self._region_time_zone = 8
         _iso_format = kwargs.get('time', '').replace(' ', 'T') + \
                            ('+%02d' if self._region_time_zone >= 0 else '%03d') % self._region_time_zone + ':00'
         self._timestamp = datetime.fromisoformat(_iso_format).timestamp()
