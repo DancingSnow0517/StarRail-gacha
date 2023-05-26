@@ -254,147 +254,147 @@
       <translation>Выберите язык отображения программы, который будет действовать после перезапуска.</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="76"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
       <source>Show Departure Warp</source>
       <translation>Показать варп вылета</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="92"/>
       <source>Other</source>
       <translation>Прочие вопросы</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="85"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="93"/>
       <source>Log Level</source>
       <translation>Уровень журнала</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="85"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="93"/>
       <source>Set the log level of the software. The higher the level, the more logs will be output, which will take effect after restarting.</source>
       <translation>Устанавливает уровень журнала программного обеспечения. Чем выше уровень, тем больше логов будет выведено, что вступит в силу после перезапуска.</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="94"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="102"/>
       <source>Software updates</source>
       <translation>Обновления ПО</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="95"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="103"/>
       <source>Check for updates</source>
       <translation>Проверить обновления</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="95"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="103"/>
       <source>Check for updates to StarRail Gacha Exporter.</source>
       <translation>Проверять наличие обновлений для экспортера StarRail Gacha.</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="95"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="103"/>
       <source>Current version: </source>
       <translation>Текущая версия: </translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="103"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="111"/>
       <source>Proxy</source>
       <translation>Прокси</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="103"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="111"/>
       <source>When opening, The software will use a proxy address to download new versions.</source>
       <translation>При открытии программа будет использовать прокси адрес для загрузки новых версий.</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="110"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="118"/>
       <source>GitHub Proxy</source>
       <translation>GitHub Proxy</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="110"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="118"/>
       <source>Set GitHub proxy address</source>
       <translation>Установить GitHub прокси адрес</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="118"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="126"/>
       <source>About</source>
       <translation>О программе</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="119"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="127"/>
       <source>GitHub repository</source>
       <translation>GitHub repository</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="119"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="127"/>
       <source>Open the GitHub repository</source>
       <translation>Откройте GitHub репозиторий</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="119"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="127"/>
       <source>This project is already open source using the MIT license on Github!</source>
       <translation>Этот проект уже с открытым исходным кодом использует MIT лицензию на Github!</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="127"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
       <source>Feedback issues</source>
       <translation>Замечания по отзывам</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="127"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
       <source>Open GitHub Issues</source>
       <translation>Открыть проблемы GitHub</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="127"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
       <source>If you encounter any problems during use, please feel free to provide feedback on GitHub Issues!</source>
       <translation>Если вы столкнулись с какими-либо проблемами во время использования, пожалуйста, оставьте отзыв о проблемах с GitHub!</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
       <source>QQ Group</source>
       <translation>QQ-группа</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
       <source>Join QQ group</source>
       <translation>Присоединиться к QQ группе</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
       <source>Welcome to join the QQ group and discuss for improvement in this project together!</source>
       <translation>Добро пожаловать в группу QQ и совместно обсуждайте улучшения в этом проекте!</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="144"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="152"/>
       <source>Save Settings</source>
       <translation>Сохранить настройки</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="144"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="152"/>
       <source>Save the current settings</source>
       <translation>Сохранить текущие настройки</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="201"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="210"/>
       <source>Choose a game path</source>
       <translation>Выберите путь к игре</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="237"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="246"/>
       <source>Configuration file saved successfully!</source>
       <translation>Конфигурационный файл успешно сохранен!</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="245"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="254"/>
       <source>Check update</source>
       <translation>Проверить обновление</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="242"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="251"/>
       <source>It is currently the latest version!</source>
       <translation>В настоящее время это последняя версия!</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="245"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="254"/>
       <source>Discovering a new version: %s
 Do you want to download and install now?</source>
       <translation>Открытие новой версии: %s
@@ -406,9 +406,24 @@ Do you want to download and install now?</source>
       <translation type="unfinished">Game Path</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="76"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
       <source>When opening，Departure warp will be displayed in the Home Page.</source>
       <translation type="unfinished">When opening，Departure warp will be displayed in the Home Page.</translation>
+    </message>
+    <message>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="76"/>
+      <source>Open Crowdin</source>
+      <translation type="unfinished">Open Crowdin</translation>
+    </message>
+    <message>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="76"/>
+      <source>Help us translate</source>
+      <translation type="unfinished">Help us translate</translation>
+    </message>
+    <message>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="76"/>
+      <source>Don&apos;t see your language or the quality is poor? Help us translate!</source>
+      <translation type="unfinished">Don&apos;t see your language or the quality is poor? Help us translate!</translation>
     </message>
   </context>
   <context>
