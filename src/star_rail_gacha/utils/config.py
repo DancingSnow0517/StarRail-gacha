@@ -7,6 +7,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 class Config(QObject):
     game_path: str
     get_full_data: bool
+    game_server: str
     dark_mode: bool
     theme_color: str
     language: str
@@ -21,6 +22,7 @@ class Config(QObject):
         super().__init__()
         self.game_path = kwargs.get('game_path', '')
         self.get_full_data = kwargs.get('get_full_data', False)
+        self.game_server = kwargs.get('game_server', 'CN')
         self.dark_mode = kwargs.get('dark_mode', False)
         self.theme_color = kwargs.get('theme_color', '#009FAA')
         self.language = kwargs.get('language', 'en-US')
@@ -45,6 +47,7 @@ class Config(QObject):
         return {
             'game_path': self.game_path,
             'get_full_data': self.get_full_data,
+            'game_server': self.game_server,
             'dark_mode': self.dark_mode,
             'theme_color': self.theme_color,
             'language': self.language,
