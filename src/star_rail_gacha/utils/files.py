@@ -17,7 +17,6 @@ log = logging.getLogger(__name__)
 
 
 def get_game_path() -> Optional[str]:
-    print(config.game_server)
     PATH = GAME_LOG_PATH.get(config.game_server)
     log_path = PLAYER_LOG_PATH.format(PATH)
     log.info(f'尝试查找日志位置：{log_path}')
