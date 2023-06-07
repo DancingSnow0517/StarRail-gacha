@@ -29,7 +29,7 @@ function set_download_url() {
             }
             bt1.href = download_url
             bt2.href = download_url
-            backup_download.href = 'http://ghproxy.tbooks.com.cn/' + download_url
+            backup_download.href = 'https://ghproxy.com/' + download_url
         }
     }
 }

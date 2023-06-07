@@ -28,7 +28,7 @@ class Config(QObject):
         self.language = kwargs.get('language', 'en-US')
         self.log_level = kwargs.get('log_level', 'INFO')
         self.use_proxy = kwargs.get('use_proxy', False)
-        self.gh_proxy = kwargs.get('gh_proxy', 'http://ghproxy.tbooks.com.cn/')
+        self.gh_proxy = kwargs.get('gh_proxy', 'https://ghproxy.com/')
         self.show_departure = kwargs.get('show_departure', True)
 
     @classmethod
