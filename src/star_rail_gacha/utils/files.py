@@ -17,8 +17,7 @@ log = logging.getLogger(__name__)
 
 
 def get_game_path() -> Optional[str]:
-    PATH = GAME_LOG_PATH.get(config.game_server)
-    log_path = PLAYER_LOG_PATH.format(PATH)
+    log_path = PLAYER_LOG_PATH.format(GAME_LOG_PATH.get(config.game_server))
     log.info(f'尝试查找日志位置：{log_path}')
     if not os.path.exists(log_path):
         log.warning(f"在目录: {log_path} 中未找到\"崩坏：星穹铁道\"日志")

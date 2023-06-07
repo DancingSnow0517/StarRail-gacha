@@ -224,177 +224,177 @@
       <translation>开启后，点击&apos;更新数据&apos;按钮会完整获取6个月内的所有的抽卡记录，可能会花费比较长的时间。</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="54"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="62"/>
       <source>personalization</source>
       <translation>个性化</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="55"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="63"/>
       <source>Dark Theme</source>
       <translation>深色主题</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="55"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="63"/>
       <source>When opening, the interface will change to dark mode.</source>
       <translation>开启后，界面会变成深色模式。</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="62"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="70"/>
       <source>Theme Color</source>
       <translation>主题颜色</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="69"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="77"/>
       <source>Language</source>
       <translation>语言</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="69"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="77"/>
       <source>Select the software display language, which will take effect after restarting.</source>
       <translation>选择软件的显示语言，在重启后生效。</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="92"/>
       <source>Show Departure Warp</source>
       <translation>显示始发跃迁</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="92"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="100"/>
       <source>Other</source>
       <translation>其他</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="93"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="101"/>
       <source>Log Level</source>
       <translation>日志等级</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="93"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="101"/>
       <source>Set the log level of the software. The higher the level, the more logs will be output, which will take effect after restarting.</source>
       <translation>设置写入文件日志等级（等级越高，日志越多），重启后生效。</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="102"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="110"/>
       <source>Software updates</source>
       <translation>软件更新</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="103"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="111"/>
       <source>Check for updates</source>
       <translation>检查更新</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="103"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="111"/>
       <source>Check for updates to StarRail Gacha Exporter.</source>
       <translation>检查 StarRail Gacha Exporter 更新</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="103"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="111"/>
       <source>Current version: </source>
       <translation>当前版本: </translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="111"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="119"/>
       <source>Proxy</source>
       <translation>代理</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="111"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="119"/>
       <source>When opening, The software will use a proxy address to download new versions.</source>
       <translation>开启后，软件会使用代理地址来下载新版本。</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="118"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="126"/>
       <source>GitHub Proxy</source>
       <translation>GitHub 代理</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="118"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="126"/>
       <source>Set GitHub proxy address</source>
       <translation>设置 GitHub 代理地址</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="126"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="134"/>
       <source>About</source>
       <translation>关于</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="127"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
       <source>GitHub repository</source>
       <translation>GitHub 仓库</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="127"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
       <source>Open the GitHub repository</source>
       <translation>打开 GitHub 仓库</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="127"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
       <source>This project is already open source using the MIT license on Github!</source>
       <translation>本项目已经在 github 使用 MIT 许可证开源！</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
       <source>Feedback issues</source>
       <translation>反馈问题</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
       <source>Open GitHub Issues</source>
       <translation>打开 GitHub Issues</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
       <source>If you encounter any problems during use, please feel free to provide feedback on GitHub Issues!</source>
       <translation>如果你在使用过程中遇到了问题，欢迎在 GitHub Issues 中反馈！</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="151"/>
       <source>QQ Group</source>
       <translation>QQ群</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="151"/>
       <source>Join QQ group</source>
       <translation>加入QQ群</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="151"/>
       <source>Welcome to join the QQ group and discuss for improvement in this project together!</source>
       <translation>欢迎加入QQ群，一起讨论本项目可以改进的地方！</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="152"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="160"/>
       <source>Save Settings</source>
       <translation>保存</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="152"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="160"/>
       <source>Save the current settings</source>
       <translation>保存设置</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="210"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="219"/>
       <source>Choose a game path</source>
       <translation>选择游戏路径</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="246"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="256"/>
       <source>Configuration file saved successfully!</source>
       <translation>配置文件保存成功！</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="254"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="264"/>
       <source>Check update</source>
       <translation>检查更新</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="251"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="261"/>
       <source>It is currently the latest version!</source>
       <translation>当前已经是最新版本！</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="254"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="264"/>
       <source>Discovering a new version: %s
 Do you want to download and install now?</source>
       <translation>发现新版本：%s
@@ -406,24 +406,36 @@ Do you want to download and install now?</source>
       <translation>游戏路径</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="92"/>
       <source>When opening，Departure warp will be displayed in the Home Page.</source>
       <translation>开启时，始发跃迁会现在在主页中。</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="76"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
       <source>Open Crowdin</source>
       <translation>打开 Crowdin</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="76"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
       <source>Help us translate</source>
       <translation>协助我们进行翻译</translation>
     </message>
     <message>
-      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="76"/>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
       <source>Don&apos;t see your language or the quality is poor? Help us translate!</source>
       <translation>当前语言翻译质量差？协助我们完善翻译！</translation>
+    </message>
+    <message>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="53"/>
+      <source>Game Server</source>
+      <translation>游戏服务器</translation>
+    </message>
+    <message>
+      <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="53"/>
+      <source>Select the game server you need to fetch the gacha records. This will determine which server the software fetch the gacha records from.
+OS is the Global Server; CN is the Chinese Server</source>
+      <translation>选择您需要获取抽卡记录的游戏服务器。这会决定软件从哪个服务器获取抽卡记录。
+OS 是国际服； CN是国服</translation>
     </message>
   </context>
   <context>

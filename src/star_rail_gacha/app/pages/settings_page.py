@@ -55,7 +55,7 @@ class SettingsPage(ScrollArea):
             ['CN', 'OS'],
             FluentIcon.CAMERA,
             self.tr("Game Server"),
-            self.tr("Select the game server you need to fetch the gacha records.\nThis will determine which server the software fetch the gacha records from.\nOS is the Global Server; CN is the Chinese Server"),
+            self.tr("Select the game server you need to fetch the gacha records. This will determine which server the software fetch the gacha records from.\nOS is the Global Server; CN is the Chinese Server"),
             parent=self.gachaSettingGroup 
         )
 
