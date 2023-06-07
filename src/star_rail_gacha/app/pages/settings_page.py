@@ -50,6 +50,14 @@ class SettingsPage(ScrollArea):
             parent=self.gachaSettingGroup
         )
         self.getFullDataCard.switchButton.setChecked(config.get_full_data)
+        self.gameServerCard = ComboBoxSettingCard(
+            config.game_server,
+            ['CN', 'OS'],
+            FluentIcon.CAMERA,
+            self.tr("Game Server"),
+            self.tr("Select the game server you need to fetch the gacha records.\nThis will determine which server the software fetch the gacha records from.\nOS is the Global Server; CN is the Chinese Server"),
+            parent=self.gachaSettingGroup 
+        )
 
         self.personalGroup = SettingCardGroup(self.tr("personalization"), self.scrollWidget)
         self.themeCard = SwitchSettingCard(
@@ -180,6 +188,7 @@ class SettingsPage(ScrollArea):
 
         self.gachaSettingGroup.addSettingCard(self.gamePathCard)
         self.gachaSettingGroup.addSettingCard(self.getFullDataCard)
+        self.gachaSettingGroup.addSettingCard(self.gameServerCard)
 
         self.personalGroup.addSettingCard(self.themeCard)
         self.personalGroup.addSettingCard(self.themeColorCard)
@@ -224,6 +233,7 @@ class SettingsPage(ScrollArea):
     def save_config(self):
         config.game_path = self.gamePathCard.contentLabel.text()
         config.get_full_data = self.getFullDataCard.switchButton.isChecked()
+        config.game_server = self.gameServerCard.comboBox.text()
         config.dark_mode = self.themeCard.switchButton.isChecked()
         config.theme_color = self.themeColorCard.customColorLineEdit.text() if \
             self.themeColorCard.customRadioButton.isChecked() else \

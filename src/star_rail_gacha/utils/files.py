@@ -5,25 +5,30 @@ import re
 import subprocess
 from typing import Optional
 
-GAME_LOG_PATH_LIST = ['miHoYo/崩坏：星穹铁道', 'Cognosphere/Star Rail']
+from .config import config
+
+GAME_LOG_PATH = {
+    'CN': 'miHoYo/崩坏：星穹铁道',
+    'OS': 'Cognosphere/Star Rail'
+}
 PLAYER_LOG_PATH = os.environ["userprofile"] + '/AppData/LocalLow/{0}/Player.log'
 
 log = logging.getLogger(__name__)
 
 
 def get_game_path() -> Optional[str]:
-    for PATH in GAME_LOG_PATH_LIST:
-        log_path = PLAYER_LOG_PATH.format(PATH)
-        log.info(f'尝试查找日志位置：{log_path}')
-        if not os.path.exists(log_path):
-            log.warning(f"在目录: {log_path} 中未找到\"崩坏：星穹铁道\"日志")
-            continue
-        log.info("正在读取 \"Player.log\"...")
-        with open(log_path, 'r', encoding='utf-8') as f:
-            log_content = f.read()
-        match = re.match(r'Loading player data from (.*)StarRail_Data.*', log_content)
-        if match:
-            return match.group(1)
+    PATH = GAME_LOG_PATH.get(config.game_server)
+    log_path = PLAYER_LOG_PATH.format(PATH)
+    log.info(f'尝试查找日志位置：{log_path}')
+    if not os.path.exists(log_path):
+        log.warning(f"在目录: {log_path} 中未找到\"崩坏：星穹铁道\"日志")
+        return
+    log.info("正在读取 \"Player.log\"...")
+    with open(log_path, 'r', encoding='utf-8') as f:
+        log_content = f.read()
+    match = re.search(r'Loading player data from (.*)StarRail_Data.*', log_content)
+    if match:
+        return match.group(1)
     log.error("未找到\"崩坏：星穹铁道\"日志")
     return None
 
