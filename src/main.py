@@ -1,4 +1,7 @@
 import sys
+import traceback
+from types import TracebackType
+from typing import Type, Optional
 
 from PyQt5.QtCore import Qt, QTranslator
 from PyQt5.QtWidgets import QApplication
@@ -26,9 +29,27 @@ def main():
     app.installTranslator(trans)
 
     main_app = MainWindow()
+    main_app.window()
     main_app.show()
 
+    hook_sys_except()
+
     app.exec_()
+
+
+def hook_sys_except():
+    def exception_hook(exc_type: Type[BaseException], exc_value: BaseException, tb: Optional[TracebackType]):
+        log.critical('Uncaught exception: ', exc_info=(exc_type, exc_value, tb))
+
+        sys.__excepthook__(exc_type, exc_value, tb)
+
+        err_msg = ''.join(traceback.format_exception(exc_type, exc_value, tb))
+        err_msg += '\n'
+        err_msg += 'An uncaught exception occurred. Place report it to github issue!'
+
+        QApplication.exit(-500)
+
+    sys.excepthook = exception_hook
 
 
 if __name__ == '__main__':
