@@ -1,5 +1,5 @@
 import json
-from typing import Dict
+from typing import Dict, Optional
 from bidict import bidict
 
 data_path = 'resources/starrail_all.json'
@@ -38,8 +38,11 @@ class ItemTranslateManager:
         for lang, d in data.items():
             self.data[lang] = bidict(d)
 
-    def translate_from_item_id(self, lang: str, item_id: int):
-        return self.data[lang_map[lang]].inverse[item_id]
+    def translate_from_item_id(self, lang: str, item_id: int) -> Optional[str]:
+        if item_id in self.data[lang_map[lang]].inverse:
+            return self.data[lang_map[lang]].inverse[item_id]
+        else:
+            return None
 
 
 translate_manager = ItemTranslateManager.init()

@@ -29,7 +29,9 @@ class GachaManager:
     def _translate(self, lang: str):
         for gacha_type in GachaType:
             for gacha in self.records.get(gacha_type, []):
-                gacha.name = translate_manager.translate_from_item_id(lang, int(gacha.item_id))
+                new_name = translate_manager.translate_from_item_id(lang, int(gacha.item_id))
+                if new_name:
+                    gacha.name = new_name
 
     def set_lang(self, lang: str):
         self.lang = lang
