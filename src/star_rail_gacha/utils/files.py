@@ -41,13 +41,25 @@ def get_local_api_url(game_path: Optional[str] = None) -> Optional[str]:
         if game_path is None:
             log.error("未找到游戏目录")
             return None
-
         log.info("游戏目录获取成功")
+
+    log.info("尝试获取 SDK版本")
+    version = None
+    for i in os.listdir(f"{game_path}StarRail_Data/webCaches"):
+        match = re.match(r'^(\d+).(\d+).(\d+).(\d+)$', i)
+        if match:
+            version = match.group(0)
+
+    if version is None:
+        log.error("未获取到 SDK版本号")
+        return
+    log.info(f'获取的 SDK版本号: {version}')
+
     log.info("尝试复制\"data_2\"到临时文件夹")
     p = subprocess.Popen(
         [
             "powershell", "Copy-Item",
-            rf'"{game_path}StarRail_Data/webCaches/Cache/Cache_Data/data_2"',
+            rf'"{game_path}StarRail_Data/webCaches/{version}/Cache/Cache_Data/data_2"',
             "-Destination", "temp"
         ], stdout=subprocess.PIPE, shell=True)
     p.wait()
