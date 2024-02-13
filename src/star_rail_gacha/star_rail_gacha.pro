@@ -7,4 +7,4 @@ SOURCES += app/main_window.py \
            app/components/pool_chart.py \
            utils/alias.py \
 
-TRANSLATIONS = ..\resources\i18n\source.ts
+TRANSLATIONS = ../resources/i18n/source.ts
