@@ -23,7 +23,7 @@ check_and_release()
   if [ "${file##*.}"x = "ts"x ]
   then
     echo $file
-    lrelease $file
+    $Python_ROOT_DIR/site-packages/qt5_applications/Qt/bin/lrelease $file
   fi
 }
 
