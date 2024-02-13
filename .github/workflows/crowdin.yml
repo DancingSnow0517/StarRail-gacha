@@ -1,0 +1,29 @@
+name: Update Crowdin Translate
+on:
+  schedule:
+    - '0 0 0 ? * 7'
+  workflow_dispatch: 
+    
+
+jobs:
+  crowdin:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: crowdin/github-action@v1.19.0
+        with:
+          upload_sources: true
+          download_translations: true
+          push_translations: true
+          commit_message: New Crowdin translations by GitHub Action
+          localization_branch_name: master
+          create_pull_request: false
+          download_translations_args: --all
+          project_id: 590371
+          token: ${{ secrets.CROWDIN_API_TOKEN }}
+          base_url: https://api.crowdin.com
+          base_path: src/resources/i18n
+          source: /source.ts
+          translation: /%locale%/%original_file_name%
