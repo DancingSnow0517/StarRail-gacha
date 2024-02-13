@@ -1,6 +1,6 @@
 traverse_dir()
 {
-  filepath="src/resources/i18n"
+  filepath=$1
   for file in `ls -a $filepath`
   do
     if [ -d $filepath/$file ]
@@ -26,3 +26,5 @@ check_and_release()
     lrelease $file
   fi
 }
+
+traverse_dir "src/resources/i18n"
