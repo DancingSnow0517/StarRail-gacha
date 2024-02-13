@@ -1,6 +1,6 @@
 traverse_dir()
 {
-  filepath=$1
+  local filepath=$1
   for file in `ls -a $filepath`
   do
     if [ -d $filepath/$file ]
@@ -18,7 +18,7 @@ traverse_dir()
 
 check_and_release()
 {
-  file=$1
+  local file=$1
 
   if [ "${file##*.}"x = "ts"x ]
   then
