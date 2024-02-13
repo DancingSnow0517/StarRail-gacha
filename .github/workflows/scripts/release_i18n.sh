@@ -23,7 +23,7 @@ check_and_release()
   if [ "${file##*.}"x = "ts"x ]
   then
     echo $file
-    $LIB_PATH/site-packages/qt5_applications/Qt/bin/lrelease $file
+    $LIB_PATH/qt5_applications/Qt/bin/lrelease $file
   fi
 }
 
