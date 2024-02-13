@@ -1,9 +1,9 @@
 name: Update Crowdin Translate
 on:
   schedule:
-    - '0 0 0 ? * 7'
-  workflow_dispatch: 
-    
+    - cron: '0 0 0 ? * 7'
+  workflow_dispatch:
+
 
 jobs:
   crowdin:
