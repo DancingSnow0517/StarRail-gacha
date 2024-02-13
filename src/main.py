@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QApplication
 from star_rail_gacha.utils.config import config
 from star_rail_gacha.utils.logger import patch_getLogger, ColoredLogger
 
-log = ColoredLogger('LittlePaimon', level=config.log_level)
+log = ColoredLogger('StarRail-Gacha', level=config.log_level)
 
 
 def main():
