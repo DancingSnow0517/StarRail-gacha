@@ -44,8 +44,15 @@ jobs:
           base_path: src/resources/i18n
           source: /source.ts
           translation: /%locale%/%original_file_name%
+          preserve_hierarchy: true
+
+      - name: Find site-packages path
+        id: find_path
+        run: python .github/workflows/scripts/lib_path.py >> "$GITHUB_OUTPUT"
 
       - name: Release i18n files
+        env:
+          LIB_PATH = ${{ steps.find_path.outputs.lib_path }}
         run: sh ./.github/workflows/scripts/release_i18n.sh
 
       - name: Commit released i18n files
