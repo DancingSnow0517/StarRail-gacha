@@ -522,7 +522,7 @@ OS 是国际服； CN是国服</translation>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="53"/>
       <source>API address not found, please check if the gacha history of StarRail has been opened</source>
-      <translation>未找到API地址, 请检查是否开启过星穹铁道的历史记录</translation>
+      <translation>未找到API地址, 请检查是否开启过星穹铁道的历史跃迁记录</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="55"/>

@@ -6,27 +6,27 @@
     <message>
       <location filename="../../star_rail_gacha/utils/alias.py" line="11"/>
       <source>Warp Overview</source>
-      <translation type="unfinished">Warp Overview</translation>
+      <translation>跳躍概要</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/utils/alias.py" line="13"/>
       <source>Character Event Warp</source>
-      <translation type="unfinished">Character Event Warp</translation>
+      <translation>キャラクターイベント跳躍</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/utils/alias.py" line="15"/>
       <source>Light Cone Event Warp</source>
-      <translation type="unfinished">Light Cone Event Warp</translation>
+      <translation>光円錐イベント跳躍</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/utils/alias.py" line="17"/>
       <source>Departure Warp</source>
-      <translation type="unfinished">Departure Warp</translation>
+      <translation>始発跳躍</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/utils/alias.py" line="19"/>
       <source>Stellar Warp</source>
-      <translation type="unfinished">Stellar Warp</translation>
+      <translation>群星跳躍</translation>
     </message>
   </context>
   <context>
@@ -34,27 +34,27 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="26"/>
       <source>Warp record</source>
-      <translation>ワープレコード</translation>
+      <translation>跳躍履歴</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="92"/>
       <source>Stellar Warp</source>
-      <translation>Stellar Warp</translation>
+      <translation>群生跳躍</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="94"/>
       <source>Character Event Warp</source>
-      <translation>キャラクターイベントワープ</translation>
+      <translation>キャラクターイベント跳躍</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="96"/>
       <source>Light Cone Event Warp</source>
-      <translation>ライトコーンイベントワープ</translation>
+      <translation>光円錐イベント跳躍</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="98"/>
       <source>Departure Warp</source>
-      <translation>出発ワープ</translation>
+      <translation>始発跳躍</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="47"/>
@@ -64,12 +64,12 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="110"/>
       <source>Character</source>
-      <translation>文字</translation>
+      <translation>キャラクター</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="110"/>
       <source>Light Cone</source>
-      <translation>ライトコーン</translation>
+      <translation>光円錐</translation>
     </message>
   </context>
   <context>
@@ -87,7 +87,7 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="124"/>
       <source>Manual import</source>
-      <translation>手動インポート</translation>
+      <translation>手動で更新</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="247"/>
@@ -97,7 +97,7 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="243"/>
       <source>Unsupported type</source>
-      <translation>対応していないタイプ</translation>
+      <translation>対応していない形式</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="247"/>
@@ -125,7 +125,7 @@
     <message>
       <location filename="../../star_rail_gacha/app/main_window.py" line="64"/>
       <source>Warp Record</source>
-      <translation>ワープレコード</translation>
+      <translation>跳躍履歴</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/main_window.py" line="71"/>
@@ -143,57 +143,57 @@
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="171"/>
       <source>5 Star Character</source>
-      <translation>5つ星の文字</translation>
+      <translation>星5キャラクター</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="172"/>
       <source>5 Star Light Cone</source>
-      <translation>5つ星ライトコーン</translation>
+      <translation>星5光円錐</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="173"/>
       <source>4 Star Character</source>
-      <translation>4つ星の文字</translation>
+      <translation>星4キャラクター</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="174"/>
       <source>4 Star Light Cone</source>
-      <translation>4 Star Light Cone</translation>
+      <translation>星4光円錐</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="175"/>
       <source>3 Star Light Cone</source>
-      <translation>3 Star Light Cone</translation>
+      <translation>星3光円錐</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="182"/>
       <source>Total %s Pulls Accumulated %s pulls without a 5 star</source>
-      <translation>合計 %s のプルが累積 %s のプルを5つ星なし</translation>
+      <translation>合計 %s 回。最後の星5から %s 回。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="188"/>
       <source>5 Star: %d</source>
-      <translation>5つ星: %d</translation>
+      <translation>星5: %d</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="195"/>
       <source>4 Star: %d</source>
-      <translation>4 つ星: %d</translation>
+      <translation>星4: %d</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="202"/>
       <source>3 Star: %d</source>
-      <translation>3つ星: %d</translation>
+      <translation>星3: %d</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="213"/>
       <source>5 star history: </source>
-      <translation>5つ星の歴史: </translation>
+      <translation>星5履歴: </translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/pool_chart.py" line="226"/>
       <source>5 star on average: </source>
-      <translation>平均5つ星: </translation>
+      <translation>星5までの平均: </translation>
     </message>
   </context>
   <context>
@@ -206,7 +206,7 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="37"/>
       <source>Gacha record fetch settings</source>
-      <translation>ガチャレコードのフェッチ設定</translation>
+      <translation>ガチャ履歴取得設定</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="38"/>
@@ -221,12 +221,12 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="46"/>
       <source>When opening, clicking the &apos;Update Data&apos; button will fully fetch all gacha records within 6 months, which may take a relatively long time.</source>
-      <translation>開くと、 &apos;データの更新&apos; ボタンをクリックすると、6ヶ月以内にすべてのガチャレコードが完全にフェッチされます。これは比較的長い時間がかかる場合があります。</translation>
+      <translation>オンにすると、毎回すべてのガチャ履歴（過去6ヶ月分）を取得します。これは比較的長い時間がかかる場合があります。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="62"/>
       <source>personalization</source>
-      <translation>パーソナライゼーション</translation>
+      <translation>個人設定</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="63"/>
@@ -236,7 +236,7 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="63"/>
       <source>When opening, the interface will change to dark mode.</source>
-      <translation>開くと、インターフェイスがダークモードに変わります。</translation>
+      <translation>オンにすると、UI がダークモードになります。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="70"/>
@@ -251,12 +251,12 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="77"/>
       <source>Select the software display language, which will take effect after restarting.</source>
-      <translation>再起動後に有効になるソフトウェア表示言語を選択します。</translation>
+      <translation>言語を選択します。これは再起動後に有効になります。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="92"/>
       <source>Show Departure Warp</source>
-      <translation>出発ワープを表示</translation>
+      <translation>始発跳躍を表示</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="100"/>
@@ -271,7 +271,7 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="101"/>
       <source>Set the log level of the software. The higher the level, the more logs will be output, which will take effect after restarting.</source>
-      <translation>ソフトウェアのログレベルを設定します。レベルが高いほど、より多くのログが出力され、再起動後に有効になります。</translation>
+      <translation>ログファイルに記録されるログのレベルを設定します。再起動後に有効になります。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="110"/>
@@ -301,7 +301,7 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="119"/>
       <source>When opening, The software will use a proxy address to download new versions.</source>
-      <translation>開くとき, ソフトウェアは、新しいバージョンをダウンロードするためにプロキシアドレスを使用します.</translation>
+      <translation>オンにすると、新しいバージョンをダウンロードするためにプロキシを使用します。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="126"/>
@@ -316,12 +316,12 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="134"/>
       <source>About</source>
-      <translation>About</translation>
+      <translation>概要</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
       <source>GitHub repository</source>
-      <translation>GitHub repository</translation>
+      <translation>GitHub リポジトリ</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
@@ -331,22 +331,22 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="135"/>
       <source>This project is already open source using the MIT license on Github!</source>
-      <translation>このプロジェクトはすでにGithubのMITライセンスを使用してオープンソースです！</translation>
+      <translation>このプロジェクトは MIT ライセンスで GitHub 上でオープンソースとして公開されています！</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
       <source>Feedback issues</source>
-      <translation>フィードバックの問題</translation>
+      <translation>フィードバックを送る</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
       <source>Open GitHub Issues</source>
-      <translation>GitHub の問題を開く</translation>
+      <translation>GitHub の Issues を開く</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="143"/>
       <source>If you encounter any problems during use, please feel free to provide feedback on GitHub Issues!</source>
-      <translation>使用中に問題が発生した場合は、GitHubのIssuesについてお気軽にご意見をお聞かせください。</translation>
+      <translation>不具合を見つけた場合は GitHub の Issues でお気軽にご意見をお聞かせください。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="151"/>
@@ -361,7 +361,7 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="151"/>
       <source>Welcome to join the QQ group and discuss for improvement in this project together!</source>
-      <translation>QQグループに参加し、このプロジェクトの改善について議論することを歓迎します!</translation>
+      <translation>ぜひQQグループ（中国語）に参加して、このプロジェクトの改善について議論してください！</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="160"/>
@@ -376,7 +376,7 @@
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="219"/>
       <source>Choose a game path</source>
-      <translation>ゲームパスを選択</translation>
+      <translation>ゲームのパスを選択</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="256"/>
@@ -397,45 +397,45 @@
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="264"/>
       <source>Discovering a new version: %s
 Do you want to download and install now?</source>
-      <translation>新しいバージョンを発見します: %s
+      <translation>新しいバージョン "%s" があります。
 今すぐダウンロードしてインストールしますか？</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="38"/>
       <source>Game Path</source>
-      <translation type="unfinished">Game Path</translation>
+      <translation>ゲームのパス</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="92"/>
       <source>When opening，Departure warp will be displayed in the Home Page.</source>
-      <translation type="unfinished">When opening，Departure warp will be displayed in the Home Page.</translation>
+      <translation>ホーム画面に始発跳躍を表示する。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
       <source>Open Crowdin</source>
-      <translation type="unfinished">Open Crowdin</translation>
+      <translation>Crowdin を開く</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
       <source>Help us translate</source>
-      <translation type="unfinished">Help us translate</translation>
+      <translation>翻訳に協力する</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="84"/>
       <source>Don&apos;t see your language or the quality is poor? Help us translate!</source>
-      <translation type="unfinished">Don&apos;t see your language or the quality is poor? Help us translate!</translation>
+      <translation>Don&apos;t see your language or the quality is poor? Help us translate!</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="53"/>
       <source>Game Server</source>
-      <translation type="unfinished">Game Server</translation>
+      <translation>ゲームサーバー</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/settings_page.py" line="53"/>
       <source>Select the game server you need to fetch the gacha records. This will determine which server the software fetch the gacha records from.
 OS is the Global Server; CN is the Chinese Server</source>
-      <translation type="unfinished">Select the game server you need to fetch the gacha records. This will determine which server the software fetch the gacha records from.
-OS is the Global Server; CN is the Chinese Server</translation>
+      <translation>ソフトウェアがガチャ履歴を取得するために、サーバーを選択する必要があります。
+OSはグローバルサーバー、CNは中国サーバーです。</translation>
     </message>
   </context>
   <context>
@@ -443,32 +443,32 @@ OS is the Global Server; CN is the Chinese Server</translation>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="152"/>
       <source>Warp Time</source>
-      <translation>ワープ時間</translation>
+      <translation>跳躍日時</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="152"/>
       <source>Warp Name</source>
-      <translation>ワープ名</translation>
+      <translation>跳躍名</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="152"/>
       <source>Entity Type</source>
-      <translation>エンティティタイプ</translation>
+      <translation>タイプ</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="152"/>
       <source>Entity Rank</source>
-      <translation>エンティティランク</translation>
+      <translation>レアリティ</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="152"/>
       <source>Total number of Warp</source>
-      <translation>ワープ合計数</translation>
+      <translation>合計跳躍数</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/history_page.py" line="152"/>
       <source>In guarantees</source>
-      <translation>保証</translation>
+      <translation>天井</translation>
     </message>
   </context>
   <context>
@@ -494,7 +494,7 @@ OS is the Global Server; CN is the Chinese Server</translation>
     <message>
       <location filename="../../star_rail_gacha/app/components/url_input_dialog.py" line="17"/>
       <source>Please enter gacha record URL:</source>
-      <translation>ガチャレコード URL を入力してください:</translation>
+      <translation>ガチャ履歴の URL を入力してください:</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/components/url_input_dialog.py" line="24"/>
@@ -522,7 +522,7 @@ OS is the Global Server; CN is the Chinese Server</translation>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="53"/>
       <source>API address not found, please check if the gacha history of StarRail has been opened</source>
-      <translation>APIアドレスが見つかりません。StarRailのガチャ履歴が開いているか確認してください。</translation>
+      <translation>スターレイルのキャッシュから API アドレスを取得できませんでした。先にスターレイルを開いて跳躍履歴を開いてから再度お試しください。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="55"/>
@@ -537,12 +537,12 @@ OS is the Global Server; CN is the Chinese Server</translation>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="83"/>
       <source>Getting %s page %d</source>
-      <translation>%s ページ %d を取得中</translation>
+      <translation>%s を取得中（%d ページ目）</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="105"/>
       <source>Data update successful, a total of %d data were updated</source>
-      <translation>データの更新に成功し、合計 %d データが更新されました</translation>
+      <translation>データの更新に成功しました。%d 件のデータが追加されました。</translation>
     </message>
     <message>
       <location filename="../../star_rail_gacha/app/pages/home_page.py" line="107"/>
