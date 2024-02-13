@@ -44,7 +44,12 @@ jobs:
           base_path: src/resources/i18n
           source: /source.ts
           translation: /%locale%/%original_file_name%
-          preserve_hierarchy: true
-      
+
       - name: Release i18n files
         run: sh ./.github/workflows/scripts/release_i18n.sh
+
+      - name: Commit released i18n files
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: '*.qm'
+          message: 'New released i18n files from Actions'
